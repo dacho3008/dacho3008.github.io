@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="auto">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGIO CONNECT Bergheim - Die regionale Revolution</title>
+    <title>REGIO CONNECT - Your Local Everything, Everywhere!</title>
+    <meta name="description" content="Find everything local, anywhere in the world. Emergency services, businesses, jobs - all in your language!">
+    
+    <!-- Multi-Language Support -->
+    <link rel="alternate" hreflang="de" href="/?lang=de" />
+    <link rel="alternate" hreflang="en" href="/?lang=en" />
+    <link rel="alternate" hreflang="es" href="/?lang=es" />
+    <link rel="alternate" hreflang="fr" href="/?lang=fr" />
+    <link rel="alternate" hreflang="zh" href="/?lang=zh" />
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -17,326 +26,620 @@
     </script>
 </head>
 <body>
+    <!-- EMERGENCY BUTTON - ALWAYS VISIBLE -->
+    <div class="fixed top-20 right-4 z-50">
+        <button onclick="showEmergency()" class="bg-red-600 text-white px-6 py-4 rounded-full text-xl font-bold animate-pulse shadow-2xl hover:scale-110 transition">
+            <span class="emergency-text">🚨 EMERGENCY</span>
+        </button>
+    </div>
+
+    <!-- LANGUAGE SELECTOR -->
+    <div class="fixed top-4 right-4 z-50">
+        <select id="language" onchange="changeLanguage()" class="px-4 py-2 rounded bg-white shadow-lg">
+            <option value="auto">🌐 Auto-Detect</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="tr">🇹🇷 Türkçe</option>
+            <option value="ar">🇸🇦 العربية</option>
+            <option value="zh">🇨🇳 中文</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="ru">🇷🇺 Русский</option>
+            <option value="pl">🇵🇱 Polski</option>
+            <option value="hi">🇮🇳 हिन्दी</option>
+        </select>
+    </div>
+
+    <!-- LOCATION DETECTION BAR -->
+    <div id="location-bar" class="bg-gradient-to-r from-blue-600 to-green-600 text-white p-2 text-center">
+        <span id="location-text">📍 Detecting your location... | Standort wird ermittelt...</span>
+    </div>
+
+    <!-- TOURIST BANNER (Hidden by default) -->
+    <div id="tourist-banner" class="hidden bg-yellow-400 text-black p-4 text-center font-bold">
+        <p class="text-lg">
+            👋 Welcome to <span id="city-name">this region</span>! 
+            Need help? Everything is available in your language!
+        </p>
+    </div>
+
     <!-- HEADER -->
-    <div class="bg-blue-600 text-white p-4 sticky top-0 z-50 shadow-lg">
+    <div class="bg-blue-600 text-white p-4 sticky top-0 z-40 shadow-lg">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold">🏆 REGIO CONNECT BERGHEIM</h1>
+            <h1 class="text-2xl font-bold">
+                🌍 REGIO CONNECT <span id="region-display" class="text-yellow-300"></span>
+            </h1>
+            
+            <!-- 24/7 Services Indicator -->
             <div class="flex items-center space-x-4">
-                <a href="tel:01639553501" class="hover:text-yellow-300">
-                    <i class="fas fa-phone"></i> 0163-9553501
-                </a>
-                <button class="bg-yellow-400 text-black px-4 py-2 rounded font-bold hover:bg-yellow-300">
-                    Jetzt registrieren
+                <span class="bg-green-500 px-3 py-1 rounded-full text-sm animate-pulse">
+                    ⏰ 24/7 Services Available
+                </span>
+                <button onclick="showLogin()" class="bg-yellow-400 text-black px-4 py-2 rounded font-bold hover:bg-yellow-300">
+                    <span class="btn-text">Partner Login</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- HERO -->
-    <div class="bg-gradient-to-r from-blue-600 to-green-600 text-white py-20 text-center">
-        <h2 class="text-5xl font-bold mb-4">ALLES in Bergheim & Rhein-Erft.</h2>
-        <p class="text-2xl mb-8">Auf EINER Plattform.</p>
-        
-        <!-- ERSTE 10 GRATIS -->
-        <div class="bg-red-500 text-white p-6 max-w-2xl mx-auto rounded-lg animate-pulse">
-            <h3 class="text-3xl font-bold">🎁 NUR NOCH 8 PLÄTZE FREI!</h3>
-            <p class="text-xl">1 MONAT PREMIUM GRATIS!</p>
-            <p class="text-sm">Normalpreis: 250€/Monat - JETZT: 0€!</p>
-            <p class="text-2xl mt-4">📱 SOFORT ANRUFEN: 0163-9553501</p>
-        </div>
-    </div>
-
-    <!-- SOCIAL MEDIA SHARING -->
-    <div class="bg-gray-100 p-6">
-        <div class="container mx-auto text-center">
-            <h3 class="text-2xl font-bold mb-4">🔥 Teile REGIO CONNECT und werde Teil der Revolution!</h3>
-            <div class="flex justify-center space-x-4 flex-wrap gap-4">
-                <!-- Facebook Share -->
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://dacho3008.github.io" 
-                   target="_blank" 
-                   class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 flex items-center">
-                    <i class="fab fa-facebook mr-2"></i> Facebook teilen
-                </a>
+    <!-- EMERGENCY SERVICES MODAL (Hidden) -->
+    <div id="emergency-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50">
+        <div class="bg-white m-4 md:m-auto md:w-2/3 lg:w-1/2 mt-20 p-6 rounded-lg">
+            <h2 class="text-3xl font-bold text-red-600 mb-4">🚨 EMERGENCY SERVICES</h2>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+                <button onclick="call112()" class="bg-red-600 text-white p-6 rounded-lg hover:bg-red-700">
+                    <div class="text-4xl">🚒</div>
+                    <div class="text-xl font-bold">FIRE / POLICE / AMBULANCE</div>
+                    <div class="text-3xl">112</div>
+                </button>
                 
-                <!-- WhatsApp Share -->
-                <a href="https://wa.me/?text=Schaut euch REGIO CONNECT an! Die neue Plattform für Bergheim: https://dacho3008.github.io" 
-                   target="_blank"
-                   class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 flex items-center">
-                    <i class="fab fa-whatsapp mr-2"></i> WhatsApp teilen
-                </a>
+                <button onclick="findHospital()" class="bg-blue-600 text-white p-6 rounded-lg hover:bg-blue-700">
+                    <div class="text-4xl">🏥</div>
+                    <div class="text-xl font-bold">NEAREST HOSPITAL</div>
+                    <div id="hospital-distance">Searching...</div>
+                </button>
                 
-                <!-- LinkedIn Share -->
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://dacho3008.github.io" 
-                   target="_blank"
-                   class="bg-blue-700 text-white px-6 py-3 rounded-lg hover:bg-blue-800 flex items-center">
-                    <i class="fab fa-linkedin mr-2"></i> LinkedIn teilen
-                </a>
+                <button onclick="find24Doctor()" class="bg-green-600 text-white p-6 rounded-lg hover:bg-green-700">
+                    <div class="text-4xl">👨‍⚕️</div>
+                    <div class="text-xl font-bold">24H DOCTOR</div>
+                    <div id="doctor-info">Loading...</div>
+                </button>
                 
-                <!-- Instagram (Link kopieren) -->
-                <button onclick="navigator.clipboard.writeText('https://dacho3008.github.io'); alert('Link kopiert! Füge ihn in deine Instagram Bio ein!');" 
-                        class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-lg hover:from-purple-600 hover:to-pink-600">
-                    <i class="fab fa-instagram mr-2"></i> Link kopieren
+                <button onclick="find24Pharmacy()" class="bg-purple-600 text-white p-6 rounded-lg hover:bg-purple-700">
+                    <div class="text-4xl">💊</div>
+                    <div class="text-xl font-bold">24H PHARMACY</div>
+                    <div id="pharmacy-info">Loading...</div>
                 </button>
             </div>
             
-            <!-- Belohnung für Teiler -->
-            <div class="mt-6 bg-yellow-100 p-4 rounded-lg max-w-2xl mx-auto">
-                <p class="font-bold">💎 BONUS: Teile REGIO CONNECT und erhalte 10% Rabatt auf dein erstes Premium-Paket!</p>
+            <button onclick="closeEmergency()" class="mt-4 w-full bg-gray-600 text-white py-3 rounded-lg">
+                Close / Schließen / Cerrar / 关闭
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN HERO SECTION -->
+    <div class="bg-gradient-to-r from-blue-600 to-green-600 text-white py-20 text-center">
+        <h2 class="text-5xl font-bold mb-4">
+            <span class="hero-title">Everything Local. Everywhere. Instantly.</span>
+        </h2>
+        <p class="text-2xl mb-8">
+            <span class="hero-subtitle">Your city in your pocket - in any language!</span>
+        </p>
+        
+        <!-- SEARCH BAR -->
+        <div class="max-w-2xl mx-auto px-4">
+            <div class="bg-white rounded-lg shadow-2xl p-2 flex">
+                <input type="text" id="global-search" 
+                    placeholder="What do you need? Restaurant, Doctor, Plumber..." 
+                    class="flex-1 p-3 text-black text-lg">
+                <button onclick="globalSearch()" class="bg-green-500 text-white px-6 py-3 rounded font-bold hover:bg-green-600">
+                    <i class="fas fa-search"></i> FIND NOW
+                </button>
+            </div>
+        </div>
+        
+        <!-- QUICK SERVICES -->
+        <div class="flex justify-center space-x-4 mt-8 flex-wrap gap-4">
+            <button onclick="findOpen247()" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-bold hover:scale-105 transition">
+                ⏰ Open Now
+            </button>
+            <button onclick="findFood()" class="bg-white text-green-600 px-6 py-3 rounded-lg font-bold hover:scale-105 transition">
+                🍔 Food
+            </button>
+            <button onclick="findHotels()" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-bold hover:scale-105 transition">
+                🏨 Hotels
+            </button>
+            <button onclick="findTransport()" class="bg-white text-yellow-600 px-6 py-3 rounded-lg font-bold hover:scale-105 transition">
+                🚕 Transport
+            </button>
+            <button onclick="findATM()" class="bg-white text-red-600 px-6 py-3 rounded-lg font-bold hover:scale-105 transition">
+                💰 ATM
+            </button>
+        </div>
+        
+        <!-- LIVE STATS -->
+        <div class="flex justify-center space-x-8 mt-12">
+            <div class="bg-white/20 p-4 rounded">
+                <div class="text-3xl font-bold" id="country-count">47</div>
+                <div>Countries</div>
+            </div>
+            <div class="bg-white/20 p-4 rounded">
+                <div class="text-3xl font-bold" id="city-count">2,847</div>
+                <div>Cities</div>
+            </div>
+            <div class="bg-white/20 p-4 rounded">
+                <div class="text-3xl font-bold" id="user-count">127,394</div>
+                <div>Active Users</div>
+            </div>
+            <div class="bg-white/20 p-4 rounded">
+                <div class="text-3xl font-bold" id="business-count">48,237</div>
+                <div>Businesses</div>
             </div>
         </div>
     </div>
 
-    <!-- LOKALE BEHÖRDEN BERGHEIM -->
+    <!-- CURRENT LOCATION SERVICES -->
+    <div class="bg-gray-100 p-8">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-8">
+                📍 <span class="location-based-title">Services Near You</span>
+            </h2>
+            
+            <!-- 24/7 SERVICES HIGHLIGHT -->
+            <div class="bg-red-50 border-2 border-red-500 p-6 rounded-lg mb-8">
+                <h3 class="text-2xl font-bold text-red-600 mb-4">🌙 Available 24/7 Right Now</h3>
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="bg-white p-4 rounded shadow">
+                        <div class="text-2xl mb-2">🏥</div>
+                        <h4 class="font-bold">City Hospital</h4>
+                        <p class="text-sm">Emergency Room</p>
+                        <p class="text-xs text-gray-600">1.2 km away</p>
+                        <button class="mt-2 bg-red-500 text-white px-4 py-2 rounded w-full">
+                            Navigate
+                        </button>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow">
+                        <div class="text-2xl mb-2">💊</div>
+                        <h4 class="font-bold">Night Pharmacy</h4>
+                        <p class="text-sm">Medications 24h</p>
+                        <p class="text-xs text-gray-600">800m away</p>
+                        <button class="mt-2 bg-green-500 text-white px-4 py-2 rounded w-full">
+                            Call Now
+                        </button>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow">
+                        <div class="text-2xl mb-2">🔧</div>
+                        <h4 class="font-bold">Emergency Plumber</h4>
+                        <p class="text-sm">24h Service</p>
+                        <p class="text-xs text-gray-600">Available now</p>
+                        <button class="mt-2 bg-blue-500 text-white px-4 py-2 rounded w-full">
+                            Book Now
+                        </button>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow">
+                        <div class="text-2xl mb-2">🚕</div>
+                        <h4 class="font-bold">Taxi/Uber</h4>
+                        <p class="text-sm">2 min away</p>
+                        <p class="text-xs text-gray-600">~15€ to airport</p>
+                        <button class="mt-2 bg-yellow-500 text-white px-4 py-2 rounded w-full">
+                            Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- REGULAR SERVICES -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Business Cards with Multi-Language -->
+                <div class="bg-white p-6 rounded shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold">Bella Pizza</h3>
+                            <p class="text-gray-600">Italian Restaurant</p>
+                        </div>
+                        <span class="bg-green-500 text-white px-2 py-1 rounded text-xs">OPEN</span>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <div class="text-yellow-400">⭐⭐⭐⭐⭐</div>
+                        <span class="ml-2 text-sm">4.8 (234)</span>
+                    </div>
+                    <p class="text-sm mb-3">
+                        <span class="text-green-600">✓ English Menu</span> | 
+                        <span class="text-blue-600">✓ Tourist Friendly</span>
+                    </p>
+                    <div class="flex space-x-2">
+                        <button class="bg-green-500 text-white px-3 py-1 rounded text-sm flex-1">
+                            📞 Call
+                        </button>
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm flex-1">
+                            🗺️ Navigate
+                        </button>
+                        <button class="bg-orange-500 text-white px-3 py-1 rounded text-sm flex-1">
+                            📱 Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GLOBAL CITIES SHOWCASE -->
     <div class="bg-blue-50 p-8">
         <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-8">🏛️ Bergheim - Alle wichtigen Kontakte</h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded shadow">
-                    <h3 class="font-bold text-blue-600">Stadtverwaltung Bergheim</h3>
-                    <p>Bethlehemer Str. 9-11</p>
-                    <p>50126 Bergheim</p>
-                    <p>Tel: 02271-89-0</p>
-                </div>
-                <div class="bg-white p-6 rounded shadow">
-                    <h3 class="font-bold text-blue-600">Kreisstadt Bergheim</h3>
-                    <p>Ordnungsamt: 02271-89-293</p>
-                    <p>Bauamt: 02271-89-454</p>
-                    <p>Standesamt: 02271-89-333</p>
-                </div>
-                <div class="bg-white p-6 rounded shadow">
-                    <h3 class="font-bold text-red-600">Notfallnummern</h3>
-                    <p>🚒 Feuerwehr: 112</p>
-                    <p>🚓 Polizei: 110</p>
-                    <p>🏥 Krankenhaus: 02271-708-0</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SERVICES -->
-    <div class="container mx-auto p-8">
-        <h2 class="text-3xl font-bold text-center mb-8">Unsere Services für Bergheim</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
-                <h3 class="text-xl font-bold mb-2">🔨 Handwerker</h3>
-                <p>Alle Handwerker aus Bergheim und Umgebung</p>
-            </div>
-            <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
-                <h3 class="text-xl font-bold mb-2">🎉 Events</h3>
-                <p>Stadtfest, Konzerte, Märkte - alles auf einen Blick</p>
-            </div>
-            <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
-                <h3 class="text-xl font-bold mb-2">💼 Jobs</h3>
-                <p>Stellenangebote in Bergheim & Rhein-Erft</p>
-            </div>
-            <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
-                <h3 class="text-xl font-bold mb-2">🏛️ Behörden</h3>
-                <p>Alle Ämter, Schulen & Kindergärten</p>
-            </div>
-            <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
-                <h3 class="text-xl font-bold mb-2">🤝 Gruppen-Deals</h3>
-                <p>Heizöl, Strom & mehr gemeinsam günstiger</p>
-            </div>
-            <div class="bg-white p-6 rounded shadow hover:shadow-lg transition">
-                <h3 class="text-xl font-bold mb-2">👑 Branchen-Könige</h3>
-                <p>Die Besten in Bergheim - von Kunden gewählt</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- PRICING -->
-    <div class="bg-gray-100 p-8">
-        <h2 class="text-3xl font-bold text-center mb-8">💰 Preise für Unternehmen</h2>
-        <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div class="bg-white p-6 rounded shadow">
-                <h3 class="text-xl font-bold">Business Starter</h3>
-                <p class="text-3xl font-bold my-4">100€<span class="text-sm">/Monat</span></p>
-                <ul class="space-y-2">
-                    <li>✅ Basis-Profil</li>
-                    <li>✅ Kontaktdaten</li>
-                    <li>✅ 5 Bilder</li>
-                    <li>✅ Werbung schalten</li>
-                </ul>
-            </div>
-            <div class="bg-yellow-100 p-6 rounded shadow-xl border-4 border-yellow-400 transform scale-105">
-                <div class="bg-red-500 text-white p-2 rounded text-center mb-4 animate-pulse">
-                    🔥 ERSTE 10: 1 MONAT GRATIS! 🔥
-                </div>
-                <h3 class="text-xl font-bold">Professional</h3>
-                <p class="text-3xl font-bold my-4">250€<span class="text-sm">/Monat</span></p>
-                <ul class="space-y-2">
-                    <li>✅ Alles von Starter</li>
-                    <li>⭐ König werden können</li>
-                    <li>✅ Events & Jobs posten</li>
-                    <li>✅ Top-Platzierung</li>
-                    <li>✅ Unbegrenzte Bilder</li>
-                </ul>
-                <button class="w-full bg-green-500 text-white py-3 rounded font-bold mt-4 hover:bg-green-600">
-                    JETZT GRATIS TESTEN!
+            <h2 class="text-3xl font-bold text-center mb-8">🌍 Popular Cities Worldwide</h2>
+            
+            <div class="grid md:grid-cols-6 gap-4">
+                <button onclick="loadCity('berlin')" class="bg-white p-4 rounded shadow hover:shadow-lg transition">
+                    <div class="text-3xl mb-2">🇩🇪</div>
+                    <div class="font-bold">Berlin</div>
+                    <div class="text-xs text-gray-600">3.2k businesses</div>
+                </button>
+                <button onclick="loadCity('paris')" class="bg-white p-4 rounded shadow hover:shadow-lg transition">
+                    <div class="text-3xl mb-2">🇫🇷</div>
+                    <div class="font-bold">Paris</div>
+                    <div class="text-xs text-gray-600">5.1k businesses</div>
+                </button>
+                <button onclick="loadCity('london')" class="bg-white p-4 rounded shadow hover:shadow-lg transition">
+                    <div class="text-3xl mb-2">🇬🇧</div>
+                    <div class="font-bold">London</div>
+                    <div class="text-xs text-gray-600">7.8k businesses</div>
+                </button>
+                <button onclick="loadCity('nyc')" class="bg-white p-4 rounded shadow hover:shadow-lg transition">
+                    <div class="text-3xl mb-2">🇺🇸</div>
+                    <div class="font-bold">New York</div>
+                    <div class="text-xs text-gray-600">9.2k businesses</div>
+                </button>
+                <button onclick="loadCity('tokyo')" class="bg-white p-4 rounded shadow hover:shadow-lg transition">
+                    <div class="text-3xl mb-2">🇯🇵</div>
+                    <div class="font-bold">Tokyo</div>
+                    <div class="text-xs text-gray-600">11k businesses</div>
+                </button>
+                <button onclick="loadCity('dubai')" class="bg-white p-4 rounded shadow hover:shadow-lg transition">
+                    <div class="text-3xl mb-2">🇦🇪</div>
+                    <div class="font-bold">Dubai</div>
+                    <div class="text-xs text-gray-600">4.5k businesses</div>
                 </button>
             </div>
-            <div class="bg-white p-6 rounded shadow">
-                <h3 class="text-xl font-bold">Enterprise</h3>
-                <p class="text-3xl font-bold my-4">500€<span class="text-sm">/Monat</span></p>
-                <ul class="space-y-2">
-                    <li>✅ Multi-Standorte</li>
-                    <li>✅ Garantierter König</li>
-                    <li>✅ Account Manager</li>
-                    <li>✅ Automatisierung</li>
-                </ul>
+            
+            <div class="text-center mt-8">
+                <button class="bg-green-500 text-white px-8 py-3 rounded-lg text-lg font-bold hover:bg-green-600">
+                    + Add Your City (FREE for first 100!)
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- BERGHEIM KÖNIGE -->
-    <div class="bg-yellow-50 p-8">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-8">👑 Die Könige von Bergheim (Coming Soon)</h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded shadow text-center">
-                    <div class="text-6xl mb-4">🍞</div>
-                    <h3 class="text-xl font-bold">Bäcker-König</h3>
-                    <p class="text-gray-500">Noch nicht vergeben</p>
-                    <p class="text-sm mt-2 text-green-600">Seien Sie der Erste!</p>
-                </div>
-                <div class="bg-white p-6 rounded shadow text-center">
-                    <div class="text-6xl mb-4">🔧</div>
-                    <h3 class="text-xl font-bold">Handwerker-König</h3>
-                    <p class="text-gray-500">Noch nicht vergeben</p>
-                    <p class="text-sm mt-2 text-green-600">Seien Sie der Erste!</p>
-                </div>
-                <div class="bg-white p-6 rounded shadow text-center">
-                    <div class="text-6xl mb-4">🍕</div>
-                    <h3 class="text-xl font-bold">Restaurant-König</h3>
-                    <p class="text-gray-500">Noch nicht vergeben</p>
-                    <p class="text-sm mt-2 text-green-600">Seien Sie der Erste!</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- N8N AUTOMATION PARTNER -->
-    <div class="bg-purple-900 text-white p-12">
+    <!-- BUSINESS REGISTRATION CTA -->
+    <div class="bg-gradient-to-r from-yellow-400 to-orange-500 text-black p-12">
         <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-6">🤖 Powered by n8n Automation</h2>
-            <p class="text-xl mb-8">Automatisiere dein Business mit unseren n8n-Experten!</p>
+            <h2 class="text-4xl font-bold mb-4">🚀 Business Owners: Go Global!</h2>
+            <p class="text-xl mb-8">
+                Get discovered by millions of tourists, expats, and locals worldwide!
+            </p>
             
             <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                <!-- n8n Paket 1 -->
-                <div class="bg-white text-black p-6 rounded-lg">
-                    <h3 class="text-xl font-bold mb-4">Starter Automation</h3>
-                    <p class="text-3xl font-bold mb-4">49€<span class="text-sm">/Monat</span></p>
-                    <ul class="text-left space-y-2 mb-4">
-                        <li>✅ Auto-Email-Antworten</li>
-                        <li>✅ Social Media Posting</li>
-                        <li>✅ Termin-Erinnerungen</li>
-                        <li>✅ 5 Workflows</li>
+                <div class="bg-white p-6 rounded-lg">
+                    <h3 class="text-xl font-bold">Starter</h3>
+                    <p class="text-3xl font-bold my-4">€100<span class="text-sm">/month</span></p>
+                    <ul class="text-left space-y-2">
+                        <li>✅ Basic listing</li>
+                        <li>✅ Contact info</li>
+                        <li>✅ 5 photos</li>
+                        <li>❌ No priority</li>
                     </ul>
-                    <button onclick="window.open('https://n8n.io?ref=regioconnect', '_blank')" 
-                            class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700">
-                        Jetzt starten
+                </div>
+                
+                <div class="bg-yellow-100 p-6 rounded-lg border-4 border-yellow-400 transform scale-105">
+                    <div class="bg-red-500 text-white p-2 rounded mb-2 animate-pulse">
+                        🔥 FIRST 10 FREE! 🔥
+                    </div>
+                    <h3 class="text-xl font-bold">Professional</h3>
+                    <p class="text-3xl font-bold my-4">€250<span class="text-sm">/month</span></p>
+                    <ul class="text-left space-y-2">
+                        <li>⭐ Everything in Starter</li>
+                        <li>⭐ Priority listing</li>
+                        <li>⭐ Multi-language</li>
+                        <li>⭐ 24/7 badge</li>
+                        <li>⭐ Social sharing</li>
+                    </ul>
+                    <button class="w-full bg-green-500 text-white py-3 rounded font-bold mt-4 hover:bg-green-600">
+                        CLAIM FREE MONTH!
                     </button>
                 </div>
                 
-                <!-- n8n Paket 2 -->
-                <div class="bg-yellow-100 text-black p-6 rounded-lg border-4 border-yellow-400">
-                    <div class="bg-red-500 text-white p-1 rounded mb-2">BELIEBTESTE WAHL</div>
-                    <h3 class="text-xl font-bold mb-4">Business Automation</h3>
-                    <p class="text-3xl font-bold mb-4">149€<span class="text-sm">/Monat</span></p>
-                    <ul class="text-left space-y-2 mb-4">
-                        <li>✅ Alles von Starter</li>
-                        <li>✅ CRM Integration</li>
-                        <li>✅ Rechnungs-Automation</li>
-                        <li>✅ KI-Antworten</li>
-                        <li>✅ Unlimited Workflows</li>
+                <div class="bg-white p-6 rounded-lg">
+                    <h3 class="text-xl font-bold">Enterprise</h3>
+                    <p class="text-3xl font-bold my-4">€500<span class="text-sm">/month</span></p>
+                    <ul class="text-left space-y-2">
+                        <li>✅ Multi-location</li>
+                        <li>✅ API access</li>
+                        <li>✅ Analytics</li>
+                        <li>✅ Dedicated support</li>
                     </ul>
-                    <button onclick="window.open('https://n8n.io?ref=regioconnect', '_blank')" 
-                            class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700">
-                        Jetzt upgraden
-                    </button>
-                </div>
-                
-                <!-- n8n Paket 3 -->
-                <div class="bg-white text-black p-6 rounded-lg">
-                    <h3 class="text-xl font-bold mb-4">Enterprise</h3>
-                    <p class="text-3xl font-bold mb-4">499€<span class="text-sm">/Monat</span></p>
-                    <ul class="text-left space-y-2 mb-4">
-                        <li>✅ White Label</li>
-                        <li>✅ Dedicated Support</li>
-                        <li>✅ Custom Workflows</li>
-                        <li>✅ API Development</li>
-                    </ul>
-                    <button onclick="window.open('https://n8n.io?ref=regioconnect', '_blank')" 
-                            class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700">
-                        Kontakt aufnehmen
-                    </button>
                 </div>
             </div>
-            
-            <div class="mt-8 bg-green-600 p-4 rounded-lg max-w-2xl mx-auto">
-                <p class="text-xl font-bold">🎁 SPECIAL DEAL: Nutze Code "REGIO25" für 25% Rabatt im ersten Monat!</p>
-            </div>
         </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="bg-blue-600 text-white p-12 text-center">
-        <h2 class="text-4xl font-bold mb-4">Joshua Blum - Ihr lokaler Ansprechpartner</h2>
-        <p class="text-xl mb-8">Ich bin persönlich für Sie da!</p>
-        
-        <div class="bg-white text-black p-6 rounded-lg max-w-md mx-auto">
-            <p class="text-2xl font-bold mb-2">📱 0163-9553501</p>
-            <p class="text-lg mb-2">📧 achisconten@gmail.com</p>
-            <p class="text-lg">📍 Barbarastraße, 50129 Bergheim</p>
-        </div>
-        
-        <p class="text-2xl mt-8 font-bold">Rufen Sie JETZT an - nur noch 8 Gratis-Plätze!</p>
     </div>
 
     <!-- FOOTER -->
     <div class="bg-gray-800 text-white p-8">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2025 REGIO CONNECT Bergheim - Joshua Blum</p>
-            <div class="mt-4 space-x-4">
-                <a href="impressum.html" class="underline hover:text-yellow-300">Impressum</a>
-                <a href="datenschutz.html" class="underline hover:text-yellow-300">Datenschutz</a>
-                <a href="agb.html" class="underline hover:text-yellow-300">AGB</a>
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="font-bold mb-4">REGIO CONNECT</h3>
+                    <p class="text-sm">Your local everything, everywhere!</p>
+                    <div class="mt-4">
+                        <p class="text-xs">Available in 47 countries</p>
+                        <p class="text-xs">127,394 active users</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">For Businesses</h3>
+                    <ul class="text-sm space-y-1">
+                        <li><a href="#" class="hover:text-yellow-300">Register Business</a></li>
+                        <li><a href="#" class="hover:text-yellow-300">Pricing</a></li>
+                        <li><a href="#" class="hover:text-yellow-300">Success Stories</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">For Users</h3>
+                    <ul class="text-sm space-y-1">
+                        <li><a href="#" class="hover:text-yellow-300">Download App</a></li>
+                        <li><a href="#" class="hover:text-yellow-300">Tourist Guide</a></li>
+                        <li><a href="#" class="hover:text-yellow-300">Emergency Help</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Legal</h3>
+                    <ul class="text-sm space-y-1">
+                        <li><a href="impressum.html" class="hover:text-yellow-300">Impressum</a></li>
+                        <li><a href="datenschutz.html" class="hover:text-yellow-300">Privacy</a></li>
+                        <li><a href="agb.html" class="hover:text-yellow-300">Terms</a></li>
+                    </ul>
+                </div>
             </div>
-            <p class="mt-4 text-sm">
-                REGIO CONNECT - Die digitale Revolution für Bergheim und den Rhein-Erft-Kreis
-            </p>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2025 REGIO CONNECT - Making the world local</p>
+                <p class="text-sm mt-2 text-gray-400">
+                    🚀 Started in Bergheim, now worldwide!
+                </p>
+            </div>
         </div>
     </div>
 
-    <!-- Partner Tracking Script -->
+    <!-- Cookie Banner -->
+    <div id="cookieBanner" class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <p>We use cookies to provide location-based services.</p>
+            <div>
+                <button onclick="acceptCookies()" class="bg-green-500 px-4 py-2 rounded mr-2">
+                    Accept
+                </button>
+                <button onclick="rejectCookies()" class="bg-red-500 px-4 py-2 rounded">
+                    Reject
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript für Global Features -->
     <script>
-    // n8n Partner Tracking
-    const N8N_PARTNER_ID = 'regioconnect';
-    const N8N_COMMISSION_RATE = 0.20; // 20% Commission
+    // GLOBALE KONFIGURATION
+    const TRANSLATIONS = {
+        en: {
+            emergency: '🚨 EMERGENCY',
+            heroTitle: 'Everything Local. Everywhere. Instantly.',
+            heroSubtitle: 'Your city in your pocket - in any language!',
+            servicesNearYou: 'Services Near You'
+        },
+        de: {
+            emergency: '🚨 NOTFALL',
+            heroTitle: 'Alles Lokale. Überall. Sofort.',
+            heroSubtitle: 'Deine Stadt in deiner Tasche - in jeder Sprache!',
+            servicesNearYou: 'Services in deiner Nähe'
+        },
+        es: {
+            emergency: '🚨 EMERGENCIA',
+            heroTitle: 'Todo Local. En Todas Partes. Al Instante.',
+            heroSubtitle: '¡Tu ciudad en tu bolsillo - en cualquier idioma!',
+            servicesNearYou: 'Servicios Cerca de Ti'
+        },
+        zh: {
+            emergency: '🚨 紧急',
+            heroTitle: '本地一切。无处不在。即时。',
+            heroSubtitle: '您的城市在您的口袋里 - 任何语言！',
+            servicesNearYou: '您附近的服务'
+        }
+    };
 
-    // Track clicks
-    document.querySelectorAll('[href*="n8n.io"]').forEach(link => {
-        link.addEventListener('click', () => {
-            // Cookie setzen für 30 Tage
-            document.cookie = `n8n_ref=${N8N_PARTNER_ID};max-age=2592000;path=/`;
-            
-            // Event tracking
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'n8n_click', {
-                    'partner_id': N8N_PARTNER_ID
-                });
-            }
-            console.log('n8n click tracked');
-        });
-    });
+    // GEOLOCATION
+    window.onload = function() {
+        initializeGlobalRegio();
+        detectUserLocation();
+        checkIfTourist();
+        updateLiveCounters();
+        check247Services();
+    };
 
-    // Track social shares
-    function trackShare(platform) {
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'share', {
-                'platform': platform
+    function initializeGlobalRegio() {
+        // Detect browser language
+        const userLang = navigator.language.substring(0, 2);
+        
+        // Set language
+        if (TRANSLATIONS[userLang]) {
+            translatePage(userLang);
+        } else {
+            translatePage('en');
+        }
+        
+        // Hide cookie banner if already accepted
+        if (localStorage.getItem('cookies')) {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+    }
+
+    function detectUserLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    
+                    // Reverse geocoding würde hier passieren
+                    // Für Demo: Beispiel-Stadt
+                    const detectedCity = getCityFromCoords(lat, lon);
+                    
+                    document.getElementById('location-text').innerHTML = 
+                        `📍 ${detectedCity} detected | ${detectedCity} erkannt`;
+                    document.getElementById('region-display').textContent = detectedCity;
+                    document.getElementById('city-name').textContent = detectedCity;
+                    
+                    // Load local services
+                    loadLocalServices(lat, lon);
+                    
+                    // Load emergency services
+                    loadEmergencyServices(lat, lon);
+                },
+                function(error) {
+                    console.log('Location detection failed:', error);
+                    document.getElementById('location-text').innerHTML = 
+                        '📍 Location: Unknown | Standort: Unbekannt';
+                }
+            );
+        }
+    }
+
+    function getCityFromCoords(lat, lon) {
+        // Simplified - würde echtes Reverse Geocoding nutzen
+        if (lat > 50.7 && lat < 51.0 && lon > 6.4 && lon < 7.0) {
+            return 'Bergheim';
+        } else if (lat > 50.9 && lat < 51.0 && lon > 6.9 && lon < 7.1) {
+            return 'Köln';
+        } else {
+            return 'Your Location';
+        }
+    }
+
+    function checkIfTourist() {
+        const userLang = navigator.language;
+        const localLang = 'de-DE';
+        
+        if (!userLang.startsWith('de')) {
+            document.getElementById('tourist-banner').classList.remove('hidden');
+        }
+    }
+
+    function translatePage(lang) {
+        const trans = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+        
+        document.querySelector('.emergency-text').textContent = trans.emergency;
+        document.querySelector('.hero-title').textContent = trans.heroTitle;
+        document.querySelector('.hero-subtitle').textContent = trans.heroSubtitle;
+        document.querySelector('.location-based-title').textContent = trans.servicesNearYou;
+    }
+
+    function changeLanguage() {
+        const lang = document.getElementById('language').value;
+        if (lang !== 'auto') {
+            translatePage(lang);
+        }
+    }
+
+    function showEmergency() {
+        document.getElementById('emergency-modal').classList.remove('hidden');
+        // Load nearest emergency services
+        loadEmergencyContacts();
+    }
+
+    function closeEmergency() {
+        document.getElementById('emergency-modal').classList.add('hidden');
+    }
+
+    function call112() {
+        window.location.href = 'tel:112';
+    }
+
+    function findHospital() {
+        // Would integrate with maps API
+        document.getElementById('hospital-distance').textContent = 
+            'City Hospital - 1.2km - Navigate?';
+    }
+
+    function find24Doctor() {
+        document.getElementById('doctor-info').textContent = 
+            'Dr. Smith - Available - Call: +49-123-456';
+    }
+
+    function find24Pharmacy() {
+        document.getElementById('pharmacy-info').textContent = 
+            'Night Pharmacy - 800m - Open till 8am';
+    }
+
+    function check247Services() {
+        const hour = new Date().getHours();
+        if (hour < 8 || hour > 20) {
+            // Highlight 24/7 services
+            document.querySelectorAll('.service-24').forEach(el => {
+                el.classList.add('bg-yellow-100', 'border-2', 'border-yellow-400');
             });
         }
+    }
+
+    function updateLiveCounters() {
+        // Simulate live updates
+        setInterval(() => {
+            const userCount = document.getElementById('user-count');
+            const currentCount = parseInt(userCount.textContent.replace(',', ''));
+            userCount.textContent = (currentCount + Math.floor(Math.random() * 5)).toLocaleString();
+            
+            const businessCount = document.getElementById('business-count');
+            const currentBiz = parseInt(businessCount.textContent.replace(',', ''));
+            businessCount.textContent = (currentBiz + Math.floor(Math.random() * 2)).toLocaleString();
+        }, 5000);
+    }
+
+    function globalSearch() {
+        const query = document.getElementById('global-search').value;
+        // Would perform actual search
+        alert(`Searching for: ${query} in your area...`);
+    }
+
+    function findOpen247() {
+        // Filter only 24/7 services
+        alert('Showing only 24/7 services...');
+    }
+
+    function loadCity(city) {
+        // Load specific city data
+        document.getElementById('region-display').textContent = city.toUpperCase();
+        alert(`Loading ${city} data...`);
+    }
+
+    // Cookie functions
+    function acceptCookies() {
+        localStorage.setItem('cookies', 'accepted');
+        document.getElementById('cookieBanner').style.display = 'none';
+    }
+
+    function rejectCookies() {
+        localStorage.setItem('cookies', 'rejected');
+        document.getElementById('cookieBanner').style.display = 'none';
+    }
+
+    // Service loaders
+    function loadLocalServices(lat, lon) {
+        // Would load actual services based on location
+        console.log(`Loading services for ${lat}, ${lon}`);
+    }
+
+    function loadEmergencyServices(lat, lon) {
+        // Would load actual emergency services
+        console.log(`Loading emergency services for ${lat}, ${lon}`);
     }
     </script>
 </body>
