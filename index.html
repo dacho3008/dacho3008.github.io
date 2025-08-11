@@ -3,121 +3,166 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BERGHEIM TOTAL 👑</title>
-  <meta name="description" content="Alle Services in Bergheim – Notdienste, Restaurants, Tierheim und mehr!">
-  <meta name="keywords" content="Bergheim, Notdienste, Restaurants, Handwerker, Tierheim">
+  <meta name="description" content="BERGHEIM TOTAL: Deutschlandweite Plattform für Services, Kultur, Religion, Jobs, Vermisste – kostenlos für Vereine! Skalierbar bis 2030.">
+  <meta name="keywords" content="Bergheim, NRW, Deutschland, Notdienste, Vermisste, Museen, Kirchen, Moscheen, Jobs, Events, Inklusion, Barrierefrei">
+  <title>BERGHEIM TOTAL 👑 – Von Bergheim zu Deutschland</title>
+  <link rel="manifest" href="/manifest.json">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
     header { background: #007bff; color: white; text-align: center; padding: 20px; }
-    nav a { color: white; margin: 0 15px; text-decoration: none; }
+    nav a { color: white; margin: 0 10px; text-decoration: none; }
     .container { max-width: 1200px; margin: auto; padding: 20px; }
-    .business, .priority { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background: white; }
-    .priority { background: #ffeb3b; } /* Highlight für Notdienste/Tiere */
-    .search-bar { width: 100%; padding: 10px; font-size: 16px; margin-bottom: 20px; }
-    .filter-btn { padding: 8px 15px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; }
+    .section { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background: white; }
+    .priority { background: #ffeb3b; } /* Notdienste/Vermisste */
+    .search-bar { width: 100%; padding: 10px; font-size: 16px; margin-bottom: 10px; }
+    .filter-btn { padding: 8px 12px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; }
     footer { background: #007bff; color: white; text-align: center; padding: 10px; margin-top: 20px; }
-    @media (max-width: 600px) { .business, .priority { font-size: 14px; } .filter-btn { width: 100%; } }
+    @media (max-width: 600px) { .section { font-size: 14px; } .filter-btn { width: 100%; } }
+    /* Barrierefrei: WCAG 2.1, ARIA, Kontraste */
+    a { color: #007bff; text-decoration: underline; }
+    button:focus, input:focus, select:focus { outline: 2px solid #007bff; }
+    /* Cookie-Banner */
+    #cookie-banner { position: fixed; bottom: 0; background: #fff; padding: 10px; width: 100%; border-top: 1px solid #ddd; display: none; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>BERGHEIM TOTAL 👑</h1>
-    <p>Die Plattform für ALLE in Bergheim – vom Bürgermeister bis zum Bäcker!</p>
-    <nav>
+  <header role="banner">
+    <h1>BERGHEIM TOTAL 👑 – Von Bergheim zu Deutschland!</h1>
+    <p>Verbinde ALLE: Services, Kultur, Religion, Jobs, Soziale Projekte – kostenlos für Vereine & Vermisste. 2030-ready!</p>
+    <nav aria-label="Hauptmenü">
+      <a href="#region">Region</a>
       <a href="#notdienste">Notdienste</a>
-      <a href="#vermisste-tiere">Vermisste Tiere</a>
-      <a href="#businesses">Alle Services</a>
+      <a href="#vermisste">Vermisste</a>
+      <a href="#kultur-religion">Kultur & Religion</a>
+      <a href="#jobs-events">Jobs & Events</a>
+      <a href="#services">Services</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
   </header>
 
   <div class="container">
-    <!-- Notdienste -->
-    <h2 id="notdienste">🚨 Notdienste</h2>
-    <div class="priority">
-      <h3>Apotheken-Notdienst</h3>
-      <p>Tel: 02271-12345 | Adresse: Hauptstr. 10 | 24/7</p>
-    </div>
-    <div class="priority">
-      <h3>Krankenhaus Bergheim</h3>
-      <p>Tel: 02271-7080 | Adresse: Am See 1 | 24/7</p>
+    <!-- Region: Skalierbar NRW/Deutschland -->
+    <h2 id="region" aria-label="Region auswählen">Region wählen</h2>
+    <select id="region-select" onchange="filterByRegion(this.value)" aria-label="Wähle eine Stadt oder Region">
+      <option value="">Deutschlandweit</option>
+      <option value="Bergheim" selected>Bergheim</option>
+      <option value="Köln">Köln</option>
+      <option value="Düsseldorf">Düsseldorf</option>
+      <option value="Berlin">Berlin</option>
+      <!-- Skaliere: 400+ NRW-Städte (Arnsberg, Bielefeld), 2.000+ DE-Städte -->
+    </select>
+
+    <!-- Notdienste: Priorität 1 -->
+    <h2 id="notdienste">🚨 Notdienste (Immer aktuell)</h2>
+    <div class="section priority" role="region" aria-live="polite">
+      <h3>Apotheken-Notdienst Bergheim</h3>
+      <p>Tel: 02271-12345 | Adresse: Hauptstr. 10 | 24/7 | Barrierefrei: Ja</p>
     </div>
 
-    <!-- Vermisste Tiere -->
-    <h2 id="vermisste-tiere">🐶 Vermisste Tiere</h2>
-    <div class="priority">
-      <h3>Katze Luna</h3>
+    <!-- Vermisste: Gratis für Soziale -->
+    <h2 id="vermisste">🔍 Vermisste Tiere/Menschen (Kostenlos!)</h2>
+    <div class="section priority">
+      <p>Vereine posten gratis via WhatsApp/GitHub.</p>
+      <h3>Katze Luna (Bergheim)</h3>
       <p>Seit: 10.08.2025 | Ort: Zentrum | Finderlohn: 50€ | Tel: 0163-1234567</p>
     </div>
 
-    <!-- Suche und Filter -->
-    <h2 id="businesses">Alle Services</h2>
-    <input type="text" class="search-bar" placeholder="Suche nach Name oder Kategorie (z.B. Restaurant)..." oninput="renderBusinesses(this.value)">
-    <div>
-      <button class="filter-btn" onclick="renderBusinesses('')">Alle</button>
-      <button class="filter-btn" onclick="renderBusinesses('Restaurant')">Restaurants</button>
-      <button class="filter-btn" onclick="renderBusinesses('Handwerker')">Handwerker</button>
-      <button class="filter-btn" onclick="renderBusinesses('Tierheim')">Tierheim</button>
+    <!-- Kultur & Religion: Inklusiv -->
+    <h2 id="kultur-religion">🎨 Kultur & Religion</h2>
+    <div class="section">
+      <p>Kirchen, Moscheen, Museen, Sehenswürdigkeiten – barrierefrei, inklusiv.</p>
+      <h3>RELiGIO Museum Telgte</h3>
+      <p>Region: Telgte | Themen: Weltreligionen, Inklusion | Barrierefrei: Ja</p>
+      <h3>NS-Dokumentationszentrum Köln</h3>
+      <p>Region: Köln | Historische Bildung | Barrierefrei: Ja</p>
+      <!-- Erweitere: Kölner Dom, Moscheen, Synagogen -->
     </div>
-    <div id="business-list"></div>
+
+    <!-- Jobs & Events -->
+    <h2 id="jobs-events">💼 Jobs & Events</h2>
+    <div class="section">
+      <h3>Job: Handwerker (Bergheim)</h3>
+      <p>Vollzeit | Bewerbung: WhatsApp 0163-1234567</p>
+      <h3>Event: Interkulturelles Fest Köln</h3>
+      <p>Datum: 20.09.2025 | Ort: Köln | Barrierefrei: Ja</p>
+    </div>
+
+    <!-- Services: Monetarisierung -->
+    <h2 id="services">Services & Businesses</h2>
+    <input type="text" class="search-bar" placeholder="Suche: Name, Kategorie, Stadt..." oninput="renderContent(this.value)" aria-label="Suche">
+    <div>
+      <button class="filter-btn" onclick="renderContent('')">Alle</button>
+      <button class="filter-btn" onclick="renderContent('Restaurant')">Restaurants</button>
+      <button class="filter-btn" onclick="renderContent('Handwerker')">Handwerker</button>
+      <button class="filter-btn" onclick="renderContent('Museum')">Museen</button>
+    </div>
+    <div id="content-list" role="region" aria-live="polite"></div>
   </div>
 
   <!-- Kontakt -->
   <div class="container" id="kontakt">
     <h2>Kontakt</h2>
-    <p>Fragen? 📞 <a href="https://wa.me/491631234567">WhatsApp: 0163-1234567</a></p>
-    <p>Email: jblum4564@gmail.com</p>
+    <p>📞 <a href="https://wa.me/491631234567" aria-label="WhatsApp Kontakt">WhatsApp: 0163-1234567</a> | Email: jblum4564@gmail.com</p>
+    <p>Vereine: Gratis Inhalte via GitHub/WhatsApp!</p>
   </div>
 
-  <!-- Impressum & Footer -->
-  <footer>
-    <p>© 2025 BERGHEIM TOTAL | Joshua Blum | Hauptstr. 1, 50126 Bergheim | <a href="#impressum" style="color: white;">Impressum</a> | <a href="#datenschutz" style="color: white;">Datenschutz</a></p>
-  </footer>
-
-  <!-- Impressum (DSGVO) -->
+  <!-- Impressum & Datenschutz -->
   <div class="container" id="impressum">
-    <h2>Impressum</h2>
-    <p>Joshua Blum<br>BERGHEIM TOTAL<br>Hauptstr. 1, 50126 Bergheim<br>Tel: 0163-1234567<br>Email: jblum4564@gmail.com<br>Steuernummer: [Ergänze]</p>
+    <h2>Impressum & Datenschutz</h2>
+    <p>Joshua Blum | BERGHEIM TOTAL | Hauptstr. 1, 50126 Bergheim | Tel: 0163-1234567 | Steuernummer: [Ergänze] | DSGVO-konform, Barrierefrei (WCAG 2.1).</p>
   </div>
 
   <!-- Cookie-Banner -->
-  <div id="cookie-banner" style="position: fixed; bottom: 0; background: #fff; padding: 10px; width: 100%; border-top: 1px solid #ddd; display: none;">
-    Wir nutzen Cookies für eine bessere Nutzung. <button onclick="acceptCookies()">OK</button>
+  <div id="cookie-banner" role="alert">
+    Wir nutzen Cookies für Inklusion & Personalisierung. <button onclick="acceptCookies()">OK</button>
   </div>
 
   <!-- JavaScript -->
   <script>
-    let businesses = [
-      { name: 'Pizza Roma', tel: '02271-12345', address: 'Hauptstr. 1', hours: '10-22 Uhr', highlight: true, category: 'Restaurant' },
-      { name: 'Tierheim Bergheim', tel: '02271-23456', address: 'Am See 2', hours: '9-18 Uhr', highlight: false, category: 'Tierheim' },
-      { name: 'Handwerker Müller', tel: '02271-34567', address: 'Industriestr. 5', hours: '8-17 Uhr', highlight: false, category: 'Handwerker' }
-      // Füge neue Kunden hier hinzu
+    // PWA: Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW Fehler:', err));
+    }
+
+    // Daten: Skalierbar, alle Kategorien
+    let content = [
+      { name: 'Pizza Roma', type: 'Restaurant', region: 'Bergheim', tel: '02271-12345', status: 'König', highlight: true },
+      { name: 'Tierheim Bergheim', type: 'Tierheim', region: 'Bergheim', tel: '02271-23456', status: 'Gratis (Sozial)', highlight: false },
+      { name: 'RELiGIO Museum', type: 'Museum', region: 'Telgte', description: 'Weltreligionen', status: 'Gratis', highlight: false },
+      { name: 'Handwerker Müller', type: 'Handwerker', region: 'Bergheim', tel: '02271-34567', status: 'Basis', highlight: false },
+      // Skaliere: Alle Städte, Jobs, Events
     ];
 
-    // LocalStorage für Persistenz
-    localStorage.setItem('businesses', JSON.stringify(businesses));
-    businesses = JSON.parse(localStorage.getItem('businesses')) || [];
+    // LocalStorage: Backup
+    localStorage.setItem('content', JSON.stringify(content));
+    content = JSON.parse(localStorage.getItem('content')) || [];
 
-    // Render-Funktion
-    function renderBusinesses(filter = '') {
-      let list = document.getElementById('business-list');
+    // Render: Suche, Filter, Region
+    function renderContent(filter = '', region = '') {
+      let list = document.getElementById('content-list');
       list.innerHTML = '';
-      businesses
-        .filter(b => b.name.toLowerCase().includes(filter.toLowerCase()) || b.category.toLowerCase().includes(filter.toLowerCase()))
-        .forEach(b => {
+      content
+        .filter(c => (c.name.toLowerCase().includes(filter.toLowerCase()) || c.type.toLowerCase().includes(filter.toLowerCase())) && (region === '' || c.region === region))
+        .forEach(c => {
           let div = document.createElement('div');
-          div.className = 'business';
-          div.style.background = b.highlight ? '#fffacd' : 'white';
-          div.innerHTML = `<h3>${b.name}</h3><p>Tel: ${b.tel} | Adresse: ${b.address} | Öffnungszeiten: ${b.hours}</p>`;
-          if (b.highlight) {
-            div.innerHTML += `<a href="https://wa.me/${b.tel.replace(/\D/g,'')}" style="background: green; color: white; padding: 5px 10px; text-decoration: none;">WhatsApp Kontakt</a>`;
+          div.className = 'section';
+          div.style.background = c.highlight ? '#fffacd' : 'white';
+          div.setAttribute('role', 'article');
+          div.innerHTML = `<h3>${c.name} (${c.type}, ${c.region})</h3><p>Status: ${c.status} | ${c.tel ? 'Tel: ' + c.tel : c.description || ''}</p>`;
+          if (c.status.includes('König') || c.status.includes('Kaiser') || c.status.includes('Imperator')) {
+            div.innerHTML += `<a href="https://wa.me/${c.tel?.replace(/\D/g,'')}" aria-label="WhatsApp Kontakt zu ${c.name}">WhatsApp</a>`;
           }
           list.appendChild(div);
         });
     }
 
-    // Cookie-Banner
+    // Region-Filter
+    function filterByRegion(region) {
+      renderContent(document.querySelector('.search-bar').value, region);
+    }
+
+    // Cookies
     if (!localStorage.getItem('cookies-accepted')) {
       document.getElementById('cookie-banner').style.display = 'block';
     }
@@ -126,8 +171,8 @@
       document.getElementById('cookie-banner').remove();
     }
 
-    // Initiales Rendern
-    renderBusinesses();
+    // Initial
+    renderContent();
   </script>
 </body>
 </html>
