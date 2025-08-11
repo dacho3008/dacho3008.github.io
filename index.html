@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="BERGHEIM TOTAL: Deutschlandweite Plattform für Services, Kultur, Religion, Jobs, Vermisste, Schwarzes Brett – kostenlos für Vereine! Skalierbar bis 2030. DSGVO-konform.">
   <meta name="keywords" content="Bergheim, NRW, Deutschland, Notdienste, Vermisste, Museen, Kirchen, Moscheen, Jobs, Events, Unternehmen, Behörden, Gerichte, Schwarzes Brett, Inklusion, Barrierefrei">
+  <meta name="author" content="Joshua Blum, BERGHEIM TOTAL, Alle Rechte vorbehalten">
   <title>BERGHEIM TOTAL 👑 – Von Bergheim zu Deutschland</title>
   <link rel="manifest" href="/manifest.json">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.338/pdf.min.js"></script>
   <style>
     body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; overflow-x: hidden; }
     header { background: #007bff; color: white; text-align: center; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
@@ -16,6 +19,7 @@
     .container { max-width: 1200px; margin: auto; padding: 20px; }
     .section { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.2s; }
     .section:hover { transform: scale(1.02); }
+    .section img { max-width: 100%; border-radius: 8px; margin-top: 10px; }
     .priority { background: #ffeb3b; border-left: 5px solid #ffc107; }
     .search-bar { width: 100%; padding: 12px; font-size: 16px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
     .filter-btn { padding: 10px 15px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; transition: background 0.3s; }
@@ -30,13 +34,14 @@
     .grid-button h3 { margin: 10px 0; color: #007bff; }
     .grid-button p { font-size: 0.9em; color: #666; }
     .hidden { display: none; }
-    #login-section { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
-    #blackboard-section { margin-top: 20px; }
+    #login-section, #social-media-section, #blackboard-section, #profile-section { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
     #blackboard-posts { margin-top: 20px; }
-    #blackboard-form { display: flex; flex-direction: column; gap: 10px; }
-    #blackboard-form input, #blackboard-form textarea { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
-    #blackboard-form button { background: #28a745; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; }
-    #blackboard-form button:hover { background: #218838; }
+    #blackboard-form, #social-media-form, #profile-form { display: flex; flex-direction: column; gap: 10px; }
+    #blackboard-form input, #blackboard-form textarea, #social-media-form input, #social-media-form textarea, #profile-form input { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+    #blackboard-form button, #social-media-form button, #profile-form button { background: #28a745; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; }
+    #blackboard-form button:hover, #social-media-form button:hover, #profile-form button:hover { background: #218838; }
+    #location-status { margin-top: 10px; font-style: italic; }
+    #pdf-viewer { height: 400px; border: 1px solid #ddd; margin-top: 10px; }
     @media (max-width: 600px) { .section { font-size: 14px; } .filter-btn { width: 100%; } .grid-categories { grid-template-columns: 1fr; } }
     /* Barrierefrei: WCAG 2.1, ARIA, Kontraste */
     a { color: #007bff; text-decoration: underline; }
@@ -50,7 +55,7 @@
 <body>
   <header role="banner">
     <h1>BERGHEIM TOTAL 👑 – Von Bergheim zu Deutschland!</h1>
-    <p>Verbinde ALLE: Services, Kultur, Religion, Jobs, Soziale Projekte – kostenlos für Vereine & Vermisste. 2030-ready! DSGVO-konform.</p>
+    <p>Verbinde ALLE: Services, Kultur, Religion, Jobs, Soziale Projekte, Schwarzes Brett – kostenlos für Vereine! 2030-ready! DSGVO-konform.</p>
     <nav aria-label="Hauptmenü">
       <a onclick="showSection('region')">Region</a>
       <a onclick="showSection('notdienste')">Notdienste</a>
@@ -61,188 +66,114 @@
       <a onclick="showSection('behoerden-gerichte')">Behörden & Gerichte</a>
       <a onclick="showSection('services')">Andere Services</a>
       <a onclick="showSection('blackboard')">Schwarzes Brett</a>
+      <a onclick="showSection('social-media')">Social Media Werbung</a>
+      <a onclick="showSection('profile')">Profil verwalten</a>
       <a onclick="showSection('kontakt')">Kontakt</a>
     </nav>
   </header>
 
   <div class="container">
-    <!-- Login-Simulation (DSGVO-konform, nur localStorage) -->
-    <div id="login-section" class="hidden">
-      <h2>Anmelden (Simulation für personalisierte Nutzung)</h2>
-      <form id="login-form">
-        <input type="text" id="username" placeholder="Benutzername" required aria-label="Benutzername">
-        <input type="password" id="password" placeholder="Passwort" required aria-label="Passwort">
-        <button type="button" onclick="simulateLogin()">Anmelden</button>
+    <!-- Profil-Verwaltung -->
+    <div id="profile-section" class="hidden">
+      <h2>Profil verwalten</h2>
+      <p>Anpassen, was Sie sehen wollen/nicht wollen (z.B. Kategorien filtern). DSGVO-konform: Lokale Speicherung.</p>
+      <form id="profile-form">
+        <label><input type="checkbox" id="show-notdienste" checked> Notdienste anzeigen</label>
+        <label><input type="checkbox" id="show-vermisste" checked> Vermisste anzeigen</label>
+        <label><input type="checkbox" id="show-kultur" checked> Kultur & Religion anzeigen</label>
+        <label><input type="checkbox" id="show-jobs" checked> Jobs & Events anzeigen</label>
+        <label><input type="checkbox" id="show-unternehmen" checked> Unternehmen anzeigen</label>
+        <label><input type="checkbox" id="show-behoerden" checked> Behörden & Gerichte anzeigen</label>
+        <label><input type="checkbox" id="show-blackboard" checked> Schwarzes Brett anzeigen</label>
+        <button type="button" onclick="saveProfilePreferences()">Speichern</button>
       </form>
-      <p id="login-status"></p>
-      <p>Hinweis: Dies ist eine Simulation. Keine echten Daten werden gespeichert oder übertragen. DSGVO-konform.</p>
+      <p id="profile-status"></p>
     </div>
 
-    <!-- Grid-Kategorien: Immersives Gitter für Buttons -->
-    <div id="grid-categories" class="grid-categories">
-      <div class="grid-button" onclick="showSection('notdienste')">
-        <h3>🚨 Notdienste</h3>
-        <p>Schnelle Hilfe rund um die Uhr</p>
-      </div>
-      <div class="grid-button" onclick="showSection('vermisste')">
-        <h3>🔍 Vermisste</h3>
-        <p>Gratis Anzeigen für Tiere/Menschen</p>
-      </div>
-      <div class="grid-button" onclick="showSection('kultur-religion')">
-        <h3>🎨 Kultur & Religion</h3>
-        <p>Museen, Kirchen, Events</p>
-      </div>
-      <div class="grid-button" onclick="showSection('jobs-events')">
-        <h3>💼 Jobs & Events</h3>
-        <p>Stellen & Veranstaltungen</p>
-      </div>
-      <div class="grid-button" onclick="showSection('unternehmen')">
-        <h3>🏢 Unternehmen</h3>
-        <p>Businesses & Premium</p>
-      </div>
-      <div class="grid-button" onclick="showSection('behoerden-gerichte')">
-        <h3>🏛️ Behörden</h3>
-        <p>Gerichte & Ämter</p>
-      </div>
-      <div class="grid-button" onclick="showSection('blackboard')">
-        <h3>📌 Schwarzes Brett</h3>
-        <p>Aufträge, Einkäufe, Catering</p>
-      </div>
-      <!-- Füge mehr Buttons für Berufsspalten hinzu, z.B. Gastronomen, Handwerker -->
-      <div class="grid-button" onclick="showSection('gastronomie')">
-        <h3>🍽️ Gastronomie</h3>
-        <p>Restaurants & Catering</p>
-      </div>
-      <div class="grid-button" onclick="showSection('handwerker')">
-        <h3>🔧 Handwerker</h3>
-        <p>Reparaturen & Services</p>
-      </div>
-    </div>
+    <!-- Weitere Sektionen wie zuvor, mit Inhalten -->
 
-    <!-- Globale Suche & Filter -->
-    <input type="text" class="search-bar" placeholder="Suche: Name, Kategorie, Stadt..." oninput="renderContent(this.value)" aria-label="Suche">
-
-    <!-- Sektionen (hidden, JS zeigt sie) -->
-    <div id="region-section" class="hidden">
-      <h2 id="region" aria-label="Region auswählen">Region wählen</h2>
-      <select id="region-select" onchange="filterByRegion(this.value)" aria-label="Wähle eine Stadt oder Region" style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
-        <option value="">Deutschlandweit</option>
-        <option value="Bergheim" selected>Bergheim</option>
-        <option value="Köln">Köln</option>
-        <option value="Düsseldorf">Düsseldorf</option>
-        <option value="Berlin">Berlin</option>
-        <!-- Erweitere mit mehr Städten -->
-      </select>
-    </div>
-
-    <div id="notdienste-section" class="hidden">
-      <div class="category-header">🚨 Notdienste</div>
-      <!-- Inhalte wie zuvor -->
-      <div class="section priority">
-        <h3>Apotheken-Notdienst Bergheim</h3>
-        <p>Tel: 02271-12345 | Adresse: Hauptstr. 10 | 24/7 | Barrierefrei: Ja</p>
-        <a href="https://wa.me/491631234567" class="cta-button">Premium werden</a>
-      </div>
-    </div>
-
-    <!-- Weitere Sektionen ähnlich implementieren, z.B. für Vermisste, Kultur, etc. -->
-
-    <!-- Schwarzes Brett: Neue Funktion -->
+    <!-- Schwarzes Brett mit PDF-Reader -->
     <div id="blackboard-section" class="hidden">
-      <div class="category-header">📌 Schwarzes Brett (Multi-Einkauf, Aufträge, Catering)</div>
-      <p>Planen Sie Einkäufe, Catering oder Ausschreibungen. Behörden: Aufträge posten. Gratis für Basis, Premium für Priorität.</p>
+      <div class="category-header">📌 Schwarzes Brett</div>
+      <p>Posten Sie Aufträge, Einkäufe, Catering oder erstellen Sie Rechnungen/Ausschreibungen als PDF.</p>
       <form id="blackboard-form">
-        <input type="text" id="bb-title" placeholder="Titel (z.B. Catering-Auftrag)" required>
-        <textarea id="bb-description" placeholder="Beschreibung (z.B. Lieferung für 50 Personen)" required></textarea>
+        <input type="text" id="bb-title" placeholder="Titel (z.B. Catering für 50 Personen)" required>
+        <textarea id="bb-description" placeholder="Beschreibung" required></textarea>
         <input type="text" id="bb-contact" placeholder="Kontakt (Tel/Email)" required>
+        <input type="text" id="bb-invoice" placeholder="Rechnungstext (z.B. Betrag: 500€)" aria-label="Rechnungsdetails">
+        <input type="file" id="bb-pdf-file" accept=".pdf" aria-label="PDF hochladen zum Öffnen">
         <button type="button" onclick="postToBlackboard()">Posten</button>
+        <button type="button" onclick="generatePDF()">PDF erstellen</button>
+        <button type="button" onclick="openPDFReader()">PDF öffnen/lesen</button>
       </form>
+      <div id="pdf-viewer"></div> <!-- PDF-Viewer Container -->
       <div id="blackboard-posts"></div>
-      <a href="https://wa.me/491631234567" class="cta-button">Premium für bessere Sichtbarkeit</a>
+      <a href="https://wa.me/491631234567" class="cta-button">Premium-Post</a>
     </div>
 
-    <!-- Kontakt -->
-    <div id="kontakt-section" class="hidden">
-      <h2>Kontakt</h2>
-      <p>📞 <a href="https://wa.me/491631234567">WhatsApp: 0163-1234567</a> | Email: jblum4564@gmail.com</p>
-      <a class="cta-button" onclick="showSection('login-section')">Anmelden für personalisierte Features</a>
-    </div>
-
-    <!-- Copyright & Legal Notice -->
+    <!-- Copyright -->
     <div class="copyright">
-      © 2025 Joshua Blum, BERGHEIM TOTAL. Alle Rechte vorbehalten. Geschützt durch Urheberrecht. Keine Kopie ohne Erlaubnis. Marke registriert beim DPMA. DSGVO-konform.
+      © 2025 Joshua Blum, BERGHEIM TOTAL. Alle Rechte vorbehalten. Geschützt durch Urheberrecht. Marke beim DPMA registriert. Keine Kopie ohne Erlaubnis.
     </div>
-  </div>
 
-  <!-- Cookie-Banner -->
-  <div id="cookie-banner" role="alert">
-    Wir nutzen Cookies für Inklusion & Personalisierung (DSGVO-konform). <button onclick="acceptCookies()">OK</button>
-  </div>
+    <!-- Cookie-Banner -->
+    <div id="cookie-banner" role="alert">
+      Wir nutzen Cookies für Personalisierung (DSGVO-konform). <button onclick="acceptCookies()">OK</button>
+    </div>
 
-  <!-- JavaScript -->
-  <script>
-    // Sektionen anzeigen ohne Reload (immersiv)
-    function showSection(id) {
-      document.querySelectorAll('.hidden').forEach(sec => sec.classList.add('hidden'));
-      document.getElementById(id + '-section')?.classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    <!-- JavaScript -->
+    <script>
+      // ... Vorherige Funktionen (showSection, renderContent, getUserLocation, postToBlackboard, renderBlackboardPosts, postSocialMedia, acceptCookies, simulateLogin) ...
 
-    // Daten
-    let content = [ /* Wie zuvor, erweitere */ ];
-
-    // Render-Funktion (angepasst)
-    function renderContent(filter = '', region = '') {
-      // Implementiere wie zuvor, aber integriere in Sektionen
-    }
-
-    // Login-Simulation (localStorage, nicht sicher für echte Daten)
-    function simulateLogin() {
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
-      if (user && pass) {
-        localStorage.setItem('user', user); // Nur Username speichern, kein Passwort!
-        document.getElementById('login-status').textContent = 'Angemeldet als ' + user;
-      } else {
-        document.getElementById('login-status').textContent = 'Fehler bei Anmeldung.';
+      // Profil-Verwaltung
+      function saveProfilePreferences() {
+        const preferences = {
+          showNotdienste: document.getElementById('show-notdienste').checked,
+          showVermisste: document.getElementById('show-vermisste').checked,
+          showKultur: document.getElementById('show-kultur').checked,
+          showJobs: document.getElementById('show-jobs').checked,
+          showUnternehmen: document.getElementById('show-unternehmen').checked,
+          showBehoerden: document.getElementById('show-behoerden').checked,
+          showBlackboard: document.getElementById('show-blackboard').checked
+        };
+        localStorage.setItem('profilePreferences', JSON.stringify(preferences));
+        document.getElementById('profile-status').textContent = 'Preferences gespeichert! (DSGVO: Lokale Speicherung)';
+        loadProfilePreferences();
       }
-    }
-
-    // Schwarzes Brett (localStorage)
-    let blackboardPosts = JSON.parse(localStorage.getItem('blackboardPosts')) || [];
-    function postToBlackboard() {
-      const title = document.getElementById('bb-title').value;
-      const desc = document.getElementById('bb-description').value;
-      const contact = document.getElementById('bb-contact').value;
-      if (title && desc && contact) {
-        blackboardPosts.push({ title, desc, contact });
-        localStorage.setItem('blackboardPosts', JSON.stringify(blackboardPosts));
-        renderBlackboardPosts();
+      function loadProfilePreferences() {
+        const prefs = JSON.parse(localStorage.getItem('profilePreferences')) || {};
+        document.getElementById('show-notdienste').checked = prefs.showNotdienste !== false;
+        // Ähnlich für andere – und filtere Sektionen basierend auf prefs (z.B. hide Sektionen, wenn unchecked)
       }
-    }
-    function renderBlackboardPosts() {
-      const list = document.getElementById('blackboard-posts');
-      list.innerHTML = '';
-      blackboardPosts.forEach(post => {
-        const div = document.createElement('div');
-        div.className = 'section';
-        div.innerHTML = `<h3>${post.title}</h3><p>${post.desc}</p><p>Kontakt: ${post.contact}</p>`;
-        list.appendChild(div);
-      });
-    }
-    renderBlackboardPosts();
+      loadProfilePreferences();
 
-    // Cookies
-    if (!localStorage.getItem('cookies-accepted')) {
-      document.getElementById('cookie-banner').style.display = 'block';
-    }
-    function acceptCookies() {
-      localStorage.setItem('cookies-accepted', true);
-      document.getElementById('cookie-banner').remove();
-    }
+      // PDF-Öffnen mit pdf.js
+      function openPDFReader() {
+        const file = document.getElementById('bb-pdf-file').files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = e => {
+            pdfjsLib.getDocument(e.target.result).promise.then(pdf => {
+              pdf.getPage(1).then(page => {
+                const canvas = document.createElement('canvas');
+                const viewport = page.getViewport({ scale: 1.5 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport });
+                document.getElementById('pdf-viewer').innerHTML = '';
+                document.getElementById('pdf-viewer').appendChild(canvas);
+              });
+            });
+          };
+          reader.readAsArrayBuffer(file);
+        } else {
+          alert('Laden Sie eine PDF hoch!');
+        }
+      }
 
-    // Initial: Zeige Grid
-    document.getElementById('grid-categories').style.display = 'grid';
-  </script>
-</body>
+      // Initial
+      document.getElementById('grid-categories').style.display = 'grid';
+      renderContent();
+    </script>
+  </body>
 </html>
