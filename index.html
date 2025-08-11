@@ -1,596 +1,133 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BERGHEIM TOTAL - Alles in deiner Stadt!</title>
-    <meta name="description" content="Die EINE Plattform für GANZ Bergheim - vom Bürgermeister bis zum Bäcker, vom Tierheim bis zum Zahnarzt!">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- PayPal Integration -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R&currency=EUR"></script>
-    
-    <style>
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        .blink { animation: blink 2s infinite; }
-        
-        .category-card {
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BERGHEIM TOTAL 👑</title>
+  <meta name="description" content="Alle Services in Bergheim – Notdienste, Restaurants, Tierheim und mehr!">
+  <meta name="keywords" content="Bergheim, Notdienste, Restaurants, Handwerker, Tierheim">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
+    header { background: #007bff; color: white; text-align: center; padding: 20px; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; }
+    .container { max-width: 1200px; margin: auto; padding: 20px; }
+    .business, .priority { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background: white; }
+    .priority { background: #ffeb3b; } /* Highlight für Notdienste/Tiere */
+    .search-bar { width: 100%; padding: 10px; font-size: 16px; margin-bottom: 20px; }
+    .filter-btn { padding: 8px 15px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; }
+    footer { background: #007bff; color: white; text-align: center; padding: 10px; margin-top: 20px; }
+    @media (max-width: 600px) { .business, .priority { font-size: 14px; } .filter-btn { width: 100%; } }
+  </style>
 </head>
-<body class="bg-gray-50">
-    
-    <!-- NOTFALL-LEISTE (IMMER OBEN!) -->
-    <div class="bg-red-600 text-white p-2 sticky top-0 z-50">
-        <div class="container mx-auto flex justify-around text-center">
-            <a href="tel:110" class="hover:bg-red-700 px-4 py-1 rounded">
-                🚓 Polizei<br><strong>110</strong>
-            </a>
-            <a href="tel:112" class="hover:bg-red-700 px-4 py-1 rounded">
-                🚒 Feuerwehr<br><strong>112</strong>
-            </a>
-            <a href="tel:116117" class="hover:bg-red-700 px-4 py-1 rounded">
-                🏥 Ärztlicher Notdienst<br><strong>116 117</strong>
-            </a>
-            <a href="tel:08000022833" class="hover:bg-red-700 px-4 py-1 rounded">
-                💊 Apotheken-Notdienst<br><strong>0800 0022833</strong>
-            </a>
-        </div>
+<body>
+  <header>
+    <h1>BERGHEIM TOTAL 👑</h1>
+    <p>Die Plattform für ALLE in Bergheim – vom Bürgermeister bis zum Bäcker!</p>
+    <nav>
+      <a href="#notdienste">Notdienste</a>
+      <a href="#vermisste-tiere">Vermisste Tiere</a>
+      <a href="#businesses">Alle Services</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- Notdienste -->
+    <h2 id="notdienste">🚨 Notdienste</h2>
+    <div class="priority">
+      <h3>Apotheken-Notdienst</h3>
+      <p>Tel: 02271-12345 | Adresse: Hauptstr. 10 | 24/7</p>
+    </div>
+    <div class="priority">
+      <h3>Krankenhaus Bergheim</h3>
+      <p>Tel: 02271-7080 | Adresse: Am See 1 | 24/7</p>
     </div>
 
-    <!-- HEADER -->
-    <header class="bg-blue-600 text-white shadow-lg">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <h1 class="text-3xl font-bold">
-                    👑 BERGHEIM TOTAL
-                </h1>
-                <div class="text-right">
-                    <div class="text-sm opacity-90">Die EINE Seite für ALLES</div>
-                    <div class="text-xs opacity-75">Bereits <span id="counter">247</span> Einträge!</div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- AKTUELLE MELDUNGEN -->
-    <div class="bg-yellow-400 text-black p-3">
-        <div class="container mx-auto">
-            <marquee behavior="scroll" direction="left">
-                🚨 VERMISST: Katze "Mimi" seit 3 Tagen in Quadrath-Ichendorf - Finderlohn 100€! | 
-                🚧 Hauptstraße gesperrt wegen Wasserrohrbruch | 
-                🎉 Stadtfest 15.-17. Juni - Jetzt Stände anmelden! |
-                ⚠️ Warnung vor falschen Handwerkern!
-            </marquee>
-        </div>
+    <!-- Vermisste Tiere -->
+    <h2 id="vermisste-tiere">🐶 Vermisste Tiere</h2>
+    <div class="priority">
+      <h3>Katze Luna</h3>
+      <p>Seit: 10.08.2025 | Ort: Zentrum | Finderlohn: 50€ | Tel: 0163-1234567</p>
     </div>
 
-    <!-- HERO SECTION -->
-    <div class="bg-gradient-to-r from-blue-500 to-green-500 text-white py-12">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4">
-                Ganz Bergheim. Eine Seite. Alles drin.
-            </h2>
-            <p class="text-xl mb-8">
-                Vom Bürgermeister bis zum Bäcker. Vom Tierheim bis zum Zahnarzt.
-            </p>
-            
-            <!-- SUCHE -->
-            <div class="max-w-2xl mx-auto">
-                <input type="text" 
-                       placeholder="Was suchst du? Pizza, Tierarzt, Kita-Platz, Handwerker..." 
-                       class="w-full px-6 py-4 rounded-lg text-gray-800 text-lg shadow-xl"
-                       id="search"
-                       onkeyup="liveSearch()">
-            </div>
-            
-            <!-- QUICK BUTTONS -->
-            <div class="flex justify-center gap-4 mt-6 flex-wrap">
-                <button onclick="scrollToSection('emergency')" class="bg-red-500 px-6 py-3 rounded-lg font-bold blink hover:bg-red-600">
-                    🚨 NOTFALL
-                </button>
-                <button onclick="scrollToSection('vermisst')" class="bg-orange-500 px-6 py-3 rounded-lg font-bold hover:bg-orange-600">
-                    🔍 VERMISST
-                </button>
-                <button onclick="scrollToSection('heute')" class="bg-green-500 px-6 py-3 rounded-lg font-bold hover:bg-green-600">
-                    ⏰ JETZT OFFEN
-                </button>
-            </div>
-        </div>
+    <!-- Suche und Filter -->
+    <h2 id="businesses">Alle Services</h2>
+    <input type="text" class="search-bar" placeholder="Suche nach Name oder Kategorie (z.B. Restaurant)..." oninput="renderBusinesses(this.value)">
+    <div>
+      <button class="filter-btn" onclick="renderBusinesses('')">Alle</button>
+      <button class="filter-btn" onclick="renderBusinesses('Restaurant')">Restaurants</button>
+      <button class="filter-btn" onclick="renderBusinesses('Handwerker')">Handwerker</button>
+      <button class="filter-btn" onclick="renderBusinesses('Tierheim')">Tierheim</button>
     </div>
+    <div id="business-list"></div>
+  </div>
 
-    <!-- VERMISSTE TIERE (WICHTIG!) -->
-    <div id="vermisst" class="bg-orange-50 py-8">
-        <div class="container mx-auto px-4">
-            <h3 class="text-3xl font-bold mb-6 text-orange-600">🔍 VERMISST IN BERGHEIM</h3>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white p-4 rounded-lg shadow-lg border-2 border-orange-500">
-                    <img src="https://via.placeholder.com/300x200?text=Katze+Mimi" class="w-full rounded mb-3">
-                    <h4 class="font-bold text-xl">Katze "Mimi" - VERMISST!</h4>
-                    <p class="text-sm mb-2">Seit: 3 Tagen</p>
-                    <p class="text-sm mb-2">Ort: Quadrath-Ichendorf</p>
-                    <p class="font-bold text-green-600 text-lg mb-3">Finderlohn: 100€</p>
-                    <a href="tel:01631234567" class="bg-orange-500 text-white px-4 py-2 rounded block text-center font-bold">
-                        📞 SOFORT MELDEN
-                    </a>
-                </div>
-                
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <img src="https://via.placeholder.com/300x200?text=Hund+Max" class="w-full rounded mb-3">
-                    <h4 class="font-bold">Hund "Max"</h4>
-                    <p class="text-sm">Seit: 1 Woche</p>
-                    <p class="text-sm">Ort: Bergheim-Mitte</p>
-                    <a href="tel:01631234567" class="bg-blue-500 text-white px-4 py-2 rounded block text-center mt-3">
-                        Kontakt
-                    </a>
-                </div>
-                
-                <div class="bg-green-100 p-6 rounded-lg border-2 border-green-500 text-center">
-                    <div class="text-4xl mb-4">🎉</div>
-                    <h4 class="font-bold text-xl mb-2">Tier vermisst?</h4>
-                    <p class="mb-4">KOSTENLOS hier posten!</p>
-                    <button onclick="showVermisst()" class="bg-green-500 text-white px-6 py-3 rounded font-bold">
-                        + Vermisstenanzeige
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+  <!-- Kontakt -->
+  <div class="container" id="kontakt">
+    <h2>Kontakt</h2>
+    <p>Fragen? 📞 <a href="https://wa.me/491631234567">WhatsApp: 0163-1234567</a></p>
+    <p>Email: jblum4564@gmail.com</p>
+  </div>
 
-    <!-- HAUPT-KATEGORIEN -->
-    <div class="container mx-auto px-4 py-12">
-        <h3 class="text-3xl font-bold text-center mb-8">Was brauchst du?</h3>
-        
-        <div class="grid md:grid-cols-4 gap-6">
-            
-            <!-- BEHÖRDEN & ÄMTER -->
-            <div onclick="showCategory('behoerden')" class="category-card bg-blue-100 p-6 rounded-lg text-center">
-                <div class="text-4xl mb-3">🏛️</div>
-                <h4 class="font-bold text-lg">Behörden & Ämter</h4>
-                <p class="text-sm text-gray-600 mt-2">
-                    Bürgeramt • Standesamt • Bauamt • Ordnungsamt
-                </p>
-                <div class="mt-3 text-xs bg-blue-200 rounded px-2 py-1">
-                    12 Einträge
-                </div>
-            </div>
-            
-            <!-- GESUNDHEIT -->
-            <div onclick="showCategory('gesundheit')" class="category-card bg-green-100 p-6 rounded-lg text-center">
-                <div class="text-4xl mb-3">🏥</div>
-                <h4 class="font-bold text-lg">Gesundheit</h4>
-                <p class="text-sm text-gray-600 mt-2">
-                    Ärzte • Krankenhaus • Apotheken • Pflege
-                </p>
-                <div class="mt-3 text-xs bg-green-200 rounded px-2 py-1">
-                    34 Einträge
-                </div>
-            </div>
-            
-            <!-- TIERE -->
-            <div onclick="showCategory('tiere')" class="category-card bg-orange-100 p-6 rounded-lg text-center">
-                <div class="text-4xl mb-3">🐾</div>
-                <h4 class="font-bold text-lg">Tiere</h4>
-                <p class="text-sm text-gray-600 mt-2">
-                    Tierheim • Tierärzte • Hundeschule • Tierbedarf
-                </p>
-                <div class="mt-3 text-xs bg-orange-200 rounded px-2 py-1">
-                    8 Einträge • 3 VERMISST
-                </div>
-            </div>
-            
-            <!-- FAMILIE & KINDER -->
-            <div onclick="showCategory('familie')" class="category-card bg-pink-100 p-6 rounded-lg text-center">
-                <div class="text-4xl mb-3">👶</div>
-                <h4 class="font-bold text-lg">Familie & Kinder</h4>
-                <p class="text-sm text-gray-600 mt-2">
-                    Kitas • Schulen • Spielplätze • Vereine
-                </p>
-                <div class="mt-3 text-xs bg-pink-200 rounded px-2 py-1">
-                    27 Einträge
-                </div>
-            </div>
-            
-            <!-- ESSEN & TRINKEN -->
-            <div onclick="showCategory('food')" class="category-card bg-yellow-100 p-6 rounded-lg text-center">
-                <div class="text-4xl mb-3">🍕</div>
-                <h4 class="font-bold text-lg">Essen & Trinken</h4>
-                <p class="text-sm text-gray-600 mt-2">
-                    Restaurants • Lieferservice • Cafés • Bäcker
-                </p>
-                <div class="mt-3 text-xs bg-yellow-200 rounded px-2 py-1">
-                    43 Einträge • 12 LIEFERN
-                </div>
-            </div>
-            
-            <!-- HANDWERK & SERVICE -->
-            <div onclick="showCategory('handwerk')" class="category-card bg-gray-100 p-6 rounded-lg text-center">
-                <div class="text-4xl mb-3">🔧</div>
-                <h4 class="font-bold text-lg">Handwerk & Service</h4>
-                <p class="text-sm text-gray-600 mt-2">
-                    Handwerker • KFZ • Reinigung • Garten
-                </p>
-                <div class="mt-3 text-xs bg-gray-200 rounded px-2 py-1">
-                    56 Einträge • 5 NOTDIENST
-                </div>
-            </div>
-            
-            <!-- SHOPPING -->
-            <div onclick="showCategory('shopping')" class="category-card bg-purple-100 p-6 rounded-lg text-center">
-                <div class="text-4xl mb-3">🛍️</div>
-                <h4 class="font-bold text-lg">Shopping</h4>
-                <p class="text-sm text-gray-600 mt-2">
-                    Supermärkte • Mode • Elektronik • Blumen
-                </p>
-                <div class="mt-3 text-xs bg-purple-200 rounded px-2 py-1">
-                    31 Einträge
-                </div>
-            </div>
-            
-            <!-- FREIZEIT & KULTUR -->
-            <div onclick="showCategory('freizeit')" class="category-card bg-indigo-100 p-6 rounded-lg text-center">
-                <div class="text-4xl mb-3">🎭</div>
-                <h4 class="font-bold text-lg">Freizeit & Kultur</h4>
-                <p class="text-sm text-gray-600 mt-2">
-                    Sport • Kultur • Vereine • Kirchen
-                </p>
-                <div class="mt-3 text-xs bg-indigo-200 rounded px-2 py-1">
-                    22 Einträge
-                </div>
-            </div>
-            
-        </div>
-    </div>
+  <!-- Impressum & Footer -->
+  <footer>
+    <p>© 2025 BERGHEIM TOTAL | Joshua Blum | Hauptstr. 1, 50126 Bergheim | <a href="#impressum" style="color: white;">Impressum</a> | <a href="#datenschutz" style="color: white;">Datenschutz</a></p>
+  </footer>
 
-    <!-- SPEZIAL: TIERHEIM BERGHEIM -->
-    <div class="bg-gradient-to-r from-orange-100 to-pink-100 py-12">
-        <div class="container mx-auto px-4">
-            <h3 class="text-3xl font-bold mb-6">🐕 Tierheim Bergheim - Tiere suchen ein Zuhause!</h3>
-            
-            <div class="grid md:grid-cols-4 gap-4">
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <img src="https://via.placeholder.com/200x200?text=Hund+Bello" class="w-full rounded mb-3">
-                    <h4 class="font-bold">Bello</h4>
-                    <p class="text-sm">Schäferhund-Mix, 3 Jahre</p>
-                    <div class="mt-3">
-                        <button class="bg-orange-500 text-white px-3 py-1 rounded text-sm w-full mb-2">
-                            Kennenlernen
-                        </button>
-                        <button class="bg-green-500 text-white px-3 py-1 rounded text-sm w-full">
-                            Patenschaft 10€/Monat
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <img src="https://via.placeholder.com/200x200?text=Katze+Luna" class="w-full rounded mb-3">
-                    <h4 class="font-bold">Luna</h4>
-                    <p class="text-sm">Hauskatze, 2 Jahre</p>
-                    <div class="mt-3">
-                        <button class="bg-orange-500 text-white px-3 py-1 rounded text-sm w-full mb-2">
-                            Kennenlernen
-                        </button>
-                        <button class="bg-green-500 text-white px-3 py-1 rounded text-sm w-full">
-                            Patenschaft 10€/Monat
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <img src="https://via.placeholder.com/200x200?text=Kaninchen" class="w-full rounded mb-3">
-                    <h4 class="font-bold">Hoppel & Moppel</h4>
-                    <p class="text-sm">Kaninchen-Paar</p>
-                    <div class="mt-3">
-                        <button class="bg-orange-500 text-white px-3 py-1 rounded text-sm w-full mb-2">
-                            Kennenlernen
-                        </button>
-                        <button class="bg-green-500 text-white px-3 py-1 rounded text-sm w-full">
-                            Patenschaft 5€/Monat
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bg-yellow-100 p-4 rounded-lg border-2 border-yellow-400">
-                    <div class="text-center">
-                        <div class="text-4xl mb-3">❤️</div>
-                        <h4 class="font-bold mb-2">Helfen Sie!</h4>
-                        <p class="text-sm mb-3">Spenden, Gassi gehen, Patenschaft</p>
-                        <a href="tel:022712345" class="bg-yellow-400 px-4 py-2 rounded font-bold block">
-                            📞 02271-2345
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  <!-- Impressum (DSGVO) -->
+  <div class="container" id="impressum">
+    <h2>Impressum</h2>
+    <p>Joshua Blum<br>BERGHEIM TOTAL<br>Hauptstr. 1, 50126 Bergheim<br>Tel: 0163-1234567<br>Email: jblum4564@gmail.com<br>Steuernummer: [Ergänze]</p>
+  </div>
 
-    <!-- WERBUNG SECTION -->
-    <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white py-16">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4">
-                🚀 Ihr Business fehlt noch?
-            </h2>
-            <p class="text-xl mb-8">
-                Werden Sie der KÖNIG Ihrer Branche in Bergheim!
-            </p>
-            
-            <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                <div class="bg-white/20 backdrop-blur p-6 rounded-lg">
-                    <h3 class="text-2xl font-bold mb-3">BASIS</h3>
-                    <div class="text-3xl font-bold mb-3">29€</div>
-                    <div class="text-sm">pro Monat</div>
-                    <ul class="mt-4 text-left text-sm">
-                        <li>✓ Eintrag mit Kontakt</li>
-                        <li>✓ Öffnungszeiten</li>
-                        <li>✓ 1 Foto</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-yellow-400 text-black p-6 rounded-lg transform scale-105">
-                    <div class="bg-red-500 text-white text-xs px-2 py-1 rounded mb-2">
-                        🔥 NUR NOCH 3 PLÄTZE
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">KÖNIG</h3>
-                    <div class="text-3xl font-bold mb-3">79€</div>
-                    <div class="text-sm">pro Monat</div>
-                    <ul class="mt-4 text-left text-sm">
-                        <li>✓ Top-Platzierung</li>
-                        <li>✓ 10 Fotos</li>
-                        <li>✓ Angebote posten</li>
-                        <li>✓ WhatsApp-Button</li>
-                        <li>✓ Bewertungen</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-white/20 backdrop-blur p-6 rounded-lg">
-                    <h3 class="text-2xl font-bold mb-3">KAISER</h3>
-                    <div class="text-3xl font-bold mb-3">199€</div>
-                    <div class="text-sm">pro Monat</div>
-                    <ul class="mt-4 text-left text-sm">
-                        <li>✓ Alles aus KÖNIG</li>
-                        <li>✓ Homepage-Banner</li>
-                        <li>✓ Newsletter</li>
-                        <li>✓ Statistiken</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="mt-8">
-                <button onclick="showPayment()" class="bg-yellow-400 text-black px-8 py-4 rounded-lg text-xl font-bold hover:bg-yellow-300 transform hover:scale-105 transition">
-                    JETZT KÖNIG WERDEN! 👑
-                </button>
-                
-                <div class="mt-4">
-                    <a href="https://wa.me/491631234567?text=Ich%20will%20KÖNIG%20von%20Bergheim%20werden!" 
-                       class="text-white underline">
-                        oder per WhatsApp: 0163-1234567
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+  <!-- Cookie-Banner -->
+  <div id="cookie-banner" style="position: fixed; bottom: 0; background: #fff; padding: 10px; width: 100%; border-top: 1px solid #ddd; display: none;">
+    Wir nutzen Cookies für eine bessere Nutzung. <button onclick="acceptCookies()">OK</button>
+  </div>
 
-    <!-- PAYMENT MODAL -->
-    <div id="payment-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg max-w-lg w-full p-8">
-            <h2 class="text-3xl font-bold mb-6">👑 KÖNIG werden!</h2>
-            
-            <form onsubmit="processPayment(event)">
-                <input type="text" placeholder="Firma/Name" required class="w-full p-3 border rounded mb-3">
-                <input type="email" placeholder="Email" required class="w-full p-3 border rounded mb-3">
-                <input type="tel" placeholder="Telefon" required class="w-full p-3 border rounded mb-3">
-                
-                <select required class="w-full p-3 border rounded mb-3">
-                    <option value="">Paket wählen...</option>
-                    <option value="29">BASIS - 29€/Monat</option>
-                    <option value="79" selected>KÖNIG - 79€/Monat ⭐</option>
-                    <option value="199">KAISER - 199€/Monat</option>
-                </select>
-                
-                <div class="bg-yellow-100 p-4 rounded mb-4">
-                    <p class="font-bold">🎉 SPECIAL: Erste 10 Kunden = 1. Monat GRATIS!</p>
-                </div>
-                
-                <!-- PayPal Button Container -->
-                <div id="paypal-button-container" class="mb-4"></div>
-                
-                <div class="text-center text-sm text-gray-600 mb-4">
-                    oder Überweisung an:<br>
-                    PayPal: jblum4564@gmail.com
-                </div>
-                
-                <button type="submit" class="w-full bg-green-500 text-white py-3 rounded font-bold hover:bg-green-600">
-                    Jetzt buchen!
-                </button>
-            </form>
-            
-            <button onclick="closePayment()" class="mt-4 text-gray-500 text-sm">Abbrechen</button>
-        </div>
-    </div>
+  <!-- JavaScript -->
+  <script>
+    let businesses = [
+      { name: 'Pizza Roma', tel: '02271-12345', address: 'Hauptstr. 1', hours: '10-22 Uhr', highlight: true, category: 'Restaurant' },
+      { name: 'Tierheim Bergheim', tel: '02271-23456', address: 'Am See 2', hours: '9-18 Uhr', highlight: false, category: 'Tierheim' },
+      { name: 'Handwerker Müller', tel: '02271-34567', address: 'Industriestr. 5', hours: '8-17 Uhr', highlight: false, category: 'Handwerker' }
+      // Füge neue Kunden hier hinzu
+    ];
 
-    <!-- FOOTER -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-6">
-                <div>
-                    <h4 class="font-bold mb-3">BERGHEIM TOTAL</h4>
-                    <p class="text-sm opacity-80">
-                        Die EINE Plattform für GANZ Bergheim
-                    </p>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-3">Schnellzugriff</h4>
-                    <ul class="text-sm opacity-80 space-y-1">
-                        <li><a href="#notfall" class="hover:text-yellow-400">Notdienste</a></li>
-                        <li><a href="#vermisst" class="hover:text-yellow-400">Vermisste Tiere</a></li>
-                        <li><a href="#" class="hover:text-yellow-400">Müllkalender</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-3">Partner werden</h4>
-                    <p class="text-sm opacity-80">
-                        📞 0163-1234567<br>
-                        📧 jblum4564@gmail.com<br>
-                        💬 WhatsApp 24/7
-                    </p>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-3">Rechtliches</h4>
-                    <ul class="text-sm opacity-80 space-y-1">
-                        <li><a href="impressum.html" class="hover:text-yellow-400">Impressum</a></li>
-                        <li><a href="datenschutz.html" class="hover:text-yellow-400">Datenschutz</a></li>
-                        <li><a href="agb.html" class="hover:text-yellow-400">AGB</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-sm opacity-60">
-                © 2025 BERGHEIM TOTAL - Made with ❤️ und 🍕 in einer durchgearbeiteten Nacht
-            </div>
-        </div>
-    </footer>
+    // LocalStorage für Persistenz
+    localStorage.setItem('businesses', JSON.stringify(businesses));
+    businesses = JSON.parse(localStorage.getItem('businesses')) || [];
 
-    <script>
-    // DATENBANK (erstmal lokal, später echte DB)
-    const bergheimData = {
-        behoerden: [
-            {name: 'Bürgeramt Bergheim', tel: '02271-89-0', address: 'Bethlehemer Str. 9', hours: 'Mo-Fr 8-12, Do 14-18'},
-            {name: 'Standesamt', tel: '02271-89-234', address: 'Bethlehemer Str. 9', hours: 'Nach Termin'},
-            {name: 'Ordnungsamt', tel: '02271-89-456', address: 'Bethlehemer Str. 9', hours: 'Mo-Fr 8-16'},
-            {name: 'Bauamt', tel: '02271-89-789', address: 'Bethlehemer Str. 9', hours: 'Mo-Fr 8-12'},
-            {name: 'Sozialamt', tel: '02271-89-321', address: 'Bethlehemer Str. 9', hours: 'Mo-Fr 8-12'},
-        ],
-        gesundheit: [
-            {name: 'Krankenhaus Maria-Hilf', tel: '02271-708-0', address: 'Klosterstr. 2', hours: '24/7 Notaufnahme', highlight: true},
-            {name: 'Dr. Meyer - Hausarzt', tel: '02271-12345', address: 'Hauptstr. 45', hours: 'Mo-Fr 8-18'},
-            {name: 'Dr. Schmidt - Zahnarzt', tel: '02271-67890', address: 'Bahnhofstr. 12', hours: 'Mo-Fr 8-19'},
-            {name: 'Löwen-Apotheke', tel: '02271-42117', address: 'Hauptstr. 42', hours: 'Mo-Sa 8-20', notdienst: true},
-            {name: 'Ambulante Pflege Herz&Hand', tel: '02271-99999', address: 'Aachener Str. 5', hours: '24/7', highlight: true},
-        ],
-        tiere: [
-            {name: 'Tierheim Bergheim', tel: '02271-2345', address: 'Am Tierheim 1', hours: 'Mo-Sa 14-17', special: 'ADOPTIONEN & PATENSCHAFTEN', highlight: true},
-            {name: 'Dr. Müller - Tierarzt', tel: '02271-3456', address: 'Kölner Str. 23', hours: 'Mo-Fr 9-18, Sa 9-12'},
-            {name: 'Hundeschule Bergheim', tel: '02271-4567', address: 'Sportplatz 3', hours: 'Nach Vereinbarung'},
-            {name: 'Fressnapf', tel: '02271-5678', address: 'Einkaufszentrum', hours: 'Mo-Sa 9-20'},
-        ],
-        familie: [
-            {name: 'Kita Kleine Strolche', tel: '02271-1111', address: 'Kirchstr. 5', hours: 'Mo-Fr 7-17', warteliste: '300 Familien'},
-            {name: 'Kita Sonnenschein', tel: '02271-2222', address: 'Parkstr. 8', hours: 'Mo-Fr 7-16:30'},
-            {name: 'Gymnasium Bergheim', tel: '02271-3333', address: 'Schulstr. 1', hours: 'Sekretariat Mo-Fr 7:30-15'},
-            {name: 'Grundschule Mitte', tel: '02271-4444', address: 'Hauptstr. 80', hours: 'Mo-Fr 7:30-14'},
-            {name: 'Spielplatz Stadtpark', tel: '-', address: 'Stadtpark', hours: 'Immer offen'},
-        ],
-        food: [
-            {name: 'Pizza Roma', tel: '02271-12345', address: 'Hauptstr. 45', hours: 'Mo-So 11-23', lieferung: true, highlight: true},
-            {name: 'Burger House', tel: '02271-23456', address: 'Kölner Str. 12', hours: 'Mo-So 12-22', lieferung: true},
-            {name: 'Asia Wok', tel: '02271-34567', address: 'Markt 8', hours: 'Di-So 11-22'},
-            {name: 'Bäckerei Müller', tel: '02271-45678', address: 'Hauptstr. 30', hours: 'Mo-Sa 6-18, So 8-12'},
-            {name: 'Eiscafé Venezia', tel: '02271-56789', address: 'Fußgängerzone', hours: 'Mo-So 10-21'},
-        ],
-        handwerk: [
-            {name: 'Sanitär Schmidt 24h', tel: '02271-247247', address: 'Industriestr. 12', hours: '24/7 NOTDIENST', highlight: true},
-            {name: 'Elektriker Müller', tel: '02271-11111', address: 'Gewerbegebiet 3', hours: 'Mo-Fr 7-17'},
-            {name: 'Maler Meier', tel: '02271-22222', address: 'Bergstr. 7', hours: 'Mo-Fr 8-17'},
-            {name: 'Schreiner Weber', tel: '02271-33333', address: 'Waldstr. 22', hours: 'Mo-Fr 8-16'},
-            {name: 'Schlüsseldienst 24', tel: '02271-999999', address: 'Mobil', hours: '24/7', highlight: true},
-        ]
-    };
-
-    // PayPal Integration
-    function initPayPal() {
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                const amount = document.querySelector('select').value || '79';
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: amount + '.00',
-                            currency_code: 'EUR'
-                        },
-                        description: 'BERGHEIM TOTAL - KÖNIG Paket'
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    alert('Zahlung erfolgreich! Willkommen als KÖNIG von Bergheim!');
-                    sendNotification(details);
-                    closePayment();
-                });
-            }
-        }).render('#paypal-button-container');
+    // Render-Funktion
+    function renderBusinesses(filter = '') {
+      let list = document.getElementById('business-list');
+      list.innerHTML = '';
+      businesses
+        .filter(b => b.name.toLowerCase().includes(filter.toLowerCase()) || b.category.toLowerCase().includes(filter.toLowerCase()))
+        .forEach(b => {
+          let div = document.createElement('div');
+          div.className = 'business';
+          div.style.background = b.highlight ? '#fffacd' : 'white';
+          div.innerHTML = `<h3>${b.name}</h3><p>Tel: ${b.tel} | Adresse: ${b.address} | Öffnungszeiten: ${b.hours}</p>`;
+          if (b.highlight) {
+            div.innerHTML += `<a href="https://wa.me/${b.tel.replace(/\D/g,'')}" style="background: green; color: white; padding: 5px 10px; text-decoration: none;">WhatsApp Kontakt</a>`;
+          }
+          list.appendChild(div);
+        });
     }
 
-    function showPayment() {
-        document.getElementById('payment-modal').classList.remove('hidden');
-        initPayPal();
+    // Cookie-Banner
+    if (!localStorage.getItem('cookies-accepted')) {
+      document.getElementById('cookie-banner').style.display = 'block';
+    }
+    function acceptCookies() {
+      localStorage.setItem('cookies-accepted', true);
+      document.getElementById('cookie-banner').remove();
     }
 
-    function closePayment() {
-        document.getElementById('payment-modal').classList.add('hidden');
-    }
-
-    function processPayment(event) {
-        event.preventDefault();
-        
-        const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData);
-        
-        // WhatsApp Notification
-        const message = `NEUE BUCHUNG! ${data.get('firma')} - Paket: ${data.get('paket')}€`;
-        window.open(`https://wa.me/491631234567?text=${encodeURIComponent(message)}`, '_blank');
-        
-        alert('Vielen Dank! Sie erhalten in Kürze eine Bestätigung!');
-        closePayment();
-    }
-
-    function showCategory(category) {
-        const data = bergheimData[category] || [];
-        console.log('Showing category:', category, data);
-        // Hier würde die Kategorie-Ansicht geöffnet
-    }
-
-    function liveSearch() {
-        const query = document.getElementById('search').value.toLowerCase();
-        console.log('Searching for:', query);
-        // Live-Suche Implementation
-    }
-
-    function showVermisst() {
-        alert('Vermisstenanzeige aufgeben - Formular öffnet sich');
-    }
-
-    function scrollToSection(id) {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function sendNotification(details) {
-        // Send WhatsApp notification
-        const msg = `Neue Zahlung: ${details.payer.name.given_name} - ${details.purchase_units[0].amount.value}€`;
-        console.log('Payment notification:', msg);
-    }
-
-    // Live Counter Animation
-    let counter = 247;
-    setInterval(() => {
-        counter += Math.floor(Math.random() * 3);
-        document.getElementById('counter').textContent = counter;
-    }, 30000);
-
-    // Initialize
-    console.log('BERGHEIM TOTAL loaded! 👑');
-    </script>
+    // Initiales Rendern
+    renderBusinesses();
+  </script>
 </body>
 </html>
