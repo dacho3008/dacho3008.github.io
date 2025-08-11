@@ -43,12 +43,9 @@
     #location-status { margin-top: 10px; font-style: italic; }
     #pdf-viewer { height: 400px; border: 1px solid #ddd; margin-top: 10px; }
     @media (max-width: 600px) { .section { font-size: 14px; } .filter-btn { width: 100%; } .grid-categories { grid-template-columns: 1fr; } }
-    /* Barrierefrei: WCAG 2.1, ARIA, Kontraste */
     a { color: #007bff; text-decoration: underline; }
     button:focus, input:focus, select:focus { outline: 2px solid #007bff; }
-    /* Cookie-Banner */
     #cookie-banner { position: fixed; bottom: 0; background: #fff; padding: 10px; width: 100%; border-top: 1px solid #ddd; display: none; box-shadow: 0 -2px 4px rgba(0,0,0,0.1); z-index: 1000; }
-    /* Copyright Notice */
     .copyright { font-size: 0.8em; color: #888; text-align: center; margin-top: 20px; }
   </style>
 </head>
@@ -73,6 +70,32 @@
   </header>
 
   <div class="container">
+    <!-- Login-Simulation -->
+    <div id="login-section" class="hidden">
+      <h2>Anmelden für personalisierte Inhalte</h2>
+      <form id="login-form">
+        <input type="text" id="username" placeholder="Benutzername" required aria-label="Benutzername">
+        <input type="password" id="password" placeholder="Passwort" required aria-label="Passwort">
+        <button type="button" onclick="simulateLogin()">Anmelden</button>
+      </form>
+      <p id="login-status"></p>
+      <p>DSGVO: Keine Datenübertragung, nur lokale Speicherung.</p>
+    </div>
+
+    <!-- Social Media Werbung -->
+    <div id="social-media-section" class="hidden">
+      <h2>Social Media Werbung (Premium)</h2>
+      <p>König-Status oder höher: Erstellen Sie Werbung für Facebook/Twitter!</p>
+      <form id="social-media-form">
+        <input type="text" id="sm-title" placeholder="Werbetitel (z.B. Pizza Roma Angebot)" required>
+        <textarea id="sm-content" placeholder="Werbetext (z.B. 20% Rabatt auf Pizza)" required></textarea>
+        <input type="text" id="sm-contact" placeholder="Kontakt (Tel/Email)" required>
+        <input type="file" id="sm-image" accept="image/*" aria-label="Werbebild hochladen">
+        <button type="button" onclick="postSocialMedia()">Werbung erstellen</button>
+      </form>
+      <p id="sm-status"></p>
+    </div>
+
     <!-- Profil-Verwaltung -->
     <div id="profile-section" class="hidden">
       <h2>Profil verwalten</h2>
@@ -90,9 +113,141 @@
       <p id="profile-status"></p>
     </div>
 
-    <!-- Weitere Sektionen wie zuvor, mit Inhalten -->
+    <!-- Grid-Kategorien -->
+    <div id="grid-categories" class="grid-categories">
+      <div class="grid-button" onclick="showSection('notdienste')"><h3>🚨 Notdienste</h3><p>Schnelle Hilfe</p></div>
+      <div class="grid-button" onclick="showSection('vermisste')"><h3>🔍 Vermisste</h3><p>Gratis Anzeigen</p></div>
+      <div class="grid-button" onclick="showSection('kultur-religion')"><h3>🎨 Kultur & Religion</h3><p>Vereine & Events</p></div>
+      <div class="grid-button" onclick="showSection('jobs-events')"><h3>💼 Jobs & Events</h3><p>Stellen & Veranstaltungen</p></div>
+      <div class="grid-button" onclick="showSection('unternehmen')"><h3>🏢 Unternehmen</h3><p>Businesses & Premium</p></div>
+      <div class="grid-button" onclick="showSection('behoerden-gerichte')"><h3>🏛️ Behörden</h3><p>Gerichte & Ämter</p></div>
+      <div class="grid-button" onclick="showSection('blackboard')"><h3>📌 Schwarzes Brett</h3><p>Aufträge & Einkäufe</p></div>
+      <div class="grid-button" onclick="showSection('gastronomie')"><h3>🍽️ Gastronomie</h3><p>Restaurants & Catering</p></div>
+      <div class="grid-button" onclick="showSection('handwerker')"><h3>🔧 Handwerker</h3><p>Reparaturen</p></div>
+    </div>
 
-    <!-- Schwarzes Brett mit PDF-Reader -->
+    <!-- Globale Suche -->
+    <input type="text" class="search-bar" placeholder="Suche: Name, Kategorie, Stadt, PLZ..." oninput="renderContent(this.value)" aria-label="Suche">
+    <button class="filter-btn" onclick="renderContent('')">Alle</button>
+    <button class="filter-btn" onclick="renderContent('Restaurant')">Restaurants</button>
+    <button class="filter-btn" onclick="renderContent('Handwerker')">Handwerker</button>
+    <button class="filter-btn" onclick="renderContent('Museum')">Museen</button>
+    <button class="filter-btn" onclick="renderContent('Behörde')">Behörden</button>
+
+    <!-- Sektionen -->
+    <div id="region-section" class="hidden">
+      <h2 class="category-header">Region wählen</h2>
+      <select id="region-select" onchange="filterByRegion(this.value)" aria-label="Wähle eine Stadt oder Region">
+        <option value="">Deutschlandweit</option>
+        <option value="Bergheim" selected>Bergheim</option>
+        <option value="Köln">Köln</option>
+        <option value="Düsseldorf">Düsseldorf</option>
+        <option value="Berlin">Berlin</option>
+      </select>
+      <input type="text" id="plz-input" placeholder="PLZ eingeben (z.B. 50126)" aria-label="Postleitzahl">
+      <button onclick="getUserLocation()" class="cta-button">Standort ermitteln</button>
+      <p id="location-status">PLZ eingeben oder Standort teilen.</p>
+    </div>
+
+    <div id="notdienste-section" class="hidden">
+      <div class="category-header">🚨 Notdienste</div>
+      <div class="section priority">
+        <h3>Apotheken-Notdienst Bergheim</h3>
+        <p>Tel: 02271-12345 | Adresse: Hauptstr. 10 | 24/7 | Barrierefrei: Ja</p>
+        <img src="https://pixabay.com/get/g3f7d8a9b0.../apotheke-notdienst-987654.jpg" alt="Apotheke Bergheim">
+        <a href="https://wa.me/491631234567" class="cta-button">Premium werden</a>
+      </div>
+    </div>
+
+    <div id="vermisste-section" class="hidden">
+      <div class="category-header">🔍 Vermisste Tiere/Menschen (Gratis)</div>
+      <div class="section priority">
+        <h3>Katze Luna (Bergheim)</h3>
+        <p>Seit: 10.08.2025 | Ort: Zentrum | Finderlohn: 50€ | Tel: 0163-1234567</p>
+        <img src="https://pixabay.com/get/g9b2b8f4a0.../katze-vermisst-123456.jpg" alt="Vermisste Katze Luna">
+        <a href="https://wa.me/491631234567" class="cta-button">Gratis Anzeige posten</a>
+      </div>
+    </div>
+
+    <div id="kultur-religion-section" class="hidden">
+      <div class="category-header">🎨 Kultur & Religion</div>
+      <div class="section">
+        <h3>Kulturverein Bergheim e.V.</h3>
+        <p>Event: Stadtfest Bergheim 2025 | Datum: 01.06.2025 | Ort: Zentrum | Barrierefrei: Ja</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bergheim-3571.jpg/800px-Bergheim-3571.jpg" alt="Stadtfest Bergheim">
+      </div>
+      <div class="section">
+        <h3>Museum BERGHEIMAT</h3>
+        <p>Geschichte Bergheims | Adresse: Schloss Paffendorf | Barrierefrei: Ja</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bergheim-3571.jpg/800px-Bergheim-3571.jpg" alt="Museum BERGHEIMAT">
+      </div>
+      <div class="section">
+        <h3>RELiGIO Museum Telgte</h3>
+        <p>Weltreligionen | Event: Führungen 2025 | Barrierefrei: Ja</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Telgte-RELiGIO-Westf%C3%A4lisches-Museum-f%C3%BCr-religi%C3%B6se-Kultur-2019-01.jpg/800px-Telgte-RELiGIO-Westf%C3%A4lisches-Museum-f%C3%BCr-religi%C3%B6se-Kultur-2019-01.jpg" alt="RELiGIO Museum Telgte">
+      </div>
+      <div class="section">
+        <h3>Event: Eko Fresh Konzert</h3>
+        <p>15.11.2025 | MEDIO.RHEIN.ERFT | Tickets via Eventim</p>
+        <img src="https://pixabay.com/get/g9b2b8f4a0.../konzert-musik-buehne-153949.jpg" alt="Eko Fresh Konzert">
+      </div>
+      <a href="https://wa.me/491631234567" class="cta-button">Verein/Event eintragen</a>
+    </div>
+
+    <div id="jobs-events-section" class="hidden">
+      <div class="category-header">💼 Jobs & Events</div>
+      <div class="section">
+        <h3>Job: Handwerker (Bergheim)</h3>
+        <p>Vollzeit | Bewerbung: WhatsApp 0163-1234567</p>
+        <img src="https://pixabay.com/get/g3f7d8a9b0.../handwerker-arbeit-werkzeug-1234567.jpg" alt="Handwerker Job">
+      </div>
+      <div class="section">
+        <h3>Event: G20 Funk-Flohmarkt</h3>
+        <p>17.05.2025 | Bergheim | Barrierefrei: Ja</p>
+        <img src="https://pixabay.com/get/gd7c1b4e5f.../flohmarkt-markt-verkauf-1979076.jpg" alt="Flohmarkt Event">
+      </div>
+      <a href="https://wa.me/491631234567" class="cta-button">Job/Event posten</a>
+    </div>
+
+    <div id="unternehmen-section" class="hidden">
+      <div class="category-header">🏢 Unternehmen</div>
+      <div class="section priority">
+        <h3>Pizza Roma</h3>
+        <p>Tel: 02271-12345 | Adresse: Hauptstr. 1 | Status: König</p>
+        <img src="https://pixabay.com/get/g3f7d8a9b0.../pizza-restaurant-987654.jpg" alt="Pizza Roma">
+        <a href="https://wa.me/491631234567" class="cta-button">Premium werden</a>
+      </div>
+      <div class="section">
+        <h3>Handwerker Müller</h3>
+        <p>Tel: 02271-34567 | Adresse: Industriestr. 5 | Status: Basis</p>
+        <img src="https://pixabay.com/get/g3f7d8a9b0.../handwerker-werkzeug-1234567.jpg" alt="Handwerker Müller">
+      </div>
+    </div>
+
+    <div id="behoerden-gerichte-section" class="hidden">
+      <div class="category-header">🏛️ Behörden & Gerichte</div>
+      <div class="section">
+        <h3>Amtsgericht Bergheim</h3>
+        <p>Tel: 02271-56789 | Adresse: Gerichtsstr. 2 | Öffnungszeiten: Mo-Fr 8-16 Uhr</p>
+        <img src="https://pixabay.com/get/g3f7d8a9b0.../gericht-gebaeude-1234567.jpg" alt="Amtsgericht Bergheim">
+      </div>
+      <div class="section">
+        <h3>Finanzamt Bergheim</h3>
+        <p>Tel: 02271-890 | Adresse: Carl-Sonnenschein-Straße 1 | Öffnungszeiten: Mo-Fr 7:30-12:30 Uhr</p>
+        <img src="https://pixabay.com/get/g3f7d8a9b0.../finanzamt-gebaeude-987654.jpg" alt="Finanzamt Bergheim">
+      </div>
+      <div class="section">
+        <h3>Kreisverwaltung Rhein-Erft-Kreis</h3>
+        <p>Tel: 02271-8310 | Adresse: Willy-Brandt-Platz 1 | Öffnungszeiten: Mo-Fr 8-16 Uhr</p>
+        <img src="https://pixabay.com/get/g3f7d8a9b0.../kreisverwaltung-987654.jpg" alt="Kreisverwaltung Rhein-Erft-Kreis">
+      </div>
+    </div>
+
+    <div id="services-section" class="hidden">
+      <div class="category-header">🛠️ Andere Services</div>
+      <div id="content-list" role="region" aria-live="polite"></div>
+    </div>
+
     <div id="blackboard-section" class="hidden">
       <div class="category-header">📌 Schwarzes Brett</div>
       <p>Posten Sie Aufträge, Einkäufe, Catering oder erstellen Sie Rechnungen/Ausschreibungen als PDF.</p>
@@ -101,14 +256,28 @@
         <textarea id="bb-description" placeholder="Beschreibung" required></textarea>
         <input type="text" id="bb-contact" placeholder="Kontakt (Tel/Email)" required>
         <input type="text" id="bb-invoice" placeholder="Rechnungstext (z.B. Betrag: 500€)" aria-label="Rechnungsdetails">
+        <input type="file" id="bb-image" accept="image/*" aria-label="Bild hochladen (optional)">
         <input type="file" id="bb-pdf-file" accept=".pdf" aria-label="PDF hochladen zum Öffnen">
         <button type="button" onclick="postToBlackboard()">Posten</button>
         <button type="button" onclick="generatePDF()">PDF erstellen</button>
         <button type="button" onclick="openPDFReader()">PDF öffnen/lesen</button>
       </form>
-      <div id="pdf-viewer"></div> <!-- PDF-Viewer Container -->
+      <div id="pdf-viewer"></div>
       <div id="blackboard-posts"></div>
       <a href="https://wa.me/491631234567" class="cta-button">Premium-Post</a>
+    </div>
+
+    <div id="kontakt-section" class="hidden">
+      <h2 class="category-header">Kontakt</h2>
+      <p>📞 <a href="https://wa.me/491631234567">WhatsApp: 0163-1234567</a> | Email: jblum4564@gmail.com</p>
+      <p>Vereine/Behörden: Gratis! Unternehmen: Premium ab 29€.</p>
+      <a class="cta-button" onclick="showSection('social-media')">Social Media Werbung buchen</a>
+    </div>
+
+    <!-- Impressum & Datenschutz -->
+    <div class="container">
+      <h2>Impressum & Datenschutz</h2>
+      <p>Joshua Blum | BERGHEIM TOTAL | Hauptstr. 1, 50126 Bergheim | Tel: 0163-1234567 | Steuernummer: [Ergänze] | DSGVO-konform, Barrierefrei (WCAG 2.1).</p>
     </div>
 
     <!-- Copyright -->
@@ -123,29 +292,138 @@
 
     <!-- JavaScript -->
     <script>
-      // ... Vorherige Funktionen (showSection, renderContent, getUserLocation, postToBlackboard, renderBlackboardPosts, postSocialMedia, acceptCookies, simulateLogin) ...
+      // PWA: Service Worker
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW Fehler:', err));
+      }
 
-      // Profil-Verwaltung
-      function saveProfilePreferences() {
-        const preferences = {
-          showNotdienste: document.getElementById('show-notdienste').checked,
-          showVermisste: document.getElementById('show-vermisste').checked,
-          showKultur: document.getElementById('show-kultur').checked,
-          showJobs: document.getElementById('show-jobs').checked,
-          showUnternehmen: document.getElementById('show-unternehmen').checked,
-          showBehoerden: document.getElementById('show-behoerden').checked,
-          showBlackboard: document.getElementById('show-blackboard').checked
-        };
-        localStorage.setItem('profilePreferences', JSON.stringify(preferences));
-        document.getElementById('profile-status').textContent = 'Preferences gespeichert! (DSGVO: Lokale Speicherung)';
-        loadProfilePreferences();
+      // Daten: Skalierbar, mit Kategorien
+      let content = [
+        { name: 'Pizza Roma', type: 'Restaurant', region: 'Bergheim', tel: '02271-12345', status: 'König', highlight: true, category: 'Unternehmen', image: 'https://pixabay.com/get/g3f7d8a9b0.../pizza-restaurant-987654.jpg' },
+        { name: 'Tierheim Bergheim', type: 'Tierheim', region: 'Bergheim', tel: '02271-23456', status: 'Gratis (Sozial)', highlight: false, category: 'Vermisste', image: 'https://pixabay.com/get/g9b2b8f4a0.../tierheim-123456.jpg' },
+        { name: 'Kulturverein Bergheim e.V.', type: 'Verein', region: 'Bergheim', description: 'Stadtfest 01.06.2025', status: 'Gratis', highlight: false, category: 'Kultur', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bergheim-3571.jpg/800px-Bergheim-3571.jpg' },
+        { name: 'RELiGIO Museum', type: 'Museum', region: 'Telgte', description: 'Weltreligionen', status: 'Gratis', highlight: false, category: 'Kultur', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Telgte-RELiGIO-Westf%C3%A4lisches-Museum-f%C3%BCr-religi%C3%B6se-Kultur-2019-01.jpg/800px-Telgte-RELiGIO-Westf%C3%A4lisches-Museum-f%C3%BCr-religi%C3%B6se-Kultur-2019-01.jpg' },
+        { name: 'Eko Fresh Konzert', type: 'Event', region: 'Bergheim', description: '15.11.2025, MEDIO.RHEIN.ERFT', status: 'Gratis', highlight: false, category: 'Jobs-Events', image: 'https://pixabay.com/get/g9b2b8f4a0.../konzert-musik-buehne-153949.jpg' },
+        { name: 'Amtsgericht Bergheim', type: 'Gericht', region: 'Bergheim', tel: '02271-56789', status: 'Gratis', highlight: false, category: 'Behörden', image: 'https://pixabay.com/get/g3f7d8a9b0.../gericht-gebaeude-1234567.jpg' },
+        { name: 'Finanzamt Bergheim', type: 'Finanzamt', region: 'Bergheim', tel: '02271-890', status: 'Gratis', highlight: false, category: 'Behörden', image: 'https://pixabay.com/get/g3f7d8a9b0.../finanzamt-gebaeude-987654.jpg' },
+        { name: 'Kreisverwaltung Rhein-Erft-Kreis', type: 'Verwaltung', region: 'Bergheim', tel: '02271-8310', status: 'Gratis', highlight: false, category: 'Behörden', image: 'https://pixabay.com/get/g3f7d8a9b0.../kreisverwaltung-987654.jpg' }
+      ];
+
+      // LocalStorage: Backup
+      localStorage.setItem('content', JSON.stringify(content));
+      content = JSON.parse(localStorage.getItem('content')) || [];
+
+      // Sektionen anzeigen
+      function showSection(sectionId) {
+        document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+        document.getElementById(`${sectionId}-section`).classList.remove('hidden');
+        document.getElementById('grid-categories').style.display = sectionId === 'region' ? 'grid' : 'none';
       }
-      function loadProfilePreferences() {
+
+      // Render-Funktion
+      function renderContent(filter = '', region = '') {
+        let list = document.getElementById('content-list');
+        list.innerHTML = '';
         const prefs = JSON.parse(localStorage.getItem('profilePreferences')) || {};
-        document.getElementById('show-notdienste').checked = prefs.showNotdienste !== false;
-        // Ähnlich für andere – und filtere Sektionen basierend auf prefs (z.B. hide Sektionen, wenn unchecked)
+        content
+          .filter(c => (c.name.toLowerCase().includes(filter.toLowerCase()) || c.type.toLowerCase().includes(filter.toLowerCase()) || c.category?.toLowerCase().includes(filter.toLowerCase())) && (region === '' || c.region === region))
+          .filter(c => {
+            if (c.category === 'Notdienste' && prefs.showNotdienste === false) return false;
+            if (c.category === 'Vermisste' && prefs.showVermisste === false) return false;
+            if (c.category === 'Kultur' && prefs.showKultur === false) return false;
+            if (c.category === 'Jobs-Events' && prefs.showJobs === false) return false;
+            if (c.category === 'Unternehmen' && prefs.showUnternehmen === false) return false;
+            if (c.category === 'Behörden' && prefs.showBehoerden === false) return false;
+            return true;
+          })
+          .forEach(c => {
+            let div = document.createElement('div');
+            div.className = 'section';
+            div.style.background = c.highlight ? '#fffacd' : 'white';
+            div.setAttribute('role', 'article');
+            div.innerHTML = `<h3>${c.name} (${c.type}, ${c.region})</h3><p>Status: ${c.status} | ${c.tel ? 'Tel: ' + c.tel : c.description || ''}</p>`;
+            if (c.image) div.innerHTML += `<img src="${c.image}" alt="${c.name}">`;
+            if (c.status.includes('König') || c.status.includes('Kaiser') || c.status.includes('Imperator')) {
+              div.innerHTML += `<a href="https://wa.me/${c.tel?.replace(/\D/g,'')}" class="cta-button">Kontakt</a>`;
+            }
+            list.appendChild(div);
+          });
       }
-      loadProfilePreferences();
+
+      // Region-Filter
+      function filterByRegion(region) {
+        renderContent(document.querySelector('.search-bar').value, region);
+      }
+
+      // Standort-Ermittlung
+      function getUserLocation() {
+        const plz = document.getElementById('plz-input').value;
+        if (plz && /^\d{5}$/.test(plz)) {
+          document.getElementById('location-status').textContent = `PLZ erkannt: ${plz}`;
+          renderContent('', plz);
+        } else if (navigator.geolocation && confirm('Standort teilen für lokale Ergebnisse? (DSGVO-konform)')) {
+          navigator.geolocation.getCurrentPosition(pos => {
+            document.getElementById('location-status').textContent = 'Standort erkannt!';
+            renderContent('', '', pos.coords.latitude, pos.coords.longitude);
+          }, err => {
+            document.getElementById('location-status').textContent = 'Fehler: ' + err.message;
+          });
+        } else {
+          document.getElementById('location-status').textContent = 'Bitte PLZ eingeben oder Standort teilen.';
+        }
+      }
+
+      // Schwarzes Brett
+      let blackboardPosts = JSON.parse(localStorage.getItem('blackboardPosts')) || [];
+      function postToBlackboard() {
+        const title = document.getElementById('bb-title').value;
+        const desc = document.getElementById('bb-description').value;
+        const contact = document.getElementById('bb-contact').value;
+        const image = document.getElementById('bb-image').files[0];
+        let imageData = '';
+        if (image) {
+          const reader = new FileReader();
+          reader.onload = e => {
+            imageData = e.target.result;
+            blackboardPosts.push({ title, desc, contact, image: imageData });
+            localStorage.setItem('blackboardPosts', JSON.stringify(blackboardPosts));
+            renderBlackboardPosts();
+          };
+          reader.readAsDataURL(image);
+        } else {
+          blackboardPosts.push({ title, desc, contact });
+          localStorage.setItem('blackboardPosts', JSON.stringify(blackboardPosts));
+          renderBlackboardPosts();
+        }
+      }
+      function renderBlackboardPosts() {
+        const list = document.getElementById('blackboard-posts');
+        list.innerHTML = '';
+        blackboardPosts.forEach(post => {
+          const div = document.createElement('div');
+          div.className = 'section';
+          div.innerHTML = `<h3>${post.title}</h3><p>${post.desc}</p><p>Kontakt: ${post.contact}</p>`;
+          if (post.image) div.innerHTML += `<img src="${post.image}" alt="${post.title}">`;
+          list.appendChild(div);
+        });
+      }
+      renderBlackboardPosts();
+
+      // PDF-Generierung
+      function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const title = document.getElementById('bb-title').value || 'Rechnung/Ausschreibung';
+        const desc = document.getElementById('bb-description').value || 'Keine Beschreibung';
+        const contact = document.getElementById('bb-contact').value || 'Kein Kontakt';
+        const invoice = document.getElementById('bb-invoice').value || 'Kein Rechnungstext';
+        doc.text('BERGHEIM TOTAL', 10, 10);
+        doc.text(`Titel: ${title}`, 10, 20);
+        doc.text(`Beschreibung: ${desc}`, 10, 30);
+        doc.text(`Kontakt: ${contact}`, 10, 40);
+        doc.text(`Rechnung/Ausschreibung: ${invoice}`, 10, 50);
+        doc.save(`${title.replace(/\s/g, '_')}.pdf`);
+      }
 
       // PDF-Öffnen mit pdf.js
       function openPDFReader() {
@@ -170,6 +448,80 @@
           alert('Laden Sie eine PDF hoch!');
         }
       }
+
+      // Social Media Werbung
+      function postSocialMedia() {
+        const title = document.getElementById('sm-title').value;
+        const content = document.getElementById('sm-content').value;
+        const contact = document.getElementById('sm-contact').value;
+        const image = document.getElementById('sm-image').files[0];
+        if (title && content && contact) {
+          document.getElementById('sm-status').textContent = `Werbung vorbereitet: "${title}" wird auf Facebook/Twitter gepostet! Kontakt: 0163-1234567`;
+          if (image) {
+            const reader = new FileReader();
+            reader.onload = e => {
+              console.log('Bild für Social Media:', e.target.result);
+            };
+            reader.readAsDataURL(image);
+          }
+        } else {
+          document.getElementById('sm-status').textContent = 'Bitte alle Felder ausfüllen.';
+        }
+      }
+
+      // Cookies
+      if (!localStorage.getItem('cookies-accepted')) {
+        document.getElementById('cookie-banner').style.display = 'block';
+      }
+      function acceptCookies() {
+        localStorage.setItem('cookies-accepted', true);
+        document.getElementById('cookie-banner').remove();
+      }
+
+      // Login-Simulation
+      function simulateLogin() {
+        const user = document.getElementById('username').value;
+        if (user) {
+          localStorage.setItem('user', user);
+          document.getElementById('login-status').textContent = 'Angemeldet als ' + user;
+        } else {
+          document.getElementById('login-status').textContent = 'Fehler bei Anmeldung.';
+        }
+      }
+
+      // Profil-Verwaltung
+      function saveProfilePreferences() {
+        const preferences = {
+          showNotdienste: document.getElementById('show-notdienste').checked,
+          showVermisste: document.getElementById('show-vermisste').checked,
+          showKultur: document.getElementById('show-kultur').checked,
+          showJobs: document.getElementById('show-jobs').checked,
+          showUnternehmen: document.getElementById('show-unternehmen').checked,
+          showBehoerden: document.getElementById('show-behoerden').checked,
+          showBlackboard: document.getElementById('show-blackboard').checked
+        };
+        localStorage.setItem('profilePreferences', JSON.stringify(preferences));
+        document.getElementById('profile-status').textContent = 'Preferences gespeichert! (DSGVO: Lokale Speicherung)';
+        loadProfilePreferences();
+      }
+      function loadProfilePreferences() {
+        const prefs = JSON.parse(localStorage.getItem('profilePreferences')) || {};
+        document.getElementById('show-notdienste').checked = prefs.showNotdienste !== false;
+        document.getElementById('show-vermisste').checked = prefs.showVermisste !== false;
+        document.getElementById('show-kultur').checked = prefs.showKultur !== false;
+        document.getElementById('show-jobs').checked = prefs.showJobs !== false;
+        document.getElementById('show-unternehmen').checked = prefs.showUnternehmen !== false;
+        document.getElementById('show-behoerden').checked = prefs.showBehoerden !== false;
+        document.getElementById('show-blackboard').checked = prefs.showBlackboard !== false;
+        document.getElementById('notdienste-section').classList.toggle('hidden', !prefs.showNotdienste);
+        document.getElementById('vermisste-section').classList.toggle('hidden', !prefs.showVermisste);
+        document.getElementById('kultur-religion-section').classList.toggle('hidden', !prefs.showKultur);
+        document.getElementById('jobs-events-section').classList.toggle('hidden', !prefs.showJobs);
+        document.getElementById('unternehmen-section').classList.toggle('hidden', !prefs.showUnternehmen);
+        document.getElementById('behoerden-gerichte-section').classList.toggle('hidden', !prefs.showBehoerden);
+        document.getElementById('blackboard-section').classList.toggle('hidden', !prefs.showBlackboard);
+      }
+      loadProfilePreferences();
 
       // Initial
       document.getElementById('grid-categories').style.display = 'grid';
