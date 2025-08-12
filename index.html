@@ -1,531 +1,1525 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="BERGHEIM TOTAL: Deutschlandweite Plattform für Services, Kultur, Religion, Jobs, Vermisste, Schwarzes Brett – kostenlos für Vereine! Skalierbar bis 2030. DSGVO-konform.">
-  <meta name="keywords" content="Bergheim, NRW, Deutschland, Notdienste, Vermisste, Museen, Kirchen, Moscheen, Jobs, Events, Unternehmen, Behörden, Gerichte, Schwarzes Brett, Inklusion, Barrierefrei">
-  <meta name="author" content="Joshua Blum, BERGHEIM TOTAL, Alle Rechte vorbehalten">
-  <title>BERGHEIM TOTAL 👑 – Von Bergheim zu Deutschland</title>
-  <link rel="manifest" href="/manifest.json">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.338/pdf.min.js"></script>
-  <style>
-    body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; overflow-x: hidden; }
-    header { background: #007bff; color: white; text-align: center; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-    nav a { color: white; margin: 0 12px; text-decoration: none; font-weight: bold; transition: color 0.3s; cursor: pointer; }
-    nav a:hover { color: #ffeb3b; }
-    .container { max-width: 1200px; margin: auto; padding: 20px; }
-    .section { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.2s; }
-    .section:hover { transform: scale(1.02); }
-    .section img { max-width: 100%; border-radius: 8px; margin-top: 10px; }
-    .priority { background: #ffeb3b; border-left: 5px solid #ffc107; }
-    .search-bar { width: 100%; padding: 12px; font-size: 16px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
-    .filter-btn { padding: 10px 15px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; transition: background 0.3s; }
-    .filter-btn:hover { background: #0056b3; }
-    footer { background: #007bff; color: white; text-align: center; padding: 15px; margin-top: 30px; border-top: 3px solid #ffeb3b; }
-    .cta-button { background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block; margin-top: 10px; transition: background 0.3s; }
-    .cta-button:hover { background: #218838; }
-    .category-header { font-size: 1.5em; color: #007bff; border-bottom: 2px solid #007bff; padding-bottom: 10px; margin-bottom: 20px; }
-    .grid-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
-    .grid-button { background: #ffffff; border: 1px solid #ddd; padding: 20px; text-align: center; border-radius: 8px; cursor: pointer; transition: background 0.3s, transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    .grid-button:hover { background: #e9ecef; transform: scale(1.05); }
-    .grid-button h3 { margin: 10px 0; color: #007bff; }
-    .grid-button p { font-size: 0.9em; color: #666; }
-    .hidden { display: none; }
-    #login-section, #social-media-section, #blackboard-section, #profile-section { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
-    #blackboard-posts { margin-top: 20px; }
-    #blackboard-form, #social-media-form, #profile-form { display: flex; flex-direction: column; gap: 10px; }
-    #blackboard-form input, #blackboard-form textarea, #social-media-form input, #social-media-form textarea, #profile-form input { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
-    #blackboard-form button, #social-media-form button, #profile-form button { background: #28a745; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; }
-    #blackboard-form button:hover, #social-media-form button:hover, #profile-form button:hover { background: #218838; }
-    #location-status { margin-top: 10px; font-style: italic; }
-    #pdf-viewer { height: 400px; border: 1px solid #ddd; margin-top: 10px; }
-    @media (max-width: 600px) { .section { font-size: 14px; } .filter-btn { width: 100%; } .grid-categories { grid-template-columns: 1fr; } }
-    a { color: #007bff; text-decoration: underline; }
-    button:focus, input:focus, select:focus { outline: 2px solid #007bff; }
-    #cookie-banner { position: fixed; bottom: 0; background: #fff; padding: 10px; width: 100%; border-top: 1px solid #ddd; display: none; box-shadow: 0 -2px 4px rgba(0,0,0,0.1); z-index: 1000; }
-    .copyright { font-size: 0.8em; color: #888; text-align: center; margin-top: 20px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal der Könige™ - Rhein-Erft-Kreis | Das Elite Business-Netzwerk</title>
+    <meta name="description" content="Das exklusive Unternehmernetzwerk für den Rhein-Erft-Kreis. Jede Branche krönt ihren König. Sei Teil der Elite.">
+    
+    <!-- SEO Meta Tags -->
+    <meta property="og:title" content="Portal der Könige - Rhein-Erft-Kreis">
+    <meta property="og:description" content="Das Elite-Netzwerk für Unternehmer. Jede Branche, ein König.">
+    <meta property="og:image" content="https://portal-der-koenige.de/images/crown-logo.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- PWA & Mobile Optimization -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1e3a8a">
+    
+    <!-- External Resources -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- PayPal Integration -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R&currency=EUR"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Poppins:wght@300;400;600;700;900&display=swap');
+        
+        :root {
+            --gold: #FFD700;
+            --royal-gold: #FFA500;
+            --royal-blue: #1e3a8a;
+            --royal-purple: #6b21a8;
+            --royal-red: #991b1b;
+            --elite-black: #0a0a0a;
+            --success: #10b981;
+            --premium-gradient: linear-gradient(135deg, var(--royal-blue) 0%, var(--royal-purple) 50%, var(--gold) 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+        
+        .font-royal {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+        }
+        
+        /* Crown Animation */
+        @keyframes crownFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .crown-animation {
+            animation: crownFloat 3s ease-in-out infinite;
+        }
+        
+        /* Gold Shimmer Effect */
+        @keyframes goldShimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        
+        .gold-shimmer {
+            background: linear-gradient(90deg, 
+                var(--gold) 0%, 
+                #fff 25%, 
+                var(--gold) 50%, 
+                #fff 75%, 
+                var(--gold) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldShimmer 3s linear infinite;
+        }
+        
+        /* Elite Card Design */
+        .elite-card {
+            background: linear-gradient(135deg, rgba(30,58,138,0.1) 0%, rgba(107,33,168,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 30px rgba(255,215,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .elite-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 50px rgba(255,215,0,0.5);
+        }
+        
+        /* König Badge */
+        .koenig-badge {
+            position: relative;
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--premium-gradient);
+            color: white;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(255,215,0,0.5);
+        }
+        
+        .koenig-badge::before {
+            content: '👑';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+        }
+        
+        /* Navigation Styles */
+        .nav-premium {
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        /* Button Styles */
+        .btn-royal {
+            background: var(--premium-gradient);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 20px rgba(255,215,0,0.3);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-royal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.5);
+        }
+        
+        /* Map Styles */
+        #map {
+            height: 500px;
+            border: 3px solid var(--gold);
+            border-radius: 15px;
+        }
+        
+        /* Loading Animation */
+        .loading-crown {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255,215,0,0.3);
+            border-top: 5px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .font-royal {
+                font-size: 1.5rem;
+            }
+            #map {
+                height: 300px;
+            }
+        }
+        
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--royal-red);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        /* Premium Table */
+        .premium-table {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .premium-table th {
+            background: var(--premium-gradient);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+        }
+        
+        .premium-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,215,0,0.2);
+            color: white;
+        }
+    </style>
 </head>
-<body>
-  <header role="banner">
-    <h1>BERGHEIM TOTAL 👑 – Von Bergheim zu Deutschland!</h1>
-    <p>Verbinde ALLE: Services, Kultur, Religion, Jobs, Soziale Projekte, Schwarzes Brett – kostenlos für Vereine! 2030-ready! DSGVO-konform.</p>
-    <nav aria-label="Hauptmenü">
-      <a onclick="showSection('region')">Region</a>
-      <a onclick="showSection('notdienste')">Notdienste</a>
-      <a onclick="showSection('vermisste')">Vermisste</a>
-      <a onclick="showSection('kultur-religion')">Kultur & Religion</a>
-      <a onclick="showSection('jobs-events')">Jobs & Events</a>
-      <a onclick="showSection('unternehmen')">Unternehmen</a>
-      <a onclick="showSection('behoerden-gerichte')">Behörden & Gerichte</a>
-      <a onclick="showSection('services')">Andere Services</a>
-      <a onclick="showSection('blackboard')">Schwarzes Brett</a>
-      <a onclick="showSection('social-media')">Social Media Werbung</a>
-      <a onclick="showSection('profile')">Profil verwalten</a>
-      <a onclick="showSection('kontakt')">Kontakt</a>
+<body class="bg-gray-900 text-white">
+    
+    <!-- ELITE NAVIGATION BAR -->
+    <nav class="nav-premium sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <div class="crown-animation text-4xl">👑</div>
+                    <div>
+                        <h1 class="font-royal text-2xl gold-shimmer">PORTAL DER KÖNIGE</h1>
+                        <p class="text-xs text-gray-400">Sei Teil der Elite und vernetze deine Region</p>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <button onclick="showRegionen()" class="hover:text-gold transition">
+                        <i class="fas fa-map"></i> Regionen
+                    </button>
+                    <button onclick="showKoenige()" class="hover:text-gold transition">
+                        <i class="fas fa-crown"></i> Könige
+                    </button>
+                    <button onclick="showEvents()" class="hover:text-gold transition">
+                        <i class="fas fa-calendar"></i> Events
+                    </button>
+                    <button onclick="showNetzwerk()" class="hover:text-gold transition">
+                        <i class="fas fa-network-wired"></i> Netzwerk
+                    </button>
+                    <div class="relative">
+                        <button onclick="showNotifications()" class="hover:text-gold transition">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                    </div>
+                    <button onclick="showLogin()" class="btn-royal">
+                        ELITE LOGIN
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
     </nav>
-  </header>
-
-  <div class="container">
-    <!-- Login-Simulation -->
-    <div id="login-section" class="hidden">
-      <h2>Anmelden für personalisierte Inhalte</h2>
-      <form id="login-form">
-        <input type="text" id="username" placeholder="Benutzername" required aria-label="Benutzername">
-        <input type="password" id="password" placeholder="Passwort" required aria-label="Passwort">
-        <button type="button" onclick="simulateLogin()">Anmelden</button>
-      </form>
-      <p id="login-status"></p>
-      <p>DSGVO: Keine Datenübertragung, nur lokale Speicherung.</p>
+    
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-black bg-opacity-95 z-50 pt-20">
+        <div class="container mx-auto px-4">
+            <button onclick="toggleMobileMenu()" class="absolute top-4 right-4 text-3xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="space-y-4 text-center">
+                <button onclick="showRegionen()" class="block w-full py-3 text-xl hover:text-gold">
+                    <i class="fas fa-map"></i> Regionen
+                </button>
+                <button onclick="showKoenige()" class="block w-full py-3 text-xl hover:text-gold">
+                    <i class="fas fa-crown"></i> Könige
+                </button>
+                <button onclick="showEvents()" class="block w-full py-3 text-xl hover:text-gold">
+                    <i class="fas fa-calendar"></i> Events
+                </button>
+                <button onclick="showNetzwerk()" class="block w-full py-3 text-xl hover:text-gold">
+                    <i class="fas fa-network-wired"></i> Netzwerk
+                </button>
+                <button onclick="showLogin()" class="btn-royal w-full mt-6">
+                    ELITE LOGIN
+                </button>
+            </div>
+        </div>
     </div>
-
-    <!-- Social Media Werbung -->
-    <div id="social-media-section" class="hidden">
-      <h2>Social Media Werbung (Premium)</h2>
-      <p>König-Status oder höher: Erstellen Sie Werbung für Facebook/Twitter!</p>
-      <form id="social-media-form">
-        <input type="text" id="sm-title" placeholder="Werbetitel (z.B. Pizza Roma Angebot)" required>
-        <textarea id="sm-content" placeholder="Werbetext (z.B. 20% Rabatt auf Pizza)" required></textarea>
-        <input type="text" id="sm-contact" placeholder="Kontakt (Tel/Email)" required>
-        <input type="file" id="sm-image" accept="image/*" aria-label="Werbebild hochladen">
-        <button type="button" onclick="postSocialMedia()">Werbung erstellen</button>
-      </form>
-      <p id="sm-status"></p>
+    
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden py-20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="crown-animation text-8xl mb-6">👑</div>
+            <h2 class="font-royal text-5xl md:text-7xl mb-6 gold-shimmer">
+                DAS PORTAL DER KÖNIGE
+            </h2>
+            <p class="text-xl md:text-2xl mb-4 text-gray-300">
+                RHEIN-ERFT-KREIS
+            </p>
+            <p class="text-lg mb-8 text-gray-400 max-w-3xl mx-auto">
+                Das exklusive Netzwerk für die Business-Elite. 
+                Jede Branche krönt ihren König. Vereine & Tierheime sind kostenlos dabei.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button onclick="becomeKing()" class="btn-royal">
+                    <i class="fas fa-crown"></i> KÖNIG WERDEN
+                </button>
+                <button onclick="showStammtisch()" class="btn-royal bg-gradient-to-r from-purple-600 to-pink-600">
+                    <i class="fas fa-users"></i> STAMMTISCH
+                </button>
+                <button onclick="showDeals()" class="btn-royal bg-gradient-to-r from-green-600 to-emerald-600">
+                    <i class="fas fa-handshake"></i> DEALS
+                </button>
+            </div>
+            
+            <!-- Live Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="elite-card p-4 rounded-lg">
+                    <div class="text-3xl font-bold text-gold">127</div>
+                    <div class="text-sm">Könige</div>
+                </div>
+                <div class="elite-card p-4 rounded-lg">
+                    <div class="text-3xl font-bold text-gold">10</div>
+                    <div class="text-sm">Städte</div>
+                </div>
+                <div class="elite-card p-4 rounded-lg">
+                    <div class="text-3xl font-bold text-gold">2.4M€</div>
+                    <div class="text-sm">Deals/Monat</div>
+                </div>
+                <div class="elite-card p-4 rounded-lg">
+                    <div class="text-3xl font-bold text-gold">348</div>
+                    <div class="text-sm">Elite-Mitglieder</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- AKTUELLE KÖNIGE SECTION -->
+    <section class="py-16 bg-black bg-opacity-50">
+        <div class="container mx-auto px-4">
+            <h3 class="font-royal text-4xl text-center mb-12 gold-shimmer">
+                DIE AKTUELLEN KÖNIGE
+            </h3>
+            
+            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Maurer König -->
+                <div class="elite-card p-6 rounded-lg text-center">
+                    <div class="text-5xl mb-4">🧱</div>
+                    <h4 class="font-bold text-xl mb-2">MAURER-KÖNIG</h4>
+                    <div class="koenig-badge mb-3">
+                        Schmidt Bau GmbH
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">327 Projekte • 4.9★</p>
+                    <div class="space-y-2">
+                        <button class="text-gold hover:underline text-sm">
+                            <i class="fas fa-phone"></i> Kontakt
+                        </button>
+                        <button class="text-blue-400 hover:underline text-sm ml-3">
+                            <i class="fas fa-chart-line"></i> Stats
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Elektriker König -->
+                <div class="elite-card p-6 rounded-lg text-center">
+                    <div class="text-5xl mb-4">⚡</div>
+                    <h4 class="font-bold text-xl mb-2">ELEKTRIKER-KÖNIG</h4>
+                    <div class="koenig-badge mb-3">
+                        Volt-Meister AG
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">892 Aufträge • 5.0★</p>
+                    <div class="space-y-2">
+                        <button class="text-gold hover:underline text-sm">
+                            <i class="fas fa-phone"></i> Kontakt
+                        </button>
+                        <button class="text-blue-400 hover:underline text-sm ml-3">
+                            <i class="fas fa-chart-line"></i> Stats
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Restaurant König -->
+                <div class="elite-card p-6 rounded-lg text-center">
+                    <div class="text-5xl mb-4">🍽️</div>
+                    <h4 class="font-bold text-xl mb-2">GASTRONOMIE-KÖNIG</h4>
+                    <div class="koenig-badge mb-3">
+                        Villa Toscana
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">50K Gäste/Jahr • 4.8★</p>
+                    <div class="space-y-2">
+                        <button class="text-gold hover:underline text-sm">
+                            <i class="fas fa-phone"></i> Reservierung
+                        </button>
+                        <button class="text-blue-400 hover:underline text-sm ml-3">
+                            <i class="fas fa-chart-line"></i> Stats
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- IT König -->
+                <div class="elite-card p-6 rounded-lg text-center">
+                    <div class="text-5xl mb-4">💻</div>
+                    <h4 class="font-bold text-xl mb-2">IT-KÖNIG</h4>
+                    <div class="koenig-badge mb-3">
+                        Digital Solutions
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">200+ Kunden • 5.0★</p>
+                    <div class="space-y-2">
+                        <button class="text-gold hover:underline text-sm">
+                            <i class="fas fa-phone"></i> Kontakt
+                        </button>
+                        <button class="text-blue-400 hover:underline text-sm ml-3">
+                            <i class="fas fa-chart-line"></i> Stats
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Chemie König -->
+                <div class="elite-card p-6 rounded-lg text-center">
+                    <div class="text-5xl mb-4">🧪</div>
+                    <h4 class="font-bold text-xl mb-2">CHEMIE-KÖNIG</h4>
+                    <div class="koenig-badge mb-3">
+                        ChemTech Köln
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">15 Patente • Industry Leader</p>
+                    <div class="space-y-2">
+                        <button class="text-gold hover:underline text-sm">
+                            <i class="fas fa-phone"></i> Kontakt
+                        </button>
+                        <button class="text-blue-400 hover:underline text-sm ml-3">
+                            <i class="fas fa-chart-line"></i> Stats
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Immobilien König -->
+                <div class="elite-card p-6 rounded-lg text-center">
+                    <div class="text-5xl mb-4">🏢</div>
+                    <h4 class="font-bold text-xl mb-2">IMMOBILIEN-KÖNIG</h4>
+                    <div class="koenig-badge mb-3">
+                        REK Immobilien
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">500M€ Portfolio • Top Makler</p>
+                    <div class="space-y-2">
+                        <button class="text-gold hover:underline text-sm">
+                            <i class="fas fa-phone"></i> Kontakt
+                        </button>
+                        <button class="text-blue-400 hover:underline text-sm ml-3">
+                            <i class="fas fa-chart-line"></i> Stats
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Fitness König -->
+                <div class="elite-card p-6 rounded-lg text-center">
+                    <div class="text-5xl mb-4">💪</div>
+                    <h4 class="font-bold text-xl mb-2">FITNESS-KÖNIG</h4>
+                    <div class="koenig-badge mb-3">
+                        PowerGym Elite
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">3000 Mitglieder • #1 Studio</p>
+                    <div class="space-y-2">
+                        <button class="text-gold hover:underline text-sm">
+                            <i class="fas fa-phone"></i> Probetraining
+                        </button>
+                        <button class="text-blue-400 hover:underline text-sm ml-3">
+                            <i class="fas fa-chart-line"></i> Stats
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mehr Könige Button -->
+                <div class="elite-card p-6 rounded-lg text-center flex items-center justify-center">
+                    <button onclick="showAllKings()" class="text-center">
+                        <div class="text-5xl mb-4">➕</div>
+                        <h4 class="font-bold text-xl mb-2">ALLE KÖNIGE</h4>
+                        <p class="text-sm text-gray-400">127 Branchen-Könige</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- RHEIN-ERFT-KREIS MAP & INFO -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h3 class="font-royal text-4xl text-center mb-12 gold-shimmer">
+                RHEIN-ERFT-KREIS ENTDECKEN
+            </h3>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Interactive Map -->
+                <div>
+                    <div id="map" class="rounded-lg shadow-2xl"></div>
+                    <div class="mt-4 grid grid-cols-3 gap-2">
+                        <button onclick="filterMap('all')" class="btn-royal text-sm py-2">
+                            Alle anzeigen
+                        </button>
+                        <button onclick="filterMap('kings')" class="btn-royal text-sm py-2 bg-gradient-to-r from-gold to-yellow-600">
+                            Nur Könige
+                        </button>
+                        <button onclick="filterMap('events')" class="btn-royal text-sm py-2 bg-gradient-to-r from-purple-600 to-pink-600">
+                            Events
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Region Info -->
+                <div>
+                    <div class="elite-card p-6 rounded-lg mb-6">
+                        <h4 class="font-bold text-2xl mb-4 text-gold">📍 10 Städte - 1 Königreich</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <h5 class="font-bold mb-2">Unsere Städte:</h5>
+                                <ul class="space-y-1 text-sm">
+                                    <li>🏰 Bergheim (60.000 Einw.)</li>
+                                    <li>🏰 Brühl (45.000 Einw.)</li>
+                                    <li>🏰 Erftstadt (50.000 Einw.)</li>
+                                    <li>🏰 Frechen (52.000 Einw.)</li>
+                                    <li>🏰 Hürth (60.000 Einw.)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-bold mb-2">&nbsp;</h5>
+                                <ul class="space-y-1 text-sm">
+                                    <li>🏰 Kerpen (66.000 Einw.)</li>
+                                    <li>🏰 Pulheim (54.000 Einw.)</li>
+                                    <li>🏰 Wesseling (36.000 Einw.)</li>
+                                    <li>🏰 Bedburg (24.000 Einw.)</li>
+                                    <li>🏰 Elsdorf (21.000 Einw.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gold">
+                            <p class="text-sm text-gray-400">
+                                <strong class="text-gold">468.000</strong> Einwohner • 
+                                <strong class="text-gold">704 km²</strong> Fläche • 
+                                <strong class="text-gold">15.000+</strong> Unternehmen
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Sehenswürdigkeiten -->
+                    <div class="elite-card p-6 rounded-lg">
+                        <h4 class="font-bold text-2xl mb-4 text-gold">🏛️ Top Sehenswürdigkeiten</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Schloss_Augustusburg_in_Br%C3%BChl.jpg/320px-Schloss_Augustusburg_in_Br%C3%BChl.jpg" 
+                                     alt="Schloss Augustusburg" 
+                                     class="w-20 h-20 rounded object-cover">
+                                <div>
+                                    <h5 class="font-bold">Schloss Augustusburg Brühl</h5>
+                                    <p class="text-sm text-gray-400">UNESCO Weltkulturerbe</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-3">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Phantasialand_002.jpg/320px-Phantasialand_002.jpg" 
+                                     alt="Phantasialand" 
+                                     class="w-20 h-20 rounded object-cover">
+                                <div>
+                                    <h5 class="font-bold">Phantasialand</h5>
+                                    <p class="text-sm text-gray-400">Deutschlands #1 Freizeitpark</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-3">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Schloss_Paffendorf.jpg/320px-Schloss_Paffendorf.jpg" 
+                                     alt="Schloss Paffendorf" 
+                                     class="w-20 h-20 rounded object-cover">
+                                <div>
+                                    <h5 class="font-bold">Schloss Paffendorf</h5>
+                                    <p class="text-sm text-gray-400">Renaissance Wasserschloss</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- EVENTS & VERANSTALTUNGEN -->
+    <section class="py-16 bg-black bg-opacity-50">
+        <div class="container mx-auto px-4">
+            <h3 class="font-royal text-4xl text-center mb-12 gold-shimmer">
+                ELITE EVENTS & STAMMTISCHE
+            </h3>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Business Stammtisch -->
+                <div class="elite-card p-6 rounded-lg">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Königs-Stammtisch</h4>
+                            <p class="text-sm text-gray-400">Nur für gekrönte Unternehmer</p>
+                        </div>
+                        <span class="koenig-badge text-xs">VIP</span>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <p><i class="fas fa-calendar"></i> Jeden 1. Donnerstag</p>
+                        <p><i class="fas fa-clock"></i> 19:00 - 23:00 Uhr</p>
+                        <p><i class="fas fa-location-dot"></i> Villa Toscana, Brühl</p>
+                        <p><i class="fas fa-users"></i> 30 Plätze (23 gebucht)</p>
+                    </div>
+                    <button class="btn-royal w-full mt-4">
+                        Platz reservieren
+                    </button>
+                </div>
+                
+                <!-- Deal Night -->
+                <div class="elite-card p-6 rounded-lg">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Deal Night</h4>
+                            <p class="text-sm text-gray-400">B2B Speed Dating</p>
+                        </div>
+                        <span class="bg-green-600 text-white px-3 py-1 rounded text-xs">NEU</span>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <p><i class="fas fa-calendar"></i> 15. Februar 2025</p>
+                        <p><i class="fas fa-clock"></i> 18:00 - 22:00 Uhr</p>
+                        <p><i class="fas fa-location-dot"></i> Media Park, Köln</p>
+                        <p><i class="fas fa-handshake"></i> 50+ Unternehmer</p>
+                    </div>
+                    <button class="btn-royal w-full mt-4 bg-gradient-to-r from-green-600 to-emerald-600">
+                        Jetzt anmelden
+                    </button>
+                </div>
+                
+                <!-- Golf Turnier -->
+                <div class="elite-card p-6 rounded-lg">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Königs Golf Cup</h4>
+                            <p class="text-sm text-gray-400">Networking auf dem Green</p>
+                        </div>
+                        <span class="bg-purple-600 text-white px-3 py-1 rounded text-xs">SPORT</span>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <p><i class="fas fa-calendar"></i> 22. März 2025</p>
+                        <p><i class="fas fa-clock"></i> 10:00 - 18:00 Uhr</p>
+                        <p><i class="fas fa-location-dot"></i> Golf Club Velderhof</p>
+                        <p><i class="fas fa-trophy"></i> 10.000€ Preisgeld</p>
+                    </div>
+                    <button class="btn-royal w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600">
+                        Startplatz sichern
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Event Calendar Button -->
+            <div class="text-center mt-8">
+                <button onclick="showFullCalendar()" class="btn-royal">
+                    <i class="fas fa-calendar-alt"></i> VOLLSTÄNDIGER EVENTKALENDER 2025
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- VEREINS & SPONSORING SECTION -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h3 class="font-royal text-4xl text-center mb-12 gold-shimmer">
+                VEREINE, STIFTUNGEN & SPONSORING
+            </h3>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Kostenlose Vereine -->
+                <div class="elite-card p-6 rounded-lg">
+                    <h4 class="font-bold text-2xl mb-4 text-green-400">
+                        <i class="fas fa-heart"></i> KOSTENLOS DABEI
+                    </h4>
+                    <p class="text-sm mb-4">Gemeinnützige Organisationen erhalten kostenlosen Premium-Zugang!</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-black bg-opacity-50 p-3 rounded">
+                            <h5 class="font-bold">🐕 Tierheim Bergheim</h5>
+                            <p class="text-xs text-gray-400">15 Tiere suchen ein Zuhause</p>
+                            <button class="text-green-400 text-xs hover:underline">Mehr erfahren →</button>
+                        </div>
+                        
+                        <div class="bg-black bg-opacity-50 p-3 rounded">
+                            <h5 class="font-bold">⚽ FC Quadrath-Ichendorf</h5>
+                            <p class="text-xs text-gray-400">Jugendförderung seit 1923</p>
+                            <button class="text-green-400 text-xs hover:underline">Sponsor werden →</button>
+                        </div>
+                        
+                        <div class="bg-black bg-opacity-50 p-3 rounded">
+                            <h5 class="font-bold">🎭 Kulturverein Erftstadt</h5>
+                            <p class="text-xs text-gray-400">Nächste Show: 20.02.2025</p>
+                            <button class="text-green-400 text-xs hover:underline">Tickets →</button>
+                        </div>
+                    </div>
+                    
+                    <button onclick="showAllVereine()" class="btn-royal w-full mt-4 bg-gradient-to-r from-green-600 to-emerald-600">
+                        + Verein kostenlos eintragen
+                    </button>
+                </div>
+                
+                <!-- Sponsoring Opportunities -->
+                <div class="elite-card p-6 rounded-lg">
+                    <h4 class="font-bold text-2xl mb-4 text-gold">
+                        <i class="fas fa-handshake"></i> SPONSORING-BÖRSE
+                    </h4>
+                    <p class="text-sm mb-4">Projekte die Unterstützung suchen:</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-black bg-opacity-50 p-3 rounded">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h5 class="font-bold text-sm">Neuer Spielplatz Pulheim</h5>
+                                    <p class="text-xs text-gray-400">Benötigt: 15.000€</p>
+                                </div>
+                                <span class="text-gold text-xs">60% finanziert</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                <div class="bg-gold h-2 rounded-full" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-black bg-opacity-50 p-3 rounded">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h5 class="font-bold text-sm">Jugend-Hackathon 2025</h5>
+                                    <p class="text-xs text-gray-400">Benötigt: 5.000€</p>
+                                </div>
+                                <span class="text-gold text-xs">30% finanziert</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                <div class="bg-gold h-2 rounded-full" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-black bg-opacity-50 p-3 rounded">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h5 class="font-bold text-sm">Tierheim Renovierung</h5>
+                                    <p class="text-xs text-gray-400">Benötigt: 25.000€</p>
+                                </div>
+                                <span class="text-gold text-xs">85% finanziert</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                <div class="bg-gold h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="becomeSponsor()" class="btn-royal w-full mt-4">
+                        Sponsor werden
+                    </button>
+                </div>
+                
+                <!-- Community Feed -->
+                <div class="elite-card p-6 rounded-lg">
+                    <h4 class="font-bold text-2xl mb-4 text-purple-400">
+                        <i class="fas fa-newspaper"></i> COMMUNITY FEED
+                    </h4>
+                    <p class="text-sm mb-4">Aktuelle Posts aus der Region:</p>
+                    
+                    <div class="space-y-3 max-h-96 overflow-y-auto">
+                        <div class="bg-black bg-opacity-50 p-3 rounded">
+                            <div class="flex items-start space-x-2">
+                                <div class="text-2xl">🐕</div>
+                                <div class="flex-1">
+                                    <h5 class="font-bold text-sm">Tierheim Bergheim</h5>
+                                    <p class="text-xs text-gray-400">vor 2 Stunden</p>
+                                    <p class="text-sm mt-1">NOTFALL: Katze Mimi vermisst! Finderlohn 100€</p>
+                                    <button class="text-blue-400 text-xs hover:underline">Teilen →</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-black bg-opacity-50 p-3 rounded">
+                            <div class="flex items-start space-x-2">
+                                <div class="text-2xl">⚽</div>
+                                <div class="flex-1">
+                                    <h5 class="font-bold text-sm">FC Quadrath</h5>
+                                    <p class="text-xs text-gray-400">vor 5 Stunden</p>
+                                    <p class="text-sm mt-1">U19 gewinnt 3:1 gegen Köln! Danke an Sponsor König Schmidt Bau!</p>
+                                    <button class="text-blue-400 text-xs hover:underline">Gratulieren →</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-black bg-opacity-50 p-3 rounded">
+                            <div class="flex items-start space-x-2">
+                                <div class="text-2xl">🎭</div>
+                                <div class="flex-1">
+                                    <h5 class="font-bold text-sm">Kulturverein</h5>
+                                    <p class="text-xs text-gray-400">gestern</p>
+                                    <p class="text-sm mt-1">Frühjahrs-Gala ausverkauft! Warteliste geöffnet.</p>
+                                    <button class="text-blue-400 text-xs hover:underline">Warteliste →</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="createPost()" class="btn-royal w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600">
+                        + Post erstellen
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- PREISGESTALTUNG -->
+    <section class="py-16 bg-gradient-to-r from-royal-blue to-royal-purple">
+        <div class="container mx-auto px-4">
+            <h3 class="font-royal text-4xl text-center mb-4 gold-shimmer">
+                INVESTITION IN IHRE KRONE
+            </h3>
+            <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+                Transparente Preise. Maximaler Wert. ROI garantiert oder Geld zurück.
+            </p>
+            
+            <div class="grid lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <!-- Starter -->
+                <div class="elite-card p-6 rounded-lg text-center">
+                    <h4 class="font-bold text-2xl mb-2">STARTER</h4>
+                    <div class="text-4xl font-bold mb-2">89€</div>
+                    <p class="text-sm text-gray-400 mb-4">pro Monat</p>
+                    
+                    <ul class="space-y-2 text-sm mb-6">
+                        <li>✓ Basis-Eintrag</li>
+                        <li>✓ Kontaktdaten</li>
+                        <li>✓ 5 Fotos</li>
+                        <li>✓ Öffnungszeiten</li>
+                        <li>✓ 1 Angebot/Monat</li>
+                        <li class="text-gray-500">✗ Königs-Status</li>
+                        <li class="text-gray-500">✗ Stammtisch-Zugang</li>
+                        <li class="text-gray-500">✗ Deal-Board</li>
+                    </ul>
+                    
+                    <button onclick="selectPackage('starter')" class="btn-royal w-full">
+                        Starter werden
+                    </button>
+                </div>
+                
+                <!-- Professional -->
+                <div class="elite-card p-6 rounded-lg text-center border-2 border-gold">
+                    <div class="bg-gold text-black px-3 py-1 rounded text-xs font-bold mb-2">
+                        BELIEBTESTE WAHL
+                    </div>
+                    <h4 class="font-bold text-2xl mb-2">PROFESSIONAL</h4>
+                    <div class="text-4xl font-bold mb-2 text-gold">199€</div>
+                    <p class="text-sm text-gray-400 mb-4">pro Monat</p>
+                    
+                    <ul class="space-y-2 text-sm mb-6">
+                        <li class="text-gold">✓ Alles aus Starter</li>
+                        <li class="text-gold">✓ Premium-Platzierung</li>
+                        <li>✓ 20 Fotos + Videos</li>
+                        <li>✓ Unbegrenzte Angebote</li>
+                        <li>✓ Analytics Dashboard</li>
+                        <li>✓ Newsletter-Erwähnung</li>
+                        <li>✓ Stammtisch-Zugang</li>
+                        <li class="text-gray-500">✗ Königs-Status</li>
+                    </ul>
+                    
+                    <button onclick="selectPackage('professional')" class="btn-royal w-full">
+                        Professional werden
+                    </button>
+                </div>
+                
+                <!-- König -->
+                <div class="elite-card p-6 rounded-lg text-center relative overflow-hidden">
+                    <div class="absolute top-0 right-0">
+                        <div class="text-6xl opacity-20">👑</div>
+                    </div>
+                    <h4 class="font-bold text-2xl mb-2 text-gold">KÖNIG</h4>
+                    <div class="text-4xl font-bold mb-2 gold-shimmer">499€</div>
+                    <p class="text-sm text-gray-400 mb-4">pro Monat</p>
+                    
+                    <ul class="space-y-2 text-sm mb-6">
+                        <li class="text-gold font-bold">✓ KÖNIGS-STATUS!</li>
+                        <li class="text-gold">✓ Alles aus Professional</li>
+                        <li>✓ Exklusiv pro Branche</li>
+                        <li>✓ Homepage-Banner</li>
+                        <li>✓ VIP Stammtisch</li>
+                        <li>✓ Deal-Board Premium</li>
+                        <li>✓ Persönlicher Berater</li>
+                        <li>✓ Presse-Mitteilungen</li>
+                    </ul>
+                    
+                    <button onclick="selectPackage('koenig')" class="btn-royal w-full bg-gradient-to-r from-gold to-yellow-600">
+                        KÖNIG WERDEN
+                    </button>
+                </div>
+                
+                <!-- Enterprise -->
+                <div class="elite-card p-6 rounded-lg text-center">
+                    <h4 class="font-bold text-2xl mb-2">ENTERPRISE</h4>
+                    <div class="text-3xl font-bold mb-2">Individuell</div>
+                    <p class="text-sm text-gray-400 mb-4">Maßgeschneidert</p>
+                    
+                    <ul class="space-y-2 text-sm mb-6">
+                        <li>✓ Multi-Stadt-Präsenz</li>
+                        <li>✓ Mehrere Königs-Titel</li>
+                        <li>✓ API-Zugang</li>
+                        <li>✓ White-Label Option</li>
+                        <li>✓ Dediziertes Team</li>
+                        <li>✓ Custom Features</li>
+                        <li>✓ SLA Garantie</li>
+                        <li>✓ Exklusiv-Events</li>
+                    </ul>
+                    
+                    <button onclick="contactSales()" class="btn-royal w-full bg-gradient-to-r from-purple-600 to-pink-600">
+                        Kontakt aufnehmen
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Zusatz-Info -->
+            <div class="text-center mt-12">
+                <p class="text-sm text-gray-400 mb-4">
+                    Alle Preise verstehen sich zzgl. 19% MwSt. | Monatlich kündbar | 30 Tage Geld-zurück-Garantie
+                </p>
+                <div class="flex justify-center space-x-8">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-gold">92%</div>
+                        <p class="text-sm">Kundenzufriedenheit</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-gold">3.2x</div>
+                        <p class="text-sm">Durchschnittlicher ROI</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-gold">48h</div>
+                        <p class="text-sm">Setup-Zeit</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- STAMMTISCH & DEAL BOARD -->
+    <section class="py-16 bg-black bg-opacity-50">
+        <div class="container mx-auto px-4">
+            <h3 class="font-royal text-4xl text-center mb-12 gold-shimmer">
+                BUSINESS STAMMTISCH & DEAL BOARD
+            </h3>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Stammtisch Info -->
+                <div class="elite-card p-8 rounded-lg">
+                    <h4 class="font-bold text-2xl mb-4 text-gold">
+                        <i class="fas fa-users"></i> DER KÖNIGS-STAMMTISCH
+                    </h4>
+                    <p class="mb-6">
+                        Wo sich die Elite trifft. Geschlossene Gesellschaft für Könige und Premium-Mitglieder.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-black bg-opacity-50 p-4 rounded">
+                            <h5 class="font-bold mb-2">Nächster Stammtisch</h5>
+                            <p class="text-sm">📅 7. Februar 2025</p>
+                            <p class="text-sm">⏰ 19:00 Uhr</p>
+                            <p class="text-sm">📍 Villa Toscana, Brühl</p>
+                        </div>
+                        <div class="bg-black bg-opacity-50 p-4 rounded">
+                            <h5 class="font-bold mb-2">Thema des Abends</h5>
+                            <p class="text-sm">"KI & Automation im Mittelstand"</p>
+                            <p class="text-sm text-gold">Gastredner: Dr. Tech König</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2 mb-6">
+                        <div class="flex justify-between">
+                            <span>Teilnehmer</span>
+                            <span class="text-gold">27/30 Plätze belegt</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-gold to-yellow-600 h-3 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="reserveStammtisch()" class="btn-royal w-full">
+                        Platz reservieren (nur 3 frei!)
+                    </button>
+                </div>
+                
+                <!-- Deal Board -->
+                <div class="elite-card p-8 rounded-lg">
+                    <h4 class="font-bold text-2xl mb-4 text-gold">
+                        <i class="fas fa-handshake"></i> AKTUELLE DEALS
+                    </h4>
+                    <p class="mb-6">
+                        B2B Deals zwischen Königen. Exklusive Konditionen für Mitglieder.
+                    </p>
+                    
+                    <div class="space-y-3 max-h-96 overflow-y-auto">
+                        <div class="bg-green-900 bg-opacity-30 p-3 rounded border border-green-500">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h5 class="font-bold">Suche: Web-Entwickler</h5>
+                                    <p class="text-sm text-gray-400">Schmidt Bau GmbH</p>
+                                    <p class="text-xs">Projekt: Neue Website, Budget: 10-15k€</p>
+                                </div>
+                                <button class="text-green-400 hover:text-green-300">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-900 bg-opacity-30 p-3 rounded border border-blue-500">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h5 class="font-bold">Biete: Bürofläche 200m²</h5>
+                                    <p class="text-sm text-gray-400">REK Immobilien</p>
+                                    <p class="text-xs">Bergheim-Mitte, 1.800€/Monat, ab sofort</p>
+                                </div>
+                                <button class="text-blue-400 hover:text-blue-300">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-purple-900 bg-opacity-30 p-3 rounded border border-purple-500">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h5 class="font-bold">Kooperation: Fitness + Ernährung</h5>
+                                    <p class="text-sm text-gray-400">PowerGym Elite</p>
+                                    <p class="text-xs">Suche Ernährungsberater für Mitglieder</p>
+                                </div>
+                                <button class="text-purple-400 hover:text-purple-300">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="postDeal()" class="btn-royal w-full mt-4 bg-gradient-to-r from-green-600 to-emerald-600">
+                        + Deal posten
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t-2 border-gold">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="font-royal text-xl mb-4 text-gold">Portal der Könige™</h4>
+                    <p class="text-sm text-gray-400">
+                        Das exklusive Business-Netzwerk für die Elite des Rhein-Erft-Kreises.
+                    </p>
+                    <div class="mt-4">
+                        <p class="text-xs text-gray-500">© 2025 Portal der Könige</p>
+                        <p class="text-xs text-gray-500">Eine Joshua Blum Innovation</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h5 class="font-bold mb-4">Quick Links</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-gold">Könige werden</a></li>
+                        <li><a href="#" class="hover:text-gold">Stammtisch</a></li>
+                        <li><a href="#" class="hover:text-gold">Deal Board</a></li>
+                        <li><a href="#" class="hover:text-gold">Events</a></li>
+                        <li><a href="#" class="hover:text-gold">Sponsoring</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="font-bold mb-4">Kontakt</h5>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><i class="fas fa-envelope"></i> koenig@portal-der-koenige.de</li>
+                        <li><i class="fas fa-phone"></i> +49 163 ELITE-00</li>
+                        <li><i class="fab fa-whatsapp"></i> WhatsApp Business</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Rhein-Erft-Kreis</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="font-bold mb-4">Legal</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="impressum.html" class="hover:text-gold">Impressum</a></li>
+                        <li><a href="datenschutz.html" class="hover:text-gold">Datenschutz</a></li>
+                        <li><a href="agb.html" class="hover:text-gold">AGB</a></li>
+                        <li><a href="partner.html" class="hover:text-gold">Partner werden</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <div class="flex justify-center space-x-6 mb-4">
+                    <a href="#" class="text-2xl hover:text-gold"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-2xl hover:text-gold"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-2xl hover:text-gold"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-2xl hover:text-gold"><i class="fab fa-xing"></i></a>
+                </div>
+                <p class="text-sm text-gray-500">
+                    "Nur Gott ist größer als die Könige" - Das Portal der Könige™ 2025
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- MODALS -->
+    <!-- Login Modal -->
+    <div id="login-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4">
+        <div class="elite-card p-8 rounded-lg max-w-md w-full">
+            <button onclick="closeModal('login-modal')" class="float-right text-2xl hover:text-gold">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="font-royal text-3xl mb-6 text-center gold-shimmer">ELITE LOGIN</h3>
+            
+            <form onsubmit="handleLogin(event)">
+                <input type="email" placeholder="E-Mail" required class="w-full p-3 mb-4 bg-black bg-opacity-50 rounded border border-gold text-white">
+                <input type="password" placeholder="Passwort" required class="w-full p-3 mb-6 bg-black bg-opacity-50 rounded border border-gold text-white">
+                
+                <button type="submit" class="btn-royal w-full mb-4">
+                    EINLOGGEN
+                </button>
+                
+                <div class="text-center">
+                    <p class="text-sm mb-2">Noch kein König?</p>
+                    <button type="button" onclick="showRegister()" class="text-gold hover:underline">
+                        Jetzt Krone sichern →
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <!-- Profil-Verwaltung -->
-    <div id="profile-section" class="hidden">
-      <h2>Profil verwalten</h2>
-      <p>Anpassen, was Sie sehen wollen/nicht wollen (z.B. Kategorien filtern). DSGVO-konform: Lokale Speicherung.</p>
-      <form id="profile-form">
-        <label><input type="checkbox" id="show-notdienste" checked> Notdienste anzeigen</label>
-        <label><input type="checkbox" id="show-vermisste" checked> Vermisste anzeigen</label>
-        <label><input type="checkbox" id="show-kultur" checked> Kultur & Religion anzeigen</label>
-        <label><input type="checkbox" id="show-jobs" checked> Jobs & Events anzeigen</label>
-        <label><input type="checkbox" id="show-unternehmen" checked> Unternehmen anzeigen</label>
-        <label><input type="checkbox" id="show-behoerden" checked> Behörden & Gerichte anzeigen</label>
-        <label><input type="checkbox" id="show-blackboard" checked> Schwarzes Brett anzeigen</label>
-        <button type="button" onclick="saveProfilePreferences()">Speichern</button>
-      </form>
-      <p id="profile-status"></p>
+    
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4">
+        <div class="elite-card p-8 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('payment-modal')" class="float-right text-2xl hover:text-gold">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="font-royal text-3xl mb-6 text-center gold-shimmer">KRONE SICHERN</h3>
+            
+            <form onsubmit="processPayment(event)">
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <input type="text" placeholder="Firmenname*" required class="p-3 bg-black bg-opacity-50 rounded border border-gold text-white">
+                    <input type="text" placeholder="Ansprechpartner*" required class="p-3 bg-black bg-opacity-50 rounded border border-gold text-white">
+                    <input type="email" placeholder="E-Mail*" required class="p-3 bg-black bg-opacity-50 rounded border border-gold text-white">
+                    <input type="tel" placeholder="Telefon*" required class="p-3 bg-black bg-opacity-50 rounded border border-gold text-white">
+                    <select required class="p-3 bg-black bg-opacity-50 rounded border border-gold text-white">
+                        <option value="">Branche wählen*</option>
+                        <option value="handwerk">Handwerk</option>
+                        <option value="gastronomie">Gastronomie</option>
+                        <option value="it">IT & Digital</option>
+                        <option value="immobilien">Immobilien</option>
+                        <option value="gesundheit">Gesundheit</option>
+                        <option value="fitness">Fitness & Sport</option>
+                        <option value="andere">Andere</option>
+                    </select>
+                    <select required class="p-3 bg-black bg-opacity-50 rounded border border-gold text-white">
+                        <option value="">Stadt wählen*</option>
+                        <option value="bergheim">Bergheim</option>
+                        <option value="bruehl">Brühl</option>
+                        <option value="erftstadt">Erftstadt</option>
+                        <option value="frechen">Frechen</option>
+                        <option value="huerth">Hürth</option>
+                        <option value="kerpen">Kerpen</option>
+                        <option value="pulheim">Pulheim</option>
+                        <option value="wesseling">Wesseling</option>
+                        <option value="bedburg">Bedburg</option>
+                        <option value="elsdorf">Elsdorf</option>
+                    </select>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-bold mb-3">Paket auswählen:</h4>
+                    <div id="package-selection" class="space-y-2">
+                        <!-- Package options will be inserted here -->
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-bold mb-3">Zahlungsmethode:</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button type="button" onclick="selectPaymentMethod('paypal')" class="p-4 border-2 border-gold rounded hover:bg-gold hover:bg-opacity-20">
+                            <i class="fab fa-paypal text-2xl"></i>
+                            <p class="text-sm mt-2">PayPal</p>
+                        </button>
+                        <button type="button" onclick="selectPaymentMethod('transfer')" class="p-4 border-2 border-gold rounded hover:bg-gold hover:bg-opacity-20">
+                            <i class="fas fa-university text-2xl"></i>
+                            <p class="text-sm mt-2">Überweisung</p>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="paypal-button-container"></div>
+                
+                <button type="submit" class="btn-royal w-full">
+                    JETZT KÖNIG WERDEN
+                </button>
+            </form>
+        </div>
     </div>
-
-    <!-- Grid-Kategorien -->
-    <div id="grid-categories" class="grid-categories">
-      <div class="grid-button" onclick="showSection('notdienste')"><h3>🚨 Notdienste</h3><p>Schnelle Hilfe</p></div>
-      <div class="grid-button" onclick="showSection('vermisste')"><h3>🔍 Vermisste</h3><p>Gratis Anzeigen</p></div>
-      <div class="grid-button" onclick="showSection('kultur-religion')"><h3>🎨 Kultur & Religion</h3><p>Vereine & Events</p></div>
-      <div class="grid-button" onclick="showSection('jobs-events')"><h3>💼 Jobs & Events</h3><p>Stellen & Veranstaltungen</p></div>
-      <div class="grid-button" onclick="showSection('unternehmen')"><h3>🏢 Unternehmen</h3><p>Businesses & Premium</p></div>
-      <div class="grid-button" onclick="showSection('behoerden-gerichte')"><h3>🏛️ Behörden</h3><p>Gerichte & Ämter</p></div>
-      <div class="grid-button" onclick="showSection('blackboard')"><h3>📌 Schwarzes Brett</h3><p>Aufträge & Einkäufe</p></div>
-      <div class="grid-button" onclick="showSection('gastronomie')"><h3>🍽️ Gastronomie</h3><p>Restaurants & Catering</p></div>
-      <div class="grid-button" onclick="showSection('handwerker')"><h3>🔧 Handwerker</h3><p>Reparaturen</p></div>
-    </div>
-
-    <!-- Globale Suche -->
-    <input type="text" class="search-bar" placeholder="Suche: Name, Kategorie, Stadt, PLZ..." oninput="renderContent(this.value)" aria-label="Suche">
-    <button class="filter-btn" onclick="renderContent('')">Alle</button>
-    <button class="filter-btn" onclick="renderContent('Restaurant')">Restaurants</button>
-    <button class="filter-btn" onclick="renderContent('Handwerker')">Handwerker</button>
-    <button class="filter-btn" onclick="renderContent('Museum')">Museen</button>
-    <button class="filter-btn" onclick="renderContent('Behörde')">Behörden</button>
-
-    <!-- Sektionen -->
-    <div id="region-section" class="hidden">
-      <h2 class="category-header">Region wählen</h2>
-      <select id="region-select" onchange="filterByRegion(this.value)" aria-label="Wähle eine Stadt oder Region">
-        <option value="">Deutschlandweit</option>
-        <option value="Bergheim" selected>Bergheim</option>
-        <option value="Köln">Köln</option>
-        <option value="Düsseldorf">Düsseldorf</option>
-        <option value="Berlin">Berlin</option>
-      </select>
-      <input type="text" id="plz-input" placeholder="PLZ eingeben (z.B. 50126)" aria-label="Postleitzahl">
-      <button onclick="getUserLocation()" class="cta-button">Standort ermitteln</button>
-      <p id="location-status">PLZ eingeben oder Standort teilen.</p>
-    </div>
-
-    <div id="notdienste-section" class="hidden">
-      <div class="category-header">🚨 Notdienste</div>
-      <div class="section priority">
-        <h3>Apotheken-Notdienst Bergheim</h3>
-        <p>Tel: 02271-12345 | Adresse: Hauptstr. 10 | 24/7 | Barrierefrei: Ja</p>
-        <img src="https://pixabay.com/get/g3f7d8a9b0.../apotheke-notdienst-987654.jpg" alt="Apotheke Bergheim">
-        <a href="https://wa.me/491631234567" class="cta-button">Premium werden</a>
-      </div>
-    </div>
-
-    <div id="vermisste-section" class="hidden">
-      <div class="category-header">🔍 Vermisste Tiere/Menschen (Gratis)</div>
-      <div class="section priority">
-        <h3>Katze Luna (Bergheim)</h3>
-        <p>Seit: 10.08.2025 | Ort: Zentrum | Finderlohn: 50€ | Tel: 0163-1234567</p>
-        <img src="https://pixabay.com/get/g9b2b8f4a0.../katze-vermisst-123456.jpg" alt="Vermisste Katze Luna">
-        <a href="https://wa.me/491631234567" class="cta-button">Gratis Anzeige posten</a>
-      </div>
-    </div>
-
-    <div id="kultur-religion-section" class="hidden">
-      <div class="category-header">🎨 Kultur & Religion</div>
-      <div class="section">
-        <h3>Kulturverein Bergheim e.V.</h3>
-        <p>Event: Stadtfest Bergheim 2025 | Datum: 01.06.2025 | Ort: Zentrum | Barrierefrei: Ja</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bergheim-3571.jpg/800px-Bergheim-3571.jpg" alt="Stadtfest Bergheim">
-      </div>
-      <div class="section">
-        <h3>Museum BERGHEIMAT</h3>
-        <p>Geschichte Bergheims | Adresse: Schloss Paffendorf | Barrierefrei: Ja</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bergheim-3571.jpg/800px-Bergheim-3571.jpg" alt="Museum BERGHEIMAT">
-      </div>
-      <div class="section">
-        <h3>RELiGIO Museum Telgte</h3>
-        <p>Weltreligionen | Event: Führungen 2025 | Barrierefrei: Ja</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Telgte-RELiGIO-Westf%C3%A4lisches-Museum-f%C3%BCr-religi%C3%B6se-Kultur-2019-01.jpg/800px-Telgte-RELiGIO-Westf%C3%A4lisches-Museum-f%C3%BCr-religi%C3%B6se-Kultur-2019-01.jpg" alt="RELiGIO Museum Telgte">
-      </div>
-      <div class="section">
-        <h3>Event: Eko Fresh Konzert</h3>
-        <p>15.11.2025 | MEDIO.RHEIN.ERFT | Tickets via Eventim</p>
-        <img src="https://pixabay.com/get/g9b2b8f4a0.../konzert-musik-buehne-153949.jpg" alt="Eko Fresh Konzert">
-      </div>
-      <a href="https://wa.me/491631234567" class="cta-button">Verein/Event eintragen</a>
-    </div>
-
-    <div id="jobs-events-section" class="hidden">
-      <div class="category-header">💼 Jobs & Events</div>
-      <div class="section">
-        <h3>Job: Handwerker (Bergheim)</h3>
-        <p>Vollzeit | Bewerbung: WhatsApp 0163-1234567</p>
-        <img src="https://pixabay.com/get/g3f7d8a9b0.../handwerker-arbeit-werkzeug-1234567.jpg" alt="Handwerker Job">
-      </div>
-      <div class="section">
-        <h3>Event: G20 Funk-Flohmarkt</h3>
-        <p>17.05.2025 | Bergheim | Barrierefrei: Ja</p>
-        <img src="https://pixabay.com/get/gd7c1b4e5f.../flohmarkt-markt-verkauf-1979076.jpg" alt="Flohmarkt Event">
-      </div>
-      <a href="https://wa.me/491631234567" class="cta-button">Job/Event posten</a>
-    </div>
-
-    <div id="unternehmen-section" class="hidden">
-      <div class="category-header">🏢 Unternehmen</div>
-      <div class="section priority">
-        <h3>Pizza Roma</h3>
-        <p>Tel: 02271-12345 | Adresse: Hauptstr. 1 | Status: König</p>
-        <img src="https://pixabay.com/get/g3f7d8a9b0.../pizza-restaurant-987654.jpg" alt="Pizza Roma">
-        <a href="https://wa.me/491631234567" class="cta-button">Premium werden</a>
-      </div>
-      <div class="section">
-        <h3>Handwerker Müller</h3>
-        <p>Tel: 02271-34567 | Adresse: Industriestr. 5 | Status: Basis</p>
-        <img src="https://pixabay.com/get/g3f7d8a9b0.../handwerker-werkzeug-1234567.jpg" alt="Handwerker Müller">
-      </div>
-    </div>
-
-    <div id="behoerden-gerichte-section" class="hidden">
-      <div class="category-header">🏛️ Behörden & Gerichte</div>
-      <div class="section">
-        <h3>Amtsgericht Bergheim</h3>
-        <p>Tel: 02271-56789 | Adresse: Gerichtsstr. 2 | Öffnungszeiten: Mo-Fr 8-16 Uhr</p>
-        <img src="https://pixabay.com/get/g3f7d8a9b0.../gericht-gebaeude-1234567.jpg" alt="Amtsgericht Bergheim">
-      </div>
-      <div class="section">
-        <h3>Finanzamt Bergheim</h3>
-        <p>Tel: 02271-890 | Adresse: Carl-Sonnenschein-Straße 1 | Öffnungszeiten: Mo-Fr 7:30-12:30 Uhr</p>
-        <img src="https://pixabay.com/get/g3f7d8a9b0.../finanzamt-gebaeude-987654.jpg" alt="Finanzamt Bergheim">
-      </div>
-      <div class="section">
-        <h3>Kreisverwaltung Rhein-Erft-Kreis</h3>
-        <p>Tel: 02271-8310 | Adresse: Willy-Brandt-Platz 1 | Öffnungszeiten: Mo-Fr 8-16 Uhr</p>
-        <img src="https://pixabay.com/get/g3f7d8a9b0.../kreisverwaltung-987654.jpg" alt="Kreisverwaltung Rhein-Erft-Kreis">
-      </div>
-    </div>
-
-    <div id="services-section" class="hidden">
-      <div class="category-header">🛠️ Andere Services</div>
-      <div id="content-list" role="region" aria-live="polite"></div>
-    </div>
-
-    <div id="blackboard-section" class="hidden">
-      <div class="category-header">📌 Schwarzes Brett</div>
-      <p>Posten Sie Aufträge, Einkäufe, Catering oder erstellen Sie Rechnungen/Ausschreibungen als PDF.</p>
-      <form id="blackboard-form">
-        <input type="text" id="bb-title" placeholder="Titel (z.B. Catering für 50 Personen)" required>
-        <textarea id="bb-description" placeholder="Beschreibung" required></textarea>
-        <input type="text" id="bb-contact" placeholder="Kontakt (Tel/Email)" required>
-        <input type="text" id="bb-invoice" placeholder="Rechnungstext (z.B. Betrag: 500€)" aria-label="Rechnungsdetails">
-        <input type="file" id="bb-image" accept="image/*" aria-label="Bild hochladen (optional)">
-        <input type="file" id="bb-pdf-file" accept=".pdf" aria-label="PDF hochladen zum Öffnen">
-        <button type="button" onclick="postToBlackboard()">Posten</button>
-        <button type="button" onclick="generatePDF()">PDF erstellen</button>
-        <button type="button" onclick="openPDFReader()">PDF öffnen/lesen</button>
-      </form>
-      <div id="pdf-viewer"></div>
-      <div id="blackboard-posts"></div>
-      <a href="https://wa.me/491631234567" class="cta-button">Premium-Post</a>
-    </div>
-
-    <div id="kontakt-section" class="hidden">
-      <h2 class="category-header">Kontakt</h2>
-      <p>📞 <a href="https://wa.me/491631234567">WhatsApp: 0163-1234567</a> | Email: jblum4564@gmail.com</p>
-      <p>Vereine/Behörden: Gratis! Unternehmen: Premium ab 29€.</p>
-      <a class="cta-button" onclick="showSection('social-media')">Social Media Werbung buchen</a>
-    </div>
-
-    <!-- Impressum & Datenschutz -->
-    <div class="container">
-      <h2>Impressum & Datenschutz</h2>
-      <p>Joshua Blum | BERGHEIM TOTAL | Hauptstr. 1, 50126 Bergheim | Tel: 0163-1234567 | Steuernummer: [Ergänze] | DSGVO-konform, Barrierefrei (WCAG 2.1).</p>
-    </div>
-
-    <!-- Copyright -->
-    <div class="copyright">
-      © 2025 Joshua Blum, BERGHEIM TOTAL. Alle Rechte vorbehalten. Geschützt durch Urheberrecht. Marke beim DPMA registriert. Keine Kopie ohne Erlaubnis.
-    </div>
-
-    <!-- Cookie-Banner -->
-    <div id="cookie-banner" role="alert">
-      Wir nutzen Cookies für Personalisierung (DSGVO-konform). <button onclick="acceptCookies()">OK</button>
-    </div>
-
+    
     <!-- JavaScript -->
     <script>
-      // PWA: Service Worker
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW Fehler:', err));
-      }
-
-      // Daten: Skalierbar, mit Kategorien
-      let content = [
-        { name: 'Pizza Roma', type: 'Restaurant', region: 'Bergheim', tel: '02271-12345', status: 'König', highlight: true, category: 'Unternehmen', image: 'https://pixabay.com/get/g3f7d8a9b0.../pizza-restaurant-987654.jpg' },
-        { name: 'Tierheim Bergheim', type: 'Tierheim', region: 'Bergheim', tel: '02271-23456', status: 'Gratis (Sozial)', highlight: false, category: 'Vermisste', image: 'https://pixabay.com/get/g9b2b8f4a0.../tierheim-123456.jpg' },
-        { name: 'Kulturverein Bergheim e.V.', type: 'Verein', region: 'Bergheim', description: 'Stadtfest 01.06.2025', status: 'Gratis', highlight: false, category: 'Kultur', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bergheim-3571.jpg/800px-Bergheim-3571.jpg' },
-        { name: 'RELiGIO Museum', type: 'Museum', region: 'Telgte', description: 'Weltreligionen', status: 'Gratis', highlight: false, category: 'Kultur', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Telgte-RELiGIO-Westf%C3%A4lisches-Museum-f%C3%BCr-religi%C3%B6se-Kultur-2019-01.jpg/800px-Telgte-RELiGIO-Westf%C3%A4lisches-Museum-f%C3%BCr-religi%C3%B6se-Kultur-2019-01.jpg' },
-        { name: 'Eko Fresh Konzert', type: 'Event', region: 'Bergheim', description: '15.11.2025, MEDIO.RHEIN.ERFT', status: 'Gratis', highlight: false, category: 'Jobs-Events', image: 'https://pixabay.com/get/g9b2b8f4a0.../konzert-musik-buehne-153949.jpg' },
-        { name: 'Amtsgericht Bergheim', type: 'Gericht', region: 'Bergheim', tel: '02271-56789', status: 'Gratis', highlight: false, category: 'Behörden', image: 'https://pixabay.com/get/g3f7d8a9b0.../gericht-gebaeude-1234567.jpg' },
-        { name: 'Finanzamt Bergheim', type: 'Finanzamt', region: 'Bergheim', tel: '02271-890', status: 'Gratis', highlight: false, category: 'Behörden', image: 'https://pixabay.com/get/g3f7d8a9b0.../finanzamt-gebaeude-987654.jpg' },
-        { name: 'Kreisverwaltung Rhein-Erft-Kreis', type: 'Verwaltung', region: 'Bergheim', tel: '02271-8310', status: 'Gratis', highlight: false, category: 'Behörden', image: 'https://pixabay.com/get/g3f7d8a9b0.../kreisverwaltung-987654.jpg' }
-      ];
-
-      // LocalStorage: Backup
-      localStorage.setItem('content', JSON.stringify(content));
-      content = JSON.parse(localStorage.getItem('content')) || [];
-
-      // Sektionen anzeigen
-      function showSection(sectionId) {
-        document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
-        document.getElementById(`${sectionId}-section`).classList.remove('hidden');
-        document.getElementById('grid-categories').style.display = sectionId === 'region' ? 'grid' : 'none';
-      }
-
-      // Render-Funktion
-      function renderContent(filter = '', region = '') {
-        let list = document.getElementById('content-list');
-        list.innerHTML = '';
-        const prefs = JSON.parse(localStorage.getItem('profilePreferences')) || {};
-        content
-          .filter(c => (c.name.toLowerCase().includes(filter.toLowerCase()) || c.type.toLowerCase().includes(filter.toLowerCase()) || c.category?.toLowerCase().includes(filter.toLowerCase())) && (region === '' || c.region === region))
-          .filter(c => {
-            if (c.category === 'Notdienste' && prefs.showNotdienste === false) return false;
-            if (c.category === 'Vermisste' && prefs.showVermisste === false) return false;
-            if (c.category === 'Kultur' && prefs.showKultur === false) return false;
-            if (c.category === 'Jobs-Events' && prefs.showJobs === false) return false;
-            if (c.category === 'Unternehmen' && prefs.showUnternehmen === false) return false;
-            if (c.category === 'Behörden' && prefs.showBehoerden === false) return false;
-            return true;
-          })
-          .forEach(c => {
-            let div = document.createElement('div');
-            div.className = 'section';
-            div.style.background = c.highlight ? '#fffacd' : 'white';
-            div.setAttribute('role', 'article');
-            div.innerHTML = `<h3>${c.name} (${c.type}, ${c.region})</h3><p>Status: ${c.status} | ${c.tel ? 'Tel: ' + c.tel : c.description || ''}</p>`;
-            if (c.image) div.innerHTML += `<img src="${c.image}" alt="${c.name}">`;
-            if (c.status.includes('König') || c.status.includes('Kaiser') || c.status.includes('Imperator')) {
-              div.innerHTML += `<a href="https://wa.me/${c.tel?.replace(/\D/g,'')}" class="cta-button">Kontakt</a>`;
-            }
-            list.appendChild(div);
-          });
-      }
-
-      // Region-Filter
-      function filterByRegion(region) {
-        renderContent(document.querySelector('.search-bar').value, region);
-      }
-
-      // Standort-Ermittlung
-      function getUserLocation() {
-        const plz = document.getElementById('plz-input').value;
-        if (plz && /^\d{5}$/.test(plz)) {
-          document.getElementById('location-status').textContent = `PLZ erkannt: ${plz}`;
-          renderContent('', plz);
-        } else if (navigator.geolocation && confirm('Standort teilen für lokale Ergebnisse? (DSGVO-konform)')) {
-          navigator.geolocation.getCurrentPosition(pos => {
-            document.getElementById('location-status').textContent = 'Standort erkannt!';
-            renderContent('', '', pos.coords.latitude, pos.coords.longitude);
-          }, err => {
-            document.getElementById('location-status').textContent = 'Fehler: ' + err.message;
-          });
-        } else {
-          document.getElementById('location-status').textContent = 'Bitte PLZ eingeben oder Standort teilen.';
-        }
-      }
-
-      // Schwarzes Brett
-      let blackboardPosts = JSON.parse(localStorage.getItem('blackboardPosts')) || [];
-      function postToBlackboard() {
-        const title = document.getElementById('bb-title').value;
-        const desc = document.getElementById('bb-description').value;
-        const contact = document.getElementById('bb-contact').value;
-        const image = document.getElementById('bb-image').files[0];
-        let imageData = '';
-        if (image) {
-          const reader = new FileReader();
-          reader.onload = e => {
-            imageData = e.target.result;
-            blackboardPosts.push({ title, desc, contact, image: imageData });
-            localStorage.setItem('blackboardPosts', JSON.stringify(blackboardPosts));
-            renderBlackboardPosts();
-          };
-          reader.readAsDataURL(image);
-        } else {
-          blackboardPosts.push({ title, desc, contact });
-          localStorage.setItem('blackboardPosts', JSON.stringify(blackboardPosts));
-          renderBlackboardPosts();
-        }
-      }
-      function renderBlackboardPosts() {
-        const list = document.getElementById('blackboard-posts');
-        list.innerHTML = '';
-        blackboardPosts.forEach(post => {
-          const div = document.createElement('div');
-          div.className = 'section';
-          div.innerHTML = `<h3>${post.title}</h3><p>${post.desc}</p><p>Kontakt: ${post.contact}</p>`;
-          if (post.image) div.innerHTML += `<img src="${post.image}" alt="${post.title}">`;
-          list.appendChild(div);
-        });
-      }
-      renderBlackboardPosts();
-
-      // PDF-Generierung
-      function generatePDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        const title = document.getElementById('bb-title').value || 'Rechnung/Ausschreibung';
-        const desc = document.getElementById('bb-description').value || 'Keine Beschreibung';
-        const contact = document.getElementById('bb-contact').value || 'Kein Kontakt';
-        const invoice = document.getElementById('bb-invoice').value || 'Kein Rechnungstext';
-        doc.text('BERGHEIM TOTAL', 10, 10);
-        doc.text(`Titel: ${title}`, 10, 20);
-        doc.text(`Beschreibung: ${desc}`, 10, 30);
-        doc.text(`Kontakt: ${contact}`, 10, 40);
-        doc.text(`Rechnung/Ausschreibung: ${invoice}`, 10, 50);
-        doc.save(`${title.replace(/\s/g, '_')}.pdf`);
-      }
-
-      // PDF-Öffnen mit pdf.js
-      function openPDFReader() {
-        const file = document.getElementById('bb-pdf-file').files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = e => {
-            pdfjsLib.getDocument(e.target.result).promise.then(pdf => {
-              pdf.getPage(1).then(page => {
-                const canvas = document.createElement('canvas');
-                const viewport = page.getViewport({ scale: 1.5 });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-                page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport });
-                document.getElementById('pdf-viewer').innerHTML = '';
-                document.getElementById('pdf-viewer').appendChild(canvas);
-              });
+        // Initialize Map
+        let map;
+        let markers = [];
+        
+        function initMap() {
+            map = L.map('map').setView([50.9685, 6.6280], 11); // Rhein-Erft-Kreis center
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            // Add city markers
+            const cities = [
+                {name: 'Bergheim', lat: 50.9667, lng: 6.6333, kings: 15},
+                {name: 'Brühl', lat: 50.8298, lng: 6.9048, kings: 12},
+                {name: 'Erftstadt', lat: 50.8093, lng: 6.7758, kings: 8},
+                {name: 'Frechen', lat: 50.9136, lng: 6.8109, kings: 11},
+                {name: 'Hürth', lat: 50.8706, lng: 6.8678, kings: 14},
+                {name: 'Kerpen', lat: 50.8719, lng: 6.6963, kings: 10},
+                {name: 'Pulheim', lat: 50.9989, lng: 6.8081, kings: 9},
+                {name: 'Wesseling', lat: 50.8203, lng: 6.9801, kings: 7},
+                {name: 'Bedburg', lat: 51.0000, lng: 6.5667, kings: 5},
+                {name: 'Elsdorf', lat: 50.9380, lng: 6.5670, kings: 6}
+            ];
+            
+            cities.forEach(city => {
+                const marker = L.marker([city.lat, city.lng], {
+                    icon: L.divIcon({
+                        html: `<div class="text-2xl">👑</div>`,
+                        className: 'crown-marker',
+                        iconSize: [30, 30]
+                    })
+                }).addTo(map);
+                
+                marker.bindPopup(`
+                    <strong>${city.name}</strong><br>
+                    ${city.kings} Könige<br>
+                    <button onclick="showCityKings('${city.name}')" class="text-blue-500 hover:underline">
+                        Alle anzeigen →
+                    </button>
+                `);
+                
+                markers.push(marker);
             });
-          };
-          reader.readAsArrayBuffer(file);
-        } else {
-          alert('Laden Sie eine PDF hoch!');
         }
-      }
-
-      // Social Media Werbung
-      function postSocialMedia() {
-        const title = document.getElementById('sm-title').value;
-        const content = document.getElementById('sm-content').value;
-        const contact = document.getElementById('sm-contact').value;
-        const image = document.getElementById('sm-image').files[0];
-        if (title && content && contact) {
-          document.getElementById('sm-status').textContent = `Werbung vorbereitet: "${title}" wird auf Facebook/Twitter gepostet! Kontakt: 0163-1234567`;
-          if (image) {
-            const reader = new FileReader();
-            reader.onload = e => {
-              console.log('Bild für Social Media:', e.target.result);
-            };
-            reader.readAsDataURL(image);
-          }
-        } else {
-          document.getElementById('sm-status').textContent = 'Bitte alle Felder ausfüllen.';
-        }
-      }
-
-      // Cookies
-      if (!localStorage.getItem('cookies-accepted')) {
-        document.getElementById('cookie-banner').style.display = 'block';
-      }
-      function acceptCookies() {
-        localStorage.setItem('cookies-accepted', true);
-        document.getElementById('cookie-banner').remove();
-      }
-
-      // Login-Simulation
-      function simulateLogin() {
-        const user = document.getElementById('username').value;
-        if (user) {
-          localStorage.setItem('user', user);
-          document.getElementById('login-status').textContent = 'Angemeldet als ' + user;
-        } else {
-          document.getElementById('login-status').textContent = 'Fehler bei Anmeldung.';
-        }
-      }
-
-      // Profil-Verwaltung
-      function saveProfilePreferences() {
-        const preferences = {
-          showNotdienste: document.getElementById('show-notdienste').checked,
-          showVermisste: document.getElementById('show-vermisste').checked,
-          showKultur: document.getElementById('show-kultur').checked,
-          showJobs: document.getElementById('show-jobs').checked,
-          showUnternehmen: document.getElementById('show-unternehmen').checked,
-          showBehoerden: document.getElementById('show-behoerden').checked,
-          showBlackboard: document.getElementById('show-blackboard').checked
+        
+        // Initialize on page load
+        window.onload = function() {
+            initMap();
+            updateLiveStats();
+            loadLatestPosts();
+            
+            // Check for saved session
+            const savedSession = localStorage.getItem('portalSession');
+            if (savedSession) {
+                const session = JSON.parse(savedSession);
+                console.log('Welcome back,', session.name);
+            }
         };
-        localStorage.setItem('profilePreferences', JSON.stringify(preferences));
-        document.getElementById('profile-status').textContent = 'Preferences gespeichert! (DSGVO: Lokale Speicherung)';
-        loadProfilePreferences();
-      }
-      function loadProfilePreferences() {
-        const prefs = JSON.parse(localStorage.getItem('profilePreferences')) || {};
-        document.getElementById('show-notdienste').checked = prefs.showNotdienste !== false;
-        document.getElementById('show-vermisste').checked = prefs.showVermisste !== false;
-        document.getElementById('show-kultur').checked = prefs.showKultur !== false;
-        document.getElementById('show-jobs').checked = prefs.showJobs !== false;
-        document.getElementById('show-unternehmen').checked = prefs.showUnternehmen !== false;
-        document.getElementById('show-behoerden').checked = prefs.showBehoerden !== false;
-        document.getElementById('show-blackboard').checked = prefs.showBlackboard !== false;
-        document.getElementById('notdienste-section').classList.toggle('hidden', !prefs.showNotdienste);
-        document.getElementById('vermisste-section').classList.toggle('hidden', !prefs.showVermisste);
-        document.getElementById('kultur-religion-section').classList.toggle('hidden', !prefs.showKultur);
-        document.getElementById('jobs-events-section').classList.toggle('hidden', !prefs.showJobs);
-        document.getElementById('unternehmen-section').classList.toggle('hidden', !prefs.showUnternehmen);
-        document.getElementById('behoerden-gerichte-section').classList.toggle('hidden', !prefs.showBehoerden);
-        document.getElementById('blackboard-section').classList.toggle('hidden', !prefs.showBlackboard);
-      }
-      loadProfilePreferences();
-
-      // Initial
-      document.getElementById('grid-categories').style.display = 'grid';
-      renderContent();
+        
+        // Update live statistics
+        function updateLiveStats() {
+            // Simulate live updates
+            setInterval(() => {
+                const stats = document.querySelectorAll('.elite-card .text-3xl');
+                stats.forEach(stat => {
+                    if (stat.textContent.includes('€')) {
+                        const current = parseFloat(stat.textContent.replace('M€', ''));
+                        stat.textContent = (current + 0.1).toFixed(1) + 'M€';
+                    }
+                });
+            }, 30000); // Every 30 seconds
+        }
+        
+        // Load latest community posts
+        function loadLatestPosts() {
+            // This would fetch from a real API
+            console.log('Loading latest community posts...');
+        }
+        
+        // Navigation functions
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        
+        function showRegionen() {
+            console.log('Showing regions');
+            document.getElementById('map').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function showKoenige() {
+            console.log('Showing all kings');
+            // Would open kings directory
+        }
+        
+        function showEvents() {
+            console.log('Showing events');
+            // Would open events calendar
+        }
+        
+        function showNetzwerk() {
+            console.log('Showing network');
+            // Would open network view
+        }
+        
+        function showNotifications() {
+            alert('3 neue Nachrichten:\n\n1. Neuer König in Brühl gekrönt!\n2. Stammtisch-Einladung\n3. Deal-Anfrage von Schmidt Bau');
+        }
+        
+        function showLogin() {
+            document.getElementById('login-modal').classList.remove('hidden');
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+        
+        function handleLogin(event) {
+            event.preventDefault();
+            console.log('Processing login...');
+            
+            // Store session
+            const session = {
+                name: event.target[0].value,
+                timestamp: Date.now()
+            };
+            localStorage.setItem('portalSession', JSON.stringify(session));
+            
+            closeModal('login-modal');
+            alert('Willkommen in der Elite!');
+        }
+        
+        // King functions
+        function becomeKing() {
+            document.getElementById('payment-modal').classList.remove('hidden');
+            loadPackageOptions();
+        }
+        
+        function showAllKings() {
+            console.log('Showing all 127 kings');
+            // Would open full kings directory
+        }
+        
+        function showCityKings(city) {
+            console.log('Showing kings in', city);
+            // Would filter kings by city
+        }
+        
+        // Stammtisch functions
+        function showStammtisch() {
+            alert('Nächster Stammtisch:\n\n📅 7. Februar 2025\n⏰ 19:00 Uhr\n📍 Villa Toscana, Brühl\n\nThema: "KI & Automation im Mittelstand"\n\nNur noch 3 Plätze frei!');
+        }
+        
+        function reserveStammtisch() {
+            if (confirm('Stammtisch-Platz reservieren für 7. Februar 2025?\n\nKosten: Kostenlos für Könige, 49€ für Premium-Mitglieder')) {
+                alert('Platz reserviert! Sie erhalten eine Bestätigungs-E-Mail.');
+            }
+        }
+        
+        // Deal functions
+        function showDeals() {
+            console.log('Showing deal board');
+            // Would open deal board
+        }
+        
+        function postDeal() {
+            const dealType = prompt('Deal-Typ:\n\n1 = Suche\n2 = Biete\n3 = Kooperation');
+            if (dealType) {
+                alert('Deal gepostet! Sie werden bei Matches benachrichtigt.');
+            }
+        }
+        
+        // Payment functions
+        function selectPackage(packageName) {
+            console.log('Selected package:', packageName);
+            const prices = {
+                starter: 89,
+                professional: 199,
+                koenig: 499,
+                enterprise: 'custom'
+            };
+            
+            if (prices[packageName] === 'custom') {
+                alert('Ein Berater wird sich innerhalb von 24h bei Ihnen melden.');
+            } else {
+                document.getElementById('payment-modal').classList.remove('hidden');
+                loadPackageOptions(packageName);
+            }
+        }
+        
+        function loadPackageOptions(selected = 'professional') {
+            const container = document.getElementById('package-selection');
+            const packages = [
+                {id: 'starter', name: 'Starter', price: 89},
+                {id: 'professional', name: 'Professional', price: 199},
+                {id: 'koenig', name: 'König', price: 499}
+            ];
+            
+            container.innerHTML = packages.map(pkg => `
+                <label class="flex items-center space-x-3 p-3 border rounded hover:bg-gold hover:bg-opacity-10 cursor-pointer ${pkg.id === selected ? 'border-gold bg-gold bg-opacity-10' : 'border-gray-700'}">
+                    <input type="radio" name="package" value="${pkg.id}" ${pkg.id === selected ? 'checked' : ''} class="text-gold">
+                    <span class="flex-1">${pkg.name}</span>
+                    <span class="font-bold">${pkg.price}€/Monat</span>
+                </label>
+            `).join('');
+        }
+        
+        function selectPaymentMethod(method) {
+            console.log('Selected payment method:', method);
+            
+            if (method === 'paypal') {
+                // Initialize PayPal buttons
+                paypal.Buttons({
+                    createOrder: function(data, actions) {
+                        const selectedPackage = document.querySelector('input[name="package"]:checked').value;
+                        const prices = {starter: 89, professional: 199, koenig: 499};
+                        
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: prices[selectedPackage] + '.00',
+                                    currency_code: 'EUR'
+                                },
+                                description: `Portal der Könige - ${selectedPackage.toUpperCase()} Paket`
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            alert('Zahlung erfolgreich! Willkommen bei den Königen!');
+                            closeModal('payment-modal');
+                        });
+                    }
+                }).render('#paypal-button-container');
+            } else {
+                alert('Überweisungsdaten:\n\nIBAN: DE89 3704 0044 0532 0130 00\nBIC: COBADEFFXXX\nVerwendungszweck: KÖNIG-' + Date.now());
+            }
+        }
+        
+        function processPayment(event) {
+            event.preventDefault();
+            console.log('Processing payment...');
+            
+            // Collect form data
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Send to backend (would be real API call)
+            console.log('Payment data:', data);
+            
+            alert('Vielen Dank! Ihre Krönung wird innerhalb von 48h aktiviert.');
+            closeModal('payment-modal');
+        }
+        
+        // Event functions
+        function showFullCalendar() {
+            alert('Eventkalender 2025:\n\n' +
+                  '📅 Februar: Königs-Stammtisch\n' +
+                  '📅 März: Golf Cup\n' +
+                  '📅 April: Deal Night\n' +
+                  '📅 Mai: Sommerfest\n' +
+                  '📅 Juni: B2B Messe\n' +
+                  '📅 Juli: Yacht Event\n' +
+                  '... und 20+ weitere Events!');
+        }
+        
+        // Community functions
+        function showAllVereine() {
+            console.log('Showing all associations');
+            // Would show all free associations
+        }
+        
+        function becomeSponsor() {
+            alert('Sponsor werden:\n\nWählen Sie aus 15 aktuellen Projekten\nSteuerliche Vorteile\nÖffentlichkeitsarbeit\nCSR-Punkte\n\nKontakt: sponsor@portal-der-koenige.de');
+        }
+        
+        function createPost() {
+            const postContent = prompt('Was möchten Sie der Community mitteilen?');
+            if (postContent) {
+                alert('Post veröffentlicht! Die Community wurde benachrichtigt.');
+            }
+        }
+        
+        function contactSales() {
+            alert('Enterprise Sales:\n\n📞 +49 163 ELITE-00\n📧 enterprise@portal-der-koenige.de\n\nEin Berater meldet sich innerhalb von 24h bei Ihnen.');
+        }
+        
+        function showRegister() {
+            closeModal('login-modal');
+            becomeKing();
+        }
+        
+        function filterMap(filter) {
+            console.log('Filtering map by:', filter);
+            // Would filter map markers
+        }
+        
+        // Auto-save draft
+        setInterval(() => {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                if (Object.keys(data).some(key => data[key])) {
+                    localStorage.setItem('draftForm', JSON.stringify(data));
+                }
+            });
+        }, 10000); // Every 10 seconds
+        
+        // Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(reg => {
+                console.log('Service Worker registered');
+            }).catch(err => {
+                console.log('Service Worker registration failed');
+            });
+        }
+        
+        console.log('Portal der Könige™ - Ready to crown the elite!');
     </script>
-  </body>
+</body>
 </html>
